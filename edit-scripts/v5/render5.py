@@ -522,8 +522,8 @@ def transition_params(to):
     c1, c2, c3 = CUTS_OUT
     if c1 - 0.2 <= to < c1: p = ei((to - (c1 - 0.2)) / 0.2); zf *= 1 + 0.28 * p; zb = 0.10 * p                     # zoom-through
     if c1 <= to < c1 + 0.25: p = 1 - eo((to - c1) / 0.25); zf *= 1 + 0.28 * p; zb = 0.10 * p
-    if c2 - 0.16 <= to < c2: p = ei((to - (c2 - 0.16)) / 0.16); dx = -W * 0.55 * p                              # whip pan
-    if c2 <= to < c2 + 0.22: p = 1 - eo((to - c2) / 0.22); dx = W * 0.55 * p
+    if c2 - 0.16 <= to < c2: p = ei((to - (c2 - 0.16)) / 0.16); dx = -W * 0.11 * p; zf *= 1 + 0.24 * p           # whip pan
+    if c2 <= to < c2 + 0.22: p = 1 - eo((to - c2) / 0.22); dx = W * 0.11 * p; zf *= 1 + 0.24 * p
     if c3 - 0.18 <= to < c3: p = ei((to - (c3 - 0.18)) / 0.18); zf *= 1 - 0.1 * p; fl = 0.35 * p                 # pull-out + flash
     if c3 <= to < c3 + 0.25: p = 1 - eo((to - c3) / 0.25); zf *= 1 + 0.12 * p; fl = max(fl, 0.35 * p)
     return zf, zb, dx, fl
@@ -540,7 +540,7 @@ def render_frame(o, frame8, mask8, fsrc, freeze_t=None):
     frame = cv2.warpAffine(frame, M, (W, H), flags=cv2.INTER_LANCZOS4, borderMode=cv2.BORDER_REFLECT)
     m = cv2.warpAffine(m, M, (W, H), borderMode=cv2.BORDER_CONSTANT, borderValue=0)
     if dx != 0:
-        k = int(9 + abs(dx) / 8) | 1; ker = np.zeros((1, k), np.float32); ker[0] = 1 / k
+        k = int(9 + abs(dx) * 1.1) | 1; ker = np.zeros((1, k), np.float32); ker[0] = 1 / k
         frame = cv2.filter2D(frame, -1, ker); m = cv2.filter2D(m, -1, ker)
     if zb > 0.005:
         top, cx, _ = head(fsrc); frame = zoom_blur(frame, cx, top + 170, zb); m = zoom_blur(m[..., None].repeat(3, 2), cx, top + 170, zb)[..., 0]
