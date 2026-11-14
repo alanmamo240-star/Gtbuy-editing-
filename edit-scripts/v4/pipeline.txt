@@ -1,0 +1,11 @@
+v4 '0 € Shipping Items' — pipeline (all editing in code, Higgsfield z_image only for the 5 B-roll stills)
+1. ffmpeg -i input_raw.mov -vf fps=30 ... input.mov        # VFR -> CFR 30
+2. transcribe.py (faster-whisper large-v3-turbo, word timestamps) + re-check of unclear passages
+3. sharp.py      # per-frame sharpness/diff -> source jump cuts 4.70/7.27/13.87/17.00, AF blur 24.70-25.07 & 30.23-31.23 (covered by fullscreen visuals)
+4. mask_track.py # MediaPipe selfie-multiclass matte + BlazeFace face track (camera follow)
+5. enhance: hqdn3d=1.3:1.0:3.5:3.5,cas=0.38,eq=contrast=1.05:saturation=1.05:gamma=1.015,colorbalance=rs=-0.015:bs=0.025:rh=0.015:bh=-0.015
+6. render4.py 0 272 / 272 544 / 544 816 / 816 1087 (parallel), concat filter
+7. sfx4.py; voice: highpass 80, afftdn, EQ (-1.5dB@250, +2.5dB@3.4k, +1dB air), compressor 2.5:1, loudnorm -14 LUFS, aresample 48k;
+   SFX sidechain-ducked under the voice, alimiter; result -14.8 LUFS / -1.4 dBTP
+8. x264 two-pass 18 Mbit/s, 1080x1920, 30 fps, AAC 320k
+Fonts (Google Fonts, OFL): Anton, Unbounded, Archivo (variable width), Syne, Instrument Serif, Space Grotesk.
