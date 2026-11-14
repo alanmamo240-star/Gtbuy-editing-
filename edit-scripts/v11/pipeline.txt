@@ -1,0 +1,9 @@
+v11 monochrome fit-check (Jacke Maison Margiela via GTBuy, T-Shirt Zara, Hose Zara, Schuhe Dior via GTBuy)
+render11.py is generated from ../v7/render7.py by build11.py (+ scene11.py camera, graphics11.py scenes).
+Source: 12.0 s, 8 clips, no speech, creator's song with steady beat (kept, cut timing kept 1:1).
+- black / white / chrome; chrome FIT with beat-pulsed outline echoes; white label tags tracked by pose;
+  MAISON / MARGIELA chrome + numbered label card behind the head; luminance RGB-split cut; outlined ZARA rows drifting
+  behind the body; Higgsfield white infinity cove studio with 'Dior' in black serif behind the legs; inverted frame
+  into a B/W shot with beat strobe + VIA GTBUY / ALL BLACK ticker bands; ALL BLACK / EVERYTHING; end card with the GTBuy
+  app icon, outfit list and Beacons link card.
+- audio: song + 2 low-passed beats as outro (sfx11.py), cut sounds/whooshes under the song, loudnorm -14 LUFS.
