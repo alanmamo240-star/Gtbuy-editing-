@@ -1,0 +1,9 @@
+v9 talking-head: "GTBuy hat PayPal" — navy / sky blue / white / chrome, news style
+render9.py is generated from ../v8/render8.py by build9.py (+ scene9.py); it is committed here as built.
+- captions fixed: "Büro" -> Bio, "erhält ihr" -> erhaltet ihr, Paypal -> PayPal
+- hook: LIVE news ticker, chrome NEWS behind the head, PayPal word mark (own typography, no logo)
+- GTBuy × PayPal lockup, flipping calendar ("seit Monaten"), Versand/Produkte cards (Higgsfield warehouse + haul images),
+  BEZAHLEN + payment card, creator's TikTok/Beacons screenshots in the phone mock-up at "ersten Link in meiner Bio",
+  2×40 / 2×30 chips, 3 -> 4 coupons, NUR HIER stamp, Beacons end card; camera shifts the face left while the phone/cards show.
+- reused Higgsfield images from v4/v8 (haul, warehouse, payment, coupons); no new credits.
+- sfx9.py + voice chain (as v8), post9.py flashes ; x264 two-pass 20 Mbit/s
