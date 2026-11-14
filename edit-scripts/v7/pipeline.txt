@@ -1,0 +1,8 @@
+v7 Fit-Check (Jacke Maison Margiela via GTBuy, T-Shirt Zara, Hose Zara, Schuhe Dior via GTBuy) — red/chrome/white, "crazy" look
+Source: 14.1 s, 9 clips, creator's own song (117.5 BPM, continuous across cuts) -> song kept, cut timing kept 1:1.
+1. ffmpeg fps=30 ; analyze.py (matte + pose) ; enhance (hqdn3d, cas, cool-shadow grade)
+2. render7.py: beat-pulsed kinetic FIT/CHECK, pose-tracked label tags, whip / zoom-through / RGB split / red studio reveal
+   (Higgsfield) / inverted frame + red-black duotone with beat strobe / spin / VIA GTBUY ticker bands / numbered label card /
+   punch-in / defocus end card. Chunks 0 115 / 115 230 / 230 345 / 345 459
+3. sfx7.py: song + 2-beat low-passed outro tail, cut sounds and light SFX under the song -> loudnorm -14 LUFS, limiter
+4. post7.py: flash + zoom punch + shake on every cut ; x264 two-pass 20 Mbit/s
