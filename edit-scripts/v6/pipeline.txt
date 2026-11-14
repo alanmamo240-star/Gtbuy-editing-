@@ -1,0 +1,9 @@
+v6 Fit-Check (Hose Gallery Dept via GTBuy, Pulli Genluv, Schuhe Timberland) — yellow/white type
+Source: 25.1 s, 12 clips, no speech; room-speaker music with level jumps at every cut -> replaced by a synthesised beat.
+1. ffmpeg fps=30 -> input.mov ; analyze.py (matte + pose, CUTS adapted) ; enhance (hqdn3d, cas, warm grade)
+2. render6.py: 9 of 12 clips re-cut to 16.5 s at 120 BPM; whip / zoom-through / spin / glitch / studio reveal /
+   freeze split-screen (frame 339, boots tile from frame 230) / vertical push / defocus into end card
+   chunks: 0 124 / 124 248 / 248 372 / 372 495
+3. music6.py (Em C G D beat, break under the split-screen, SFX, cut sounds) -> loudnorm -14 LUFS
+4. post6.py: flash + zoom punch + shake on every cut ; x264 two-pass 20 Mbit/s
+lib5.py here is the v5 helper module recoloured to yellow (255, 214, 10).
