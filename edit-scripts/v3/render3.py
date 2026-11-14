@@ -62,7 +62,8 @@ def render_hl(h, t, t0, t_land, t1, label_at=None):
 
 H1 = make_hl([([("Fit ", True), ("Check", False)], 720)], None, 280)
 H2 = make_hl([([("Welcher ", False), ("Fit?", True)], 300)], "SCHREIB'S IN DIE KOMMENTARE", 178)
-HEADLINES = [(H1, 1.72, 2.32, 3.98, None), (H2, 12.03, 12.47, DUR, 12.76)]
+H1["label"] = "BESTELLT ÜBER GTBUY"
+HEADLINES = [(H1, 1.72, 2.32, 4.06, 2.35), (H2, 12.03, 12.47, DUR, 12.76)]
 
 # ---------------------------------------------------------------- light leaks (Higgsfield)
 def load_leak(p):
@@ -79,6 +80,63 @@ def leak_layer(t):
             shift = int(dt * 500 * (1 if k == 0 else -1))
             return np.roll(LEAKS[k], shift, axis=1) * a
     return None
+
+
+# ---------------------------------------------------------------- product tags (tracked via person matte)
+TAG_END = 4.06
+def track_points():
+    p = subprocess.Popen(["ffmpeg", "-v", "error", "-i", MASK, "-vf", "scale=270:480", "-f", "rawvideo", "-pix_fmt", "gray", "-"], stdout=subprocess.PIPE)
+    pts = {}; i = 0
+    while True:
+        b = p.stdout.read(270 * 480)
+        if len(b) < 270 * 480: break
+        t = i / FPS
+        if 1.55 <= t <= TAG_END + 0.05:
+            m = np.frombuffer(b, np.uint8).reshape(480, 270) > 128
+            rows = np.where(m.any(1))[0]; top, bot = rows[0] * 4, rows[-1] * 4
+            def at(fr):
+                r = int((top + fr * (bot - top)) / 4); xs = np.where(m[r - 2:r + 3].any(0))[0]
+                return xs.mean() * 4, top + fr * (bot - top)
+            (tx, ty), (lx, ly) = at(0.34), at(0.66)
+            pts[i] = (tx + 30, ty, lx - 25, ly)
+        i += 1
+    ks = sorted(pts); arr = np.array([pts[k] for k in ks])
+    ker = np.ones(9) / 9
+    sm = np.stack([np.convolve(np.pad(arr[:, j], 4, mode="edge"), ker, "valid") for j in range(4)], 1)
+    return {k: sm[n] for n, k in enumerate(ks)}
+TRACK = track_points()
+TAGS = [("T-SHIRT", "Zara", 2.56, +1), ("HOSE", "Zara", 2.79, -1)]
+
+def tag_layer(t, i, s):
+    if i not in TRACK or t < TAGS[0][2] or t > TAG_END: return None
+    img = Image.new("RGBA", (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(img)
+    out_k = eio((TAG_END - t) / 0.2)
+    p = TRACK[i]
+    for n, (lab, brand, ts, side) in enumerate(TAGS):
+        if t < ts: continue
+        x, y = p[0:2] if n == 0 else p[2:4]
+        x, y = (x - 540) * s + 540, (y - 760) * s + 760
+        kd = eo((t - ts) / 0.22); kl = eo((t - ts - 0.08) / 0.26); kp = eo((t - ts - 0.22) / 0.3)
+        # dot with soft ring
+        rr = 16 * kd * (1 + 0.12 * np.sin((t - ts) * 7))
+        d.ellipse([x - rr, y - rr, x + rr, y + rr], outline=(255, 255, 255, int(150 * kd * out_k)), width=2)
+        r0 = 8 * kd
+        d.ellipse([x - r0, y - r0, x + r0, y + r0], fill=(255, 255, 255, int(255 * kd * out_k)))
+        L = 140
+        xe = x + side * (24 + L * kl)
+        if kl > 0: d.line([(x + side * 24, y), (xe, y)], fill=(255, 255, 255, int(230 * out_k)), width=3)
+        if kp > 0:
+            lf = font(INTER.format("SemiBold"), 26); bf = font(SERIF, 70); sp = 6
+            lw = sum(lf.getlength(c) + sp for c in lab) - sp; bw = bf.getlength(brand)
+            pw, ph = max(lw, bw) + 48, 132
+            x0 = x + side * (24 + L) + (0 if side > 0 else -pw) + side * (1 - kp) * 18
+            y0 = y - ph / 2
+            a = kp * out_k
+            d.rounded_rectangle([x0, y0, x0 + pw, y0 + ph], 24, fill=(14, 14, 16, int(165 * a)))
+            cx = x0 + 22
+            for c in lab: d.text((cx, y0 + 16), c, font=lf, fill=(255, 255, 255, int(175 * a))); cx += lf.getlength(c) + sp
+            d.text((x0 + 22, y0 + ph - 18), brand, font=bf, fill=(255, 255, 255, int(255 * a)), anchor="ls")
+    return np.asarray(img).astype(np.float32) / 255
 
 # ---------------------------------------------------------------- camera: settle-zoom on every cut + slow push
 def seg(t):
@@ -133,6 +191,9 @@ for i in range(N):
     lk = leak_layer(t)
     if lk is not None: comp = 1 - (1 - comp) * (1 - lk)                       # screen blend
     comp = comp * VIG
+    tg = tag_layer(t, i, s)
+    if tg is not None:
+        a = tg[..., 3:4]; comp = comp * (1 - a) + tg[..., :3] * a
     comp = comp + rng.normal(0, 0.011, (H // 2, W // 2, 1)).astype(np.float32).repeat(2, 0).repeat(2, 1)
     if t > DUR - 0.35: comp = comp * clamp((DUR - t) / 0.35)
     out = (np.clip(comp, 0, 1) * 255 + 0.5).astype(np.uint8)

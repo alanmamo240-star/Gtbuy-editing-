@@ -49,6 +49,8 @@ place(impact(), 2.32, -15)                           # "Fit Check" lands (on bea
 for c, g in [(1.60, -23), (5.73, -25), (6.67, -25), (12.00, -21)]:
     place(whoosh(), c, g, WP)                        # whoosh peaks exactly on the cut
 place(impact(), 12.47, -14)                          # final headline lands (on beat)
+place(tick(), 2.56, -27)                             # T-Shirt tag
+place(tick(), 2.79, -27)                             # Hose tag
 place(tick(), 12.78, -26)                            # label appears
 place(tick(), 12.86, -30)
 out = np.clip(out, -1, 1)
