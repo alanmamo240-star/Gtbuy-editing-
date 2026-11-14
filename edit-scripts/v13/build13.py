@@ -13,7 +13,7 @@ i,j=between("CAM = [(0.00","# --------------------------------------------------
 s=s[:i]+'''CLIPS_T = [8.0, 9.5, 11.0, 12.5, 14.0, 15.5, 17.0, 18.5, 20.0, 22.0, 23.0]
 def camera(i, t):
     if t < 2.10:
-        s = 1.20 + 0.30 * (1 - ease_out(t / 0.5)) + 0.04 * t / 2.1
+        s = 1.20 + 0.30 * (1 - ease_out((t - 0.867) / 0.5)) + 0.04 * t / 2.1
         x0 = clamp(FX[i] - 0.5 * W / s, 0, W - W / s); y0 = clamp(FY[i] - 0.40 * H / s, 0, H - H / s)
     elif t < 8.0:
         s = 1.10 + 0.07 * ease_io((t - 2.1) / 5.9) + 0.10 * (1 - ease_out((t - 2.1) / 0.4))
@@ -27,7 +27,7 @@ def camera(i, t):
 '''+s[j:]
 i,j=between("S = {}\nTHREE_M","def card(img, cw, ch")
 s=s[:i]+'''S = {}
-KG_M = tmask("5 KG", font("Unbounded", 250, 900), 6)[0]
+KG_M = tmask("10 KG", font("Unbounded", 215, 900), 6)[0]
 S["haulw"] = sprite_fill(tmask("GTBUY HAUL", font("Archivo", 86, 900, 118), 6)[0], WHITE, shadow=0.0, stroke=(BLUE * 0.85, 7))
 S["yalla"] = chip("YALLA!", bg=BLUE, fg=WHITE, size=64)
 S["c40"] = chip("2× 40 %", bg=BLUE, fg=WHITE, size=60); S["c30"] = chip("2× 30 %", bg=BLUE, fg=WHITE, size=60)
@@ -35,7 +35,7 @@ S["aufship"] = chip("Auf Shipping", tick=True, size=42)
 S["jetzt"] = sprite_fill(tmask("JETZT", font("Archivo", 130, 900, 125), 10)[0], BLUE, shadow=0.0, stroke=(INK, 6))
 ANM_M = tmask("ANMELDEN", font("Unbounded", 94, 900), 2)[0]
 S["detail"] = chip("Detail-Check", tick=True, size=52)
-KGH_M = tmask("5 KG HAUL", font("Archivo", 140, 900, 118), 2)[0]
+KGH_M = tmask("10 KG HAUL", font("Archivo", 132, 900, 118), 2)[0]
 S["e1"] = chip("9 Teile  ·  über GTBuy", tick=True, size=42)
 S["e2"] = chip("Coupons: 2× 40 %  +  2× 30 %", bg=BLUE, fg=WHITE, size=40)
 S["link"] = link_card(size=52)
@@ -63,7 +63,8 @@ s=s[:i]+'''def phone_state(t):
 '''+s[j:]
 i,j=between("    rep = {\"Paypal,\"","KEY = {")
 s=s[:i]+'''    if t_ == "GT": words.append(dict(w="GTBuy-Haul!", s=w["s"], e=raw[i + 2]["e"])); i += 3; continue
-    rep = {"Video": "Bio", "erhält": "erhaltet", "Fünf": "5"}
+    if t_ in ("Fünf", "Kilo"): i += 1; continue
+    rep = {"Video": "Bio", "erhält": "erhaltet"}
     words.append(dict(w=rep.get(t_, t_), s=w["s"], e=w["e"])); i += 1
 '''+s[j:]
 i,j=between("KEY = {","def clean(s)")
@@ -75,5 +76,6 @@ s=s[:i]+open("scene13.py").read()+s[j:]
 rep("    dx = 0.0\n    if 2.70 <= t < 2.82: dx = -ease_in((t - 2.70) / 0.12) * W * 0.55\n    if 2.82 <= t < 2.96: dx = (1 - ease_out((t - 2.82) / 0.14)) * W * 0.55","    dx = whip(t)")
 rep("    if t >= 33.4:\n        k = ease_io((t - 33.4) / 0.5)","    if t >= 23.45:\n        k = ease_io((t - 23.45) / 0.5)")
 rep("P_ = new_layer(); progress(t, P_); caption_layer(t, P_)","P_ = new_layer(); caption_layer(t, P_)")
+rep("    zb = (1 - t / 0.3) if t < 0.3 else 0","    zb = (1 - (t - 0.867) / 0.3) if t < 1.167 else 0")
 open("render13.py","w").write(s)
 print("built")

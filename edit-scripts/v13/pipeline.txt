@@ -8,3 +8,4 @@ render13.py is generated from ../v8/render8.py by build13.py (+ scene13.py).
   end card: logo, 5 KG HAUL, chips, Higgsfield parcel image card, Beacons phone, link card.
 - audio: voice chain for the two spoken parts (source audio muted in the montage), synthesised beat (music13.py) ducked under the voice, -14 LUFS.
 - item names are generic on purpose (no brand names were given).
+Update: headline/end card now 10 KG; the spoken 'Fünf Kilo' (first 26 frames) is trimmed off, video starts at 'GTBuy-Haul! Yalla!'; names: 01 Moncler Cardigan, 02 Sport-Leggings, 09 Gallery Dept. Pufferjacke.

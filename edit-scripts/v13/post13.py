@@ -1,11 +1,12 @@
 """Cut accents for v5: white flash + zoom punch + short camera shake on every cut (post pass over the rendered segments)."""
 import subprocess, numpy as np, cv2, math
 W, H, FPS = 1080, 1920, 30
-CUTS = [(0.0, 1.0), (2.10, 0.8), (8.0, 1.0), (9.5, 0.7), (11.0, 0.7), (12.5, 0.7), (14.0, 0.7), (15.5, 0.7), (17.0, 0.7), (18.5, 0.7), (20.0, 0.9), (22.0, 0.7), (23.0, 0.5)]  # (time, strength)
+O = 26 / 30
+CUTS = [(c - O if c > 0 else 0.0, k) for c, k in [(0.0, 1.0), (2.10, 0.8), (8.0, 1.0), (9.5, 0.7), (11.0, 0.7), (12.5, 0.7), (14.0, 0.7), (15.5, 0.7), (17.0, 0.7), (18.5, 0.7), (20.0, 0.9), (22.0, 0.7), (23.0, 0.5)]]  # (time, strength)
 rng = np.random.default_rng(3)
 SHAKE = {c: rng.normal(0, 1, (8, 2)) for c, _ in CUTS}
 
-dec = subprocess.Popen(["ffmpeg", "-v", "error", "-i", "seg_0.mkv", "-i", "seg_201.mkv", "-i", "seg_402.mkv", "-i", "seg_603.mkv",
+dec = subprocess.Popen(["ffmpeg", "-v", "error", "-i", "seg_26.mkv", "-i", "seg_201.mkv", "-i", "seg_402.mkv", "-i", "seg_603.mkv",
                         "-filter_complex", "[0:v][1:v][2:v][3:v]concat=n=4:v=1:a=0", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE)
 enc = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS),
                         "-i", "-", "-c:v", "ffv1", "-level", "3", "post.mkv"], stdin=subprocess.PIPE)

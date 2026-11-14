@@ -1,5 +1,5 @@
-ITEMS = [("Puffer-Weste", 8.0), ("Hose", 9.5), ("Jogger", 11.0), ("Half-Zip Schwarz", 12.5), ("Half-Zip Beige", 14.0),
-         ("Half-Zip Weiß", 15.5), ("Trainingshose", 17.0), ("Polo", 18.5), ("Pufferjacke", 20.0)]
+ITEMS = [("Moncler Cardigan", 8.0), ("Sport-Leggings", 9.5), ("Jogger", 11.0), ("Half-Zip Schwarz", 12.5), ("Half-Zip Beige", 14.0),
+         ("Half-Zip Weiß", 15.5), ("Trainingshose", 17.0), ("Polo", 18.5), ("Gallery Dept. Pufferjacke", 20.0)]
 BOUNDS = [2.10] + [t0 for _, t0 in ITEMS] + [22.0, 23.0]
 NUM = [sprite_chrome(tmask(f"{k + 1:02d}", font("Unbounded", 150, 900))[0], depth=12) for k in range(len(ITEMS))]
 NAME = [sprite_fill(tmask(nm.upper(), font("Archivo", 96 if len(nm) < 14 else 78, 900, 118), 2)[0], WHITE, shadow=0.0, stroke=(INK, 7)) for nm, _ in ITEMS]
@@ -28,11 +28,11 @@ def progress(t, L):
 
 def scene(t, back, front):
     # HOOK
-    a = win(t, 0.05, 2.05, 0.15, 0.12)
+    a = win(t, 0.90, 2.05, 0.1, 0.12)
     if a:
-        k = back_out((t - 0.05) / 0.45, 1.8)
-        place(back, chrome_cached("5kg", KG_M, 22, (t - 0.4) / 0.9 if 0.4 <= t <= 1.3 else None), W / 2, 240, s=1.5 - 0.5 * k, alpha=a * clamp(t / .06), blur=max(0, 1 - t / .2) * 8)
-        k2 = ease_out((t - 0.85) / 0.4)
+        k = back_out((t - 0.90) / 0.4, 1.8)
+        place(back, chrome_cached("5kg", KG_M, 22, (t - 1.15) / 0.8 if 1.15 <= t <= 1.95 else None), W / 2, 240, s=1.5 - 0.5 * k, alpha=a * clamp((t - .9) / .06), blur=max(0, 1 - (t - .9) / .2) * 8)
+        k2 = ease_out((t - 1.15) / 0.35)
         place(back, S["haulw"], W / 2, 440, s=1.25 - 0.25 * k2, alpha=a * k2)
     a = win(t, 1.72, 2.05, 0.1, 0.1)
     if a: place(front, S["yalla"], 820, 640, s=back_out((t - 1.72) / 0.3, 2.2), rot=-8, alpha=a)

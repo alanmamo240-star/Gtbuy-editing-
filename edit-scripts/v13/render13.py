@@ -32,7 +32,7 @@ FX, FY = smooth(fx, 14), smooth(fy, 14)
 CLIPS_T = [8.0, 9.5, 11.0, 12.5, 14.0, 15.5, 17.0, 18.5, 20.0, 22.0, 23.0]
 def camera(i, t):
     if t < 2.10:
-        s = 1.20 + 0.30 * (1 - ease_out(t / 0.5)) + 0.04 * t / 2.1
+        s = 1.20 + 0.30 * (1 - ease_out((t - 0.867) / 0.5)) + 0.04 * t / 2.1
         x0 = clamp(FX[i] - 0.5 * W / s, 0, W - W / s); y0 = clamp(FY[i] - 0.40 * H / s, 0, H - H / s)
     elif t < 8.0:
         s = 1.10 + 0.07 * ease_io((t - 2.1) / 5.9) + 0.10 * (1 - ease_out((t - 2.1) / 0.4))
@@ -50,7 +50,7 @@ def chrome_cached(key, M_, depth, sw):
     if k not in _cache: _cache[k] = sprite_chrome(M_, depth=depth, sweep=k[1])
     return _cache[k]
 S = {}
-KG_M = tmask("5 KG", font("Unbounded", 250, 900), 6)[0]
+KG_M = tmask("10 KG", font("Unbounded", 215, 900), 6)[0]
 S["haulw"] = sprite_fill(tmask("GTBUY HAUL", font("Archivo", 86, 900, 118), 6)[0], WHITE, shadow=0.0, stroke=(BLUE * 0.85, 7))
 S["yalla"] = chip("YALLA!", bg=BLUE, fg=WHITE, size=64)
 S["c40"] = chip("2× 40 %", bg=BLUE, fg=WHITE, size=60); S["c30"] = chip("2× 30 %", bg=BLUE, fg=WHITE, size=60)
@@ -58,7 +58,7 @@ S["aufship"] = chip("Auf Shipping", tick=True, size=42)
 S["jetzt"] = sprite_fill(tmask("JETZT", font("Archivo", 130, 900, 125), 10)[0], BLUE, shadow=0.0, stroke=(INK, 6))
 ANM_M = tmask("ANMELDEN", font("Unbounded", 94, 900), 2)[0]
 S["detail"] = chip("Detail-Check", tick=True, size=52)
-KGH_M = tmask("5 KG HAUL", font("Archivo", 140, 900, 118), 2)[0]
+KGH_M = tmask("10 KG HAUL", font("Archivo", 132, 900, 118), 2)[0]
 S["e1"] = chip("9 Teile  ·  über GTBuy", tick=True, size=42)
 S["e2"] = chip("Coupons: 2× 40 %  +  2× 30 %", bg=BLUE, fg=WHITE, size=40)
 S["link"] = link_card(size=52)
@@ -136,7 +136,8 @@ while i < len(raw):
     if t_ == "1" and raw[i + 1]["w"] == "-3": words.append(dict(w="1–3", s=w["s"], e=raw[i + 1]["e"])); i += 2; continue
     if t_ == "Express" and raw[i + 1]["w"] == "-Versand": words.append(dict(w="Express-Versand", s=w["s"], e=raw[i + 1]["e"])); i += 2; continue
     if t_ == "GT": words.append(dict(w="GTBuy-Haul!", s=w["s"], e=raw[i + 2]["e"])); i += 3; continue
-    rep = {"Video": "Bio", "erhält": "erhaltet", "Fünf": "5"}
+    if t_ in ("Fünf", "Kilo"): i += 1; continue
+    rep = {"Video": "Bio", "erhält": "erhaltet"}
     words.append(dict(w=rep.get(t_, t_), s=w["s"], e=w["e"])); i += 1
 KEY = {"5", "kilo", "gtbuy-haul", "yalla", "link", "bio", "coupons", "2× 40 %", "2× 30 %", "shipping", "jetzt"}
 def clean(s): return s.strip(",.!?;:")
@@ -189,8 +190,8 @@ def caption_layer(t, L):
     place(L, (rgb, A_, (0, 0)), W / 2, CAP_Y + rise, s=scale, alpha=a)
 
 # ------------------------------------------------------------------ graphics
-ITEMS = [("Puffer-Weste", 8.0), ("Hose", 9.5), ("Jogger", 11.0), ("Half-Zip Schwarz", 12.5), ("Half-Zip Beige", 14.0),
-         ("Half-Zip Weiß", 15.5), ("Trainingshose", 17.0), ("Polo", 18.5), ("Pufferjacke", 20.0)]
+ITEMS = [("Moncler Cardigan", 8.0), ("Sport-Leggings", 9.5), ("Jogger", 11.0), ("Half-Zip Schwarz", 12.5), ("Half-Zip Beige", 14.0),
+         ("Half-Zip Weiß", 15.5), ("Trainingshose", 17.0), ("Polo", 18.5), ("Gallery Dept. Pufferjacke", 20.0)]
 BOUNDS = [2.10] + [t0 for _, t0 in ITEMS] + [22.0, 23.0]
 NUM = [sprite_chrome(tmask(f"{k + 1:02d}", font("Unbounded", 150, 900))[0], depth=12) for k in range(len(ITEMS))]
 NAME = [sprite_fill(tmask(nm.upper(), font("Archivo", 96 if len(nm) < 14 else 78, 900, 118), 2)[0], WHITE, shadow=0.0, stroke=(INK, 7)) for nm, _ in ITEMS]
@@ -219,11 +220,11 @@ def progress(t, L):
 
 def scene(t, back, front):
     # HOOK
-    a = win(t, 0.05, 2.05, 0.15, 0.12)
+    a = win(t, 0.90, 2.05, 0.1, 0.12)
     if a:
-        k = back_out((t - 0.05) / 0.45, 1.8)
-        place(back, chrome_cached("5kg", KG_M, 22, (t - 0.4) / 0.9 if 0.4 <= t <= 1.3 else None), W / 2, 240, s=1.5 - 0.5 * k, alpha=a * clamp(t / .06), blur=max(0, 1 - t / .2) * 8)
-        k2 = ease_out((t - 0.85) / 0.4)
+        k = back_out((t - 0.90) / 0.4, 1.8)
+        place(back, chrome_cached("5kg", KG_M, 22, (t - 1.15) / 0.8 if 1.15 <= t <= 1.95 else None), W / 2, 240, s=1.5 - 0.5 * k, alpha=a * clamp((t - .9) / .06), blur=max(0, 1 - (t - .9) / .2) * 8)
+        k2 = ease_out((t - 1.15) / 0.35)
         place(back, S["haulw"], W / 2, 440, s=1.25 - 0.25 * k2, alpha=a * k2)
     a = win(t, 1.72, 2.05, 0.1, 0.1)
     if a: place(front, S["yalla"], 820, 640, s=back_out((t - 1.72) / 0.3, 2.2), rot=-8, alpha=a)
@@ -313,7 +314,7 @@ for i in range(A, B):
     M = camera(fi, t)
     dx = whip(t)
     M[0, 2] += dx
-    zb = (1 - t / 0.3) if t < 0.3 else 0
+    zb = (1 - (t - 0.867) / 0.3) if t < 1.167 else 0
     if zb > 0.02:
         acc = np.zeros((H, W, 3), np.float32)
         for k in range(6):

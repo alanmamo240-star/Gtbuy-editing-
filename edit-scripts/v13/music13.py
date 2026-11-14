@@ -112,7 +112,7 @@ def cut_snd():
     l = norm(burst) * 0.55 + norm(click) * 0.5 + norm(thump) * 0.9; r = norm(np.roll(burst, 70)) * 0.55 + norm(click) * 0.5 + norm(thump) * 0.9
     return np.stack([l, r], 1)
 CS = cut_snd()
-put(sfx, impact(), 0.0, -10); at_peak(whoosh(0.45, .3, 4000, 300), 0.05, -17, .3, .45); put(sfx, shimmer(), 0.4, -26); put(sfx, tick(), 1.72, -22)
+put(sfx, impact(), 0.867, -10); put(sfx, whoosh(0.45, .3, 4000, 300), 0.87, -17); put(sfx, shimmer(), 1.15, -26); put(sfx, tick(), 1.72, -22)
 at_peak(whoosh(0.5, .6, 200, 6000), 2.10, -16); put(sfx, CS, 2.10, -14)
 at_peak(whoosh(0.4, .6, 400, 4000), 2.45, -24, .6, .4); put(sfx, tick(1500), 3.15, -20); put(sfx, tick(1500), 4.10, -20)
 put(sfx, tick(3000), 4.48, -21); put(sfx, tick(3300), 5.46, -21); put(sfx, tick(), 6.36, -24)
