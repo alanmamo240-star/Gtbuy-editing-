@@ -7,3 +7,4 @@ v5 Fit-Check (Hose Zara, Schuhe Dior via GTBuy, Pulli CB via GTBuy) — no speec
    run in 4 chunks: 0 94 / 94 188 / 188 282 / 282 375, concat filter
 5. music5.py: synthesised beat (kick/clap/hats/sub/pad Am-F-C-G, fill, break+riser, outro) + SFX -> loudnorm -14 LUFS
 6. x264 two-pass 20 Mbit/s, 1080x1920, 30 fps, AAC 320k
+7. post5.py: flash + zoom punch + shake on every cut (0/1.5/3.5/5.5/7.0/8.4, softer 9.0); cut sound (flash burst + click + sub thump) in music5.py

@@ -135,6 +135,18 @@ at_peak(whoosh(0.5, .6, 300, 3500), 9.55, -22)             # GTBuy flip
 for k_, tt in enumerate((10.15, 10.35, 10.55)): put(sfx, tick(2600 + k_ * 350), tt, -22)
 put(sfx, tick(3800), 10.85, -20)
 
+def cut_snd():
+    """flash 'pssht' + camera click + short sub thump"""
+    n = int(0.35 * SR); t = np.arange(n) / SR
+    burst = hp(lp(rng.standard_normal(n), 9000.0), 2500) * np.exp(-t * 22) * np.clip(t / 0.002, 0, 1)
+    click = np.sin(2 * np.pi * 3100 * t) * np.exp(-t * 140) + np.sin(2 * np.pi * 1600 * t) * np.exp(-t * 110) * 0.6
+    thump = np.sin(2 * np.pi * np.cumsum(55 + 90 * np.exp(-t * 35)) / SR) * np.exp(-t * 14)
+    l = norm(burst) * 0.55 + norm(click) * 0.5 + norm(thump) * 0.9
+    r = norm(np.roll(burst, 70)) * 0.55 + norm(click) * 0.5 + norm(thump) * 0.9
+    return np.stack([l, r], 1)
+CS = cut_snd()
+for tt, db in [(0.0, -9), (1.5, -10), (3.5, -10), (5.5, -11), (7.0, -10), (8.4, -9), (9.0, -15)]:
+    put(sfx, CS, tt, db)
 mix = music[:N] * 0.9 + sfx[:N]
 peak = np.abs(mix).max(); mix = mix / peak * 0.8
 with wave.open("music.wav", "wb") as w:
