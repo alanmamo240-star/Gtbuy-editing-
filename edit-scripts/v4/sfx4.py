@@ -52,7 +52,11 @@ place(impact(), 8.50, -18)
 place(swish(), 9.75, -28, 0.19)             # warehouse card
 place(tick(2400), 14.65, -30)               # chart card appears
 place(tick(3200), 15.95, -27)               # chart peaks on "Shippingpreise"
-place(swish(), 19.60, -28, 0.19)            # coupon card
+place(swish(), 17.70, -28, 0.19)            # profile screenshot card in
+place(tick(2800), 18.95, -25)               # tap on bio link
+place(swish(), 19.42, -29, 0.19)            # beacons card in
+place(tick(2800), 19.85, -25)               # tap on GTBuy button
+place(swish(), 20.50, -29, 0.19)            # coupon card
 place(whoosh(0.5, 0.7), 24.42, -25, 0.35)   # "4 Coupons"
 place(impact(), 24.44, -15)
 place(tick(2600), 26.00, -27)               # save badge pops

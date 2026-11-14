@@ -71,7 +71,7 @@ def load_card(path, label, cw=420, ch=540):
     return dict(img=np.asarray(im.crop((l, tp, l + bw, tp + bh))).astype(np.float32) / 255, cw=cw, ch=ch, label=label, rm=rounded(cw, ch, 30))
 CARDS = [(load_card("img/gifts.png", "Weihnachtszeit"), 4.30, 6.02),
          (load_card("img/warehouse.png", "Seller out of stock"), 9.75, 11.30),
-         (load_card("img/coupons.png", "2× 40 %  ·  2× 30 %"), 19.60, 22.35)]
+         (load_card("img/coupons.png", "2× 40 %  ·  2× 30 %"), 20.50, 22.35)]
 
 def card_layer(c, t, t0, t1, side):
     if t < t0 or t > t1: return None
@@ -131,6 +131,62 @@ def chart_layer(t, t0=14.62, t1=16.42):
         d.rounded_rectangle([px - 14, py - 6, px + tw + 14, py + 40], 20, fill=(255, 120, 96, int(255 * a * clamp(k))))
         d.text((px, py), txt, font=vf, fill=(20, 18, 17, int(255 * a * clamp(k))))
     return np.asarray(img).astype(np.float32) / 255
+
+
+# ---------------------------------------------------------------- "Link in Bio" walkthrough (user screenshots)
+def prep_shot(path, box, w):
+    im = Image.open(path).convert("RGB").crop(box); sc = w / im.width
+    im = im.resize((w, round(im.height * sc)), Image.LANCZOS)
+    return dict(im=im.convert("RGBA"), sc=sc)
+PROF = prep_shot("img/shot_profile.png", (0, 300, 1179, 1003), 600)
+BEAC = prep_shot("img/shot_beacons.png", (50, 1262, 1130, 1875), 560)
+LINK_BOX = [v * PROF["sc"] for v in (34, 620, 616, 696)]          # bio link line (crop coords -> card coords)
+BTN_C = (540 * BEAC["sc"], 300 * BEAC["sc"])                      # GTBuy button centre
+UI = [  # card, t_in, t_out, top_y, highlight_at, tap_at, tap_pos
+    (PROF, 17.70, 19.50, 46, 18.68, 18.95, ((LINK_BOX[0] + LINK_BOX[2]) / 2, (LINK_BOX[1] + LINK_BOX[3]) / 2)),
+    (BEAC, 19.42, 20.55, 62, None, 19.85, BTN_C),
+]
+def ui_layer(t):
+    out = None
+    for card, t0, t1, top, hl_at, tap_at, tp in UI:
+        if t < t0 or t > t1: continue
+        kin = back((t - t0) / 0.42, 1.3); kout = eio((t1 - t) / 0.28)
+        a = clamp(eo((t - t0) / 0.25)) * kout
+        c = card["im"].copy(); ov = Image.new("RGBA", c.size, (0, 0, 0, 0)); d = ImageDraw.Draw(ov)
+        if hl_at is not None and t > hl_at:                       # red outline draws around the link
+            p = eo((t - hl_at) / 0.32); x0, y0, x1, y1 = LINK_BOX
+            d.rounded_rectangle([x0, y0, x1, y1], 10, fill=ACC + (int(34 * p),))
+            per = [(x0, y0), (x1, y0), (x1, y1), (x0, y1), (x0, y0)]
+            seg = [np.hypot(per[i + 1][0] - per[i][0], per[i + 1][1] - per[i][1]) for i in range(4)]
+            L = sum(seg) * p; pts = [per[0]]
+            for i, sl in enumerate(seg):
+                if L <= 0: break
+                f = min(1, L / sl); pts.append((per[i][0] + (per[i + 1][0] - per[i][0]) * f, per[i][1] + (per[i + 1][1] - per[i][1]) * f)); L -= sl
+            if len(pts) > 1: d.line(pts, fill=ACC + (255,), width=4, joint="curve")
+        press = 1.0
+        if tap_at is not None and t > tap_at - 0.05:              # finger-tap ripple
+            q = clamp((t - tap_at) / 0.45); r = 14 + 60 * eo(q)
+            rc = (30, 30, 30) if card is PROF else (255, 255, 255)
+            d.ellipse([tp[0] - r, tp[1] - r, tp[0] + r, tp[1] + r], outline=rc + (int(230 * (1 - q)),), width=4)
+            r2 = 18 * (1 - q * 0.6)
+            d.ellipse([tp[0] - r2, tp[1] - r2, tp[0] + r2, tp[1] + r2], fill=(255, 255, 255, int(170 * (1 - q))))
+            d.ellipse([tp[0] - r2, tp[1] - r2, tp[0] + r2, tp[1] + r2], outline=(20, 20, 20, int(120 * (1 - q))), width=2)
+            press = 1 - 0.025 * np.sin(np.pi * clamp((t - tap_at) / 0.22))
+        c = Image.alpha_composite(c, ov)
+        s = (0.9 + 0.1 * kin) * press * (1 - 0.04 * (1 - kout))
+        cw, ch = c.size; tw, th = int(cw * s), int(ch * s)
+        c = c.resize((tw, th), Image.LANCZOS)
+        mask = Image.new("L", (tw, th), 0); ImageDraw.Draw(mask).rounded_rectangle([0, 0, tw - 1, th - 1], 28, fill=255)
+        c.putalpha(Image.fromarray((np.asarray(mask).astype(np.float32) * a).astype(np.uint8)))
+        if out is None: out = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        X = int(W / 2 - tw / 2); Y = int(top + ch / 2 - th / 2 + (1 - clamp(kin)) * 36 - (1 - kout) * 30)
+        sh = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        ImageDraw.Draw(sh).rounded_rectangle([X + 10, Y + 22, X + tw - 10, Y + th + 22], 28, fill=(0, 0, 0, int(110 * a)))
+        out.alpha_composite(sh.filter(ImageFilter.GaussianBlur(22)))
+        bd = Image.new("RGBA", (tw, th), (0, 0, 0, 0))
+        ImageDraw.Draw(bd).rounded_rectangle([0, 0, tw - 1, th - 1], 28, outline=(255, 255, 255, int(90 * a)), width=2)
+        out.alpha_composite(c, (X, Y)); out.alpha_composite(bd, (X, Y))
+    return None if out is None else np.asarray(out).astype(np.float32) / 255
 
 # ---------------------------------------------------------------- motion graphic: save badge
 def save_layer(t, t0=25.98, t_fill=26.62):
@@ -256,7 +312,7 @@ for i in range(N):
     G = chart_layer(t)
     if G is not None: a = G[..., 3:4] * bgk; comp = comp * (1 - a) + G[..., :3] * a
     comp = comp * VIG
-    for layer in (save_layer(t), caption_layer(t)):
+    for layer in (ui_layer(t), save_layer(t), caption_layer(t)):
         if layer is not None: a = layer[..., 3:4]; comp = comp * (1 - a) + layer[..., :3] * a
     comp = comp + rng.normal(0, 0.008, (H // 2, W // 2, 1)).astype(np.float32).repeat(2, 0).repeat(2, 1)
     if t > DUR - 0.4: comp = comp * clamp((DUR - t) / 0.4)
