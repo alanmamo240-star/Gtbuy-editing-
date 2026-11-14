@@ -219,6 +219,28 @@ def chip(text, icon=None, bg=None, fg=None, size=46, tick=False):
     rgb = arr[..., :3] * a[..., None] / np.maximum(A_[..., None], 1e-4)
     return rgb, A_, (pad, pad)
 
+def link_card(url="beacons.ai/fitsbyjoga", sub="1. Link  →  GTBuy", size=46):
+    """dark pill with drawn chain-link icon, url and a small sub line"""
+    fu = font("Archivo", size, 800, 104); fs_ = font("SpaceGrotesk", int(size * 0.58), 700)
+    tw = max(fu.getlength(url), fs_.getlength(sub))
+    ic = int(size * 1.5); pw, ph = int(tw + ic + 3 * 30), int(size * 2.55); pad = 40
+    im = Image.new("RGBA", (pw + 2 * pad, ph + 2 * pad), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    d.rounded_rectangle([pad, pad, pad + pw, pad + ph], 34, fill=(12, 12, 14, 238))
+    d.rounded_rectangle([pad, pad, pad + pw, pad + ph], 34, outline=(196, 245, 62, 120), width=2)
+    # chain icon: two interlocked rounded links, rotated 45 deg
+    cs = ic * 2; ci = Image.new("RGBA", (cs, cs), (0, 0, 0, 0)); cd = ImageDraw.Draw(ci)
+    lw, lh, r = cs * 0.42, cs * 0.22, cs * 0.11; lc = (196, 245, 62, 255); wdt = max(5, cs // 16)
+    cd.rounded_rectangle([cs * 0.14, cs / 2 - lh / 2, cs * 0.14 + lw, cs / 2 + lh / 2], r, outline=lc, width=wdt)
+    cd.rounded_rectangle([cs * 0.86 - lw, cs / 2 - lh / 2, cs * 0.86, cs / 2 + lh / 2], r, outline=lc, width=wdt)
+    ci = ci.rotate(45, resample=Image.BICUBIC).resize((ic, ic), Image.LANCZOS)
+    im.alpha_composite(ci, (pad + 26, int(pad + ph / 2 - ic / 2)))
+    x = pad + 30 + ic + 22
+    d.text((x, pad + ph * 0.43), url, font=fu, fill=(246, 240, 228, 255), anchor="lm")
+    d.text((x, pad + ph * 0.76), sub, font=fs_, fill=(196, 245, 62, 255), anchor="lm")
+    arr = np.asarray(im).astype(np.float32) / 255
+    a = arr[..., 3]; sh = cv2.GaussianBlur(np.roll(a, 12, 0), (0, 0), 16) * 0.5; A_ = a + sh * (1 - a)
+    return arr[..., :3] * a[..., None] / np.maximum(A_[..., None], 1e-4), A_, (pad, pad)
+
 # ------------------------------------------------------------------ prebuilt typography sprites
 S = {}
 S["label"] = sprite_fill(tmask("HAUL HACKS", font("SpaceGrotesk", 34, 700), 9)[0], CREAM, shadow=0.55, sblur=8, soff=(3, 2))
@@ -252,6 +274,8 @@ TEES_M = tmask("TEES", font("Unbounded", 265, 900), 6)[0]
 S["c_coupon"] = card_sprite(IMG["coupons"], 400, 520, 1.05, "GTBuy Coupons")
 S["c_card"] = card_sprite(IMG["cardholder"], 390, 510, 1.08, "Cardholder")
 S["zuhoeren"] = chip("Und gut zuhören", tick=True, size=44)
+S["linkcard"] = link_card(size=54)
+S["linkcard_end"] = link_card(sub="Alle Links  ·  @fitsbyjoga", size=50)
 S["chip40"] = chip("2× 40 %", bg=LIME, fg=INK, size=60)
 S["chip30"] = chip("2× 30 %", bg=LIME, fg=INK, size=60)
 S["auf"] = sprite_fill(tmask("AUF SHIPPING", font("SpaceGrotesk", 34, 700), 8)[0], CREAM, shadow=0.7, sblur=6, soff=(3, 2))
@@ -381,7 +405,7 @@ for j in range(len(CH)): CH[j]["prev_adj"] = j > 0 and CH[j - 1]["adj"]
 
 F_CAP = font("Archivo", 74, 850, 108)
 F_KEY = font("InstrumentSerif-Italic", 104)
-CAP_Y = 1520
+CAP_Y = 1420
 def caption_layer(t, L):
     ch = next((c for c in CH if c["t0"] <= t < c["t1"]), None)
     if ch is None: return
@@ -508,8 +532,10 @@ def scene_layers(t, back, front):
     a = win(t, 8.50, 9.95, 0.3, 0.22)
     if a:
         k = ease_out((t - 8.50) / 0.45)
-        place(front, S["link"], W / 2 - 60, 380 - (1 - k) * 50, alpha=a)
-        arrow_layer(front, ease_io((t - 8.65) / 0.45), a, 780, 360, 860, 150)
+        place(front, S["link"], W / 2 - 20, 250 - (1 - k) * 50, s=0.9, alpha=a)
+        arrow_layer(front, ease_io((t - 8.65) / 0.45), a, 850, 225, 950, 70)
+        a3 = win(t, 8.70, 9.95, 0.25, 0.22)
+        if a3: place(front, S["linkcard"], W / 2, 410, s=back_out((t - 8.70) / 0.4, 1.8), alpha=a3)
     if 9.88 <= t <= 11.35:
         prog = ease_io((t - 10.0) / 0.55)
         key = round(round(prog / 0.03) * 0.03, 2)
@@ -683,6 +709,8 @@ def recap(t, comp):
         yy = y0 + 222 + n * 80
         place(L, check_sprite(30, clamp((t - t0) / 0.25)), 200, yy, s=back_out((t - t0) / 0.3, 2.0), alpha=k)
         place(L, spr, 260 + (1 - k) * 30, yy, anchor=(0, 0.55), alpha=k)
+    kc = ease_out((t - 35.10) / 0.4)
+    if kc > 0: place(L, S["linkcard_end"], W / 2, 1270 + (1 - kc) * 30, s=back_out((t - 35.10) / 0.4, 1.8), alpha=kc)
     return comp * (1 - L[1][..., None]) + L[0]
 
 # ------------------------------------------------------------------ guided filter for mask edges

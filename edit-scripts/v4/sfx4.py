@@ -101,6 +101,7 @@ place(whoosh(0.6, 0.65, 300, 5000, False), 7.27, -20, 0.39)  # zoom-through
 place(impact(0.8, 52, 30, 0.04), 7.27, -22)
 place(whoosh(0.4, 0.6, 600, 4500), 8.50, -28, 0.24)
 place(tick(3200), 8.95, -30)                            # arrow head
+place(pop(820, 400), 8.70, -24)                         # link card
 place(impact(0.9, 50, 40), 9.90, -17)                   # GTBuy
 place(shimmer(0.7), 10.05, -31)
 place(whoosh(0.5, 0.6, 400, 4000), 11.05, -27, 0.3)     # coupon card
@@ -137,6 +138,7 @@ place(whoosh(0.4, 0.6, 400, 4000), 33.80, -29, 0.24)
 # RECAP + END
 place(whoosh(0.5, 0.6, 300, 4000), 34.10, -25, 0.3)
 for k, f in enumerate([2600, 2950, 3350]): place(tick(f), 34.32 + k * 0.25, -25)
+place(pop(), 35.10, -22); place(tick(3800), 35.14, -28)  # end link card
 place(shutter(), 35.73, -24)
 place(sub_drop(1.2), 35.73, -18)
 
