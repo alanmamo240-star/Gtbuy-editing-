@@ -1,0 +1,10 @@
+v10 talking-head: "Winter-Haul vakuumieren" — GTBuy orange / white / chrome, with the GTBuy app icon
+render10.py is generated from ../v8/render8.py by build10.py (+ scene10.py) and committed as built.
+- GTBuy logo: app icon cut out of the creator's screenshot (orange bbox + white GTBUY band), rounded-corner alpha.
+- captions fixed: "Das Agent ... die T-Buy" -> "Als Agent ... GTBuy", "erhält" -> erhaltet, "Vakuminium" -> Vakuumieren
+- hook: snowfall + chrome WINTER HAUL; -50/-100 € counter; winter haul fullscreen (Higgsfield);
+  Gewicht + Volumen icons; parcel grows with €/€€/€€€; VAKUUMIEREN + vacuum-bag card (Higgsfield);
+  GTBuy logo flip-in with glow + light sweep; TikTok/Beacons screenshots in the phone with logo badge;
+  2×40 / 2×30 chips; 3 -> 4 coupons + NUR HIER stamp; vacuum fullscreen; Vorher/Vakuumiert boxes +
+  KLEINER. / KOMPAKTER. / GÜNSTIGER. on the spoken words; end card with logo + Beacons phone.
+- Higgsfield z_image: vacuum.png, winterhaul.png (new); coupons.png reused.
