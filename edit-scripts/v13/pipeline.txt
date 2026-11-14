@@ -1,0 +1,10 @@
+v13 haul video "5 Kilo GTBuy Haul" — GTBuy orange / white / chrome. Source 3:24 min -> 26.8 s.
+Cut list (source seconds; each part cut separately, then concatenated; picture mirrored so the GTBUY sign reads correctly):
+ hook 18.03-20.13 | coupons 23.93-29.83 | vest 42.0-43.5 | pants 60.6-62.1 | jogger 74.2-75.7 | half-zip black 89.8-91.3 |
+ beige 99.8-101.3 | white 112.8-114.3 | training pants 141.2-142.7 | polo 152.6-154.1 | puffer 175.3-177.3 | tag 189.4-190.4 | 197.3-197.8 + freeze
+render13.py is generated from ../v8/render8.py by build13.py (+ scene13.py).
+- hook: chrome 5 KG + GTBUY HAUL; speech: phone mock-up with TikTok/Beacons screenshots + GTBuy icon, coupon chips, JETZT ANMELDEN;
+  montage: 9 items x 1.5 s on a 120 BPM beat, chrome number, name with underline, progress segments, whip + flash + zoom punch per cut;
+  end card: logo, 5 KG HAUL, chips, Higgsfield parcel image card, Beacons phone, link card.
+- audio: voice chain for the two spoken parts (source audio muted in the montage), synthesised beat (music13.py) ducked under the voice, -14 LUFS.
+- item names are generic on purpose (no brand names were given).
