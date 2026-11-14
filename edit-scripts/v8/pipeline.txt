@@ -1,0 +1,10 @@
+v8 talking-head: "3 Gründe, warum du zu GTBuy wechseln solltest" — cobalt blue / white / chrome
+1. ffmpeg fps=30 ; transcribe (faster-whisper, word timestamps; last word re-checked with context -> "Warehouse")
+2. mask_track.py (MediaPipe matte + BlazeFace face track) ; enhance (hqdn3d, cas, grade)
+3. render8.py: face-tracked camera, head-masked chrome headlines, creator's TikTok + Beacons screenshots in an animated
+   phone mock-up (zoom to the bio link / GTBuy button, tap ripple, "1. LINK" badge), coupon 3->4 infographic, EXKLUSIV stamp,
+   payment chips, delivery + warehouse fullscreen B-roll (Higgsfield), shipping timeline, captions on a dark pill,
+   freeze end card with the Beacons page. Chunks 0 273 / 273 546 / 546 819 / 819 1092
+4. sfx8.py + voice chain (highpass, afftdn, EQ, compressor, loudnorm -14) with sidechain-ducked SFX
+5. post8.py flash/punch on cuts ; x264 two-pass 18 Mbit/s
+Higgsfield z_image: coupons, payment (generated Apple logo blurred out), warehouse, delivery.
