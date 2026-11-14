@@ -1,0 +1,1 @@
+hqdn3d=1.4:1.0:3:3,cas=0.45:planes=1,eq=contrast=1.04:brightness=0.012:saturation=1.05:gamma=1.04
