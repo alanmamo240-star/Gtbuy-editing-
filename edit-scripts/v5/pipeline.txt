@@ -1,0 +1,9 @@
+v5 Fit-Check (Hose Zara, Schuhe Dior via GTBuy, Pulli CB via GTBuy) — no speech in the source
+1. ffmpeg -vf fps=30 -> input.mov ; whisper found no speech (room tone ~-55 dB), source audio dropped
+2. analyze.py: MediaPipe selfie matte + PoseLandmarker (full) per frame -> mask.mkv, pose.json
+3. enhance: hqdn3d=1.4:1.1:3.5:3.5,cas=0.40,eq=contrast=1.06:saturation=1.04,colorbalance=rs=-0.02:bs=0.03:rh=0.02:bh=-0.02
+4. render5.py: beat-synced re-cut (120 BPM, cuts at 1.5/3.5/5.5/7.0/9.0 s), DIS optical-flow slow-mo,
+   freeze on the sharpest shoe frame (src 238), pose-tracked tags, Higgsfield studio backdrop (shot 5) and parcel end card
+   run in 4 chunks: 0 94 / 94 188 / 188 282 / 282 375, concat filter
+5. music5.py: synthesised beat (kick/clap/hats/sub/pad Am-F-C-G, fill, break+riser, outro) + SFX -> loudnorm -14 LUFS
+6. x264 two-pass 20 Mbit/s, 1080x1920, 30 fps, AAC 320k
