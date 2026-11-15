@@ -1,0 +1,492 @@
+{
+ "duration": 30,
+ "frames": 900,
+ "target": null,
+ "pace": 1,
+ "voiced": false,
+ "unvoiced": [],
+ "mood": "tension",
+ "beats": [
+  {
+   "i": 0,
+   "type": "hold",
+   "t0": 0,
+   "t1": 2.85,
+   "cam": -1,
+   "look": "runView",
+   "zoom": 54,
+   "moved": true
+  },
+  {
+   "i": 1,
+   "type": "hold",
+   "t0": 2.85,
+   "t1": 3.95,
+   "cam": 2.85,
+   "look": "door",
+   "zoom": 46,
+   "moved": true
+  },
+  {
+   "i": 2,
+   "type": "say",
+   "who": "emil",
+   "text": "Da! | Wir müssen rein!",
+   "t0": 3.95,
+   "t1": 5.39,
+   "cam": 3.83,
+   "look": "emil",
+   "zoom": 36,
+   "moved": true
+  },
+  {
+   "i": 3,
+   "type": "hold",
+   "t0": 5.39,
+   "t1": 8,
+   "cam": 5.39,
+   "look": "groupA",
+   "zoom": 60,
+   "moved": true
+  },
+  {
+   "i": 4,
+   "type": "hold",
+   "t0": 8,
+   "t1": 8.45,
+   "cam": 8,
+   "look": "lena",
+   "zoom": 40,
+   "moved": true
+  },
+  {
+   "i": 5,
+   "type": "say",
+   "who": "lena",
+   "text": "Wartet.",
+   "t0": 8.45,
+   "t1": 8.77,
+   "cam": 8.35,
+   "look": "lena",
+   "zoom": 39.832,
+   "moved": true
+  },
+  {
+   "i": 6,
+   "type": "hold",
+   "t0": 8.77,
+   "t1": 9.75,
+   "cam": 8.77,
+   "look": "lena",
+   "zoom": 39.63124672,
+   "moved": true
+  },
+  {
+   "i": 7,
+   "type": "say",
+   "who": "lena",
+   "text": "Der hat | keine Lok.",
+   "t0": 9.75,
+   "t1": 11.19,
+   "cam": 9.5,
+   "look": "trackPan",
+   "zoom": 50,
+   "moved": true
+  },
+  {
+   "i": 8,
+   "type": "hold",
+   "t0": 11.19,
+   "t1": 13.75,
+   "cam": 11.19,
+   "look": "trackPan",
+   "zoom": 48.31,
+   "moved": true
+  },
+  {
+   "i": 9,
+   "type": "hold",
+   "t0": 13.75,
+   "t1": 15.55,
+   "cam": 13.75,
+   "look": "groupF",
+   "zoom": 66,
+   "moved": true
+  },
+  {
+   "i": 10,
+   "type": "say",
+   "who": "schaffner",
+   "text": "Heute braucht er keine.",
+   "t0": 15.55,
+   "t1": 16.77,
+   "cam": 15.4,
+   "look": "schaffner",
+   "zoom": 16,
+   "moved": true
+  },
+  {
+   "i": 11,
+   "type": "hold",
+   "t0": 16.77,
+   "t1": 18.6,
+   "cam": 16.77,
+   "look": "schaffner",
+   "zoom": 15.3424,
+   "moved": true
+  },
+  {
+   "i": 12,
+   "type": "hold",
+   "t0": 18.6,
+   "t1": 20,
+   "cam": 18.6,
+   "look": "kidsJ",
+   "zoom": 60,
+   "moved": true
+  },
+  {
+   "i": 13,
+   "type": "hold",
+   "t0": 20,
+   "t1": 23.25,
+   "cam": 20,
+   "look": "ticketT",
+   "zoom": 36,
+   "moved": true
+  },
+  {
+   "i": 14,
+   "type": "say",
+   "who": "paul",
+   "text": "Woher kennt der mich?",
+   "t0": 23.25,
+   "t1": 24.47,
+   "cam": 23.1,
+   "look": "paul",
+   "zoom": 32,
+   "moved": true
+  },
+  {
+   "i": 15,
+   "type": "hold",
+   "t0": 24.47,
+   "t1": 24.85,
+   "cam": 24.47,
+   "look": "paul",
+   "zoom": 31.47392,
+   "moved": true
+  },
+  {
+   "i": 16,
+   "type": "hold",
+   "t0": 24.85,
+   "t1": 26.2,
+   "cam": 24.85,
+   "look": "schaffner",
+   "zoom": 50,
+   "moved": true
+  },
+  {
+   "i": 17,
+   "type": "hold",
+   "t0": 26.2,
+   "t1": 27.3,
+   "cam": 26.2,
+   "look": "doorPaul",
+   "zoom": 50,
+   "moved": true
+  },
+  {
+   "i": 18,
+   "type": "hold",
+   "t0": 27.3,
+   "t1": 29.6,
+   "cam": 27.3,
+   "look": "paul",
+   "zoom": 19,
+   "moved": true
+  },
+  {
+   "i": 19,
+   "type": "hold",
+   "t0": 29.6,
+   "t1": 30,
+   "cam": 29.6,
+   "look": "paul",
+   "zoom": 17.689,
+   "moved": true
+  }
+ ],
+ "lines": [
+  {
+   "n": 0,
+   "who": "emil",
+   "voice": "Liam",
+   "fx": null,
+   "text": "Da! Wir müssen rein!",
+   "t0": 3.95,
+   "dur": 1.44,
+   "stretch": false
+  },
+  {
+   "n": 1,
+   "who": "lena",
+   "voice": "Elli",
+   "fx": null,
+   "text": "Wartet.",
+   "t0": 8.45,
+   "dur": 0.32,
+   "stretch": false
+  },
+  {
+   "n": 2,
+   "who": "lena",
+   "voice": "Elli",
+   "fx": null,
+   "text": "Der hat keine Lok.",
+   "t0": 9.75,
+   "dur": 1.44,
+   "stretch": false
+  },
+  {
+   "n": 3,
+   "who": "schaffner",
+   "voice": "Clyde",
+   "fx": null,
+   "text": "Heute braucht er keine.",
+   "t0": 15.55,
+   "dur": 1.22,
+   "stretch": false
+  },
+  {
+   "n": 4,
+   "who": "paul",
+   "voice": "Harry",
+   "fx": null,
+   "text": "Woher kennt der mich?",
+   "t0": 23.25,
+   "dur": 1.22,
+   "stretch": false
+  }
+ ],
+ "speakers": {
+  "emil": {
+   "voice": "Liam",
+   "fx": null,
+   "color": "#ffd84a"
+  },
+  "lena": {
+   "voice": "Elli",
+   "fx": null,
+   "color": "#7fe3ff"
+  },
+  "schaffner": {
+   "voice": "Clyde",
+   "fx": null,
+   "color": "#ff9ad0"
+  },
+  "paul": {
+   "voice": "Harry",
+   "fx": null,
+   "color": "#ffffff"
+  }
+ },
+ "events": [
+  [
+   "run",
+   0,
+   1
+  ],
+  [
+   "siren",
+   0,
+   0.8
+  ],
+  [
+   "explosion",
+   1.22,
+   1
+  ],
+  [
+   "whoosh",
+   2.85
+  ],
+  [
+   "latch",
+   2.93,
+   1
+  ],
+  [
+   "creak",
+   3.05,
+   0.8
+  ],
+  [
+   "warm",
+   3.15,
+   1
+  ],
+  [
+   "zoom",
+   3.83
+  ],
+  [
+   "whoosh",
+   5.39
+  ],
+  [
+   "pant",
+   5.44,
+   1
+  ],
+  [
+   "zoom",
+   8
+  ],
+  [
+   "pant_soft",
+   8,
+   1
+  ],
+  [
+   "zoom",
+   8.35
+  ],
+  [
+   "zoom",
+   8.77
+  ],
+  [
+   "whoosh",
+   9.5
+  ],
+  [
+   "whoosh",
+   11.19
+  ],
+  [
+   "wind",
+   11.19,
+   1
+  ],
+  [
+   "chain",
+   11.79,
+   1
+  ],
+  [
+   "whoosh",
+   13.75
+  ],
+  [
+   "steps",
+   13.8,
+   0.9
+  ],
+  [
+   "whoosh",
+   15.4
+  ],
+  [
+   "zoom",
+   16.77
+  ],
+  [
+   "sting",
+   16.77,
+   0.55
+  ],
+  [
+   "whoosh",
+   18.6
+  ],
+  [
+   "pant",
+   18.8,
+   0.7
+  ],
+  [
+   "whoosh",
+   20
+  ],
+  [
+   "paper",
+   21,
+   1
+  ],
+  [
+   "punch",
+   21.6
+  ],
+  [
+   "heart",
+   22,
+   0.8
+  ],
+  [
+   "heart",
+   22.85,
+   0.9
+  ],
+  [
+   "zoom",
+   23.1
+  ],
+  [
+   "zoom",
+   24.47
+  ],
+  [
+   "whoosh",
+   24.85
+  ],
+  [
+   "whistle",
+   25.23,
+   1
+  ],
+  [
+   "whoosh",
+   26.2
+  ],
+  [
+   "slam",
+   26.5,
+   1
+  ],
+  [
+   "slam_far",
+   26.75,
+   1
+  ],
+  [
+   "slam_far",
+   27.02,
+   0.7
+  ],
+  [
+   "clank",
+   27.2,
+   1
+  ],
+  [
+   "zoom",
+   27.3
+  ],
+  [
+   "gasp",
+   27.32,
+   1
+  ],
+  [
+   "pant_fast",
+   27.65,
+   1
+  ],
+  [
+   "zoom",
+   29.6
+  ]
+ ]
+}

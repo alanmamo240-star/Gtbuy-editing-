@@ -1,0 +1,35 @@
+{
+ "Liam": {
+  "lines": [
+   0
+  ],
+  "chars": 20,
+  "file": "audio/vo_Liam.mp3",
+  "script": "script_Liam.txt"
+ },
+ "Elli": {
+  "lines": [
+   1,
+   2
+  ],
+  "chars": 27,
+  "file": "audio/vo_Elli.mp3",
+  "script": "script_Elli.txt"
+ },
+ "Clyde": {
+  "lines": [
+   3
+  ],
+  "chars": 23,
+  "file": "audio/vo_Clyde.mp3",
+  "script": "script_Clyde.txt"
+ },
+ "Harry": {
+  "lines": [
+   4
+  ],
+  "chars": 21,
+  "file": "audio/vo_Harry.mp3",
+  "script": "script_Harry.txt"
+ }
+}
