@@ -43,7 +43,7 @@
    "who": "emil",
    "text": "Keiner | bleibt hier!",
    "t0": 4.8,
-   "t1": 6.031,
+   "t1": 5.8,
    "cam": 4.6,
    "look": "H_emilC",
    "zoom": 38,
@@ -52,9 +52,9 @@
   {
    "i": 4,
    "type": "hold",
-   "t0": 6.031,
+   "t0": 5.8,
    "t1": 8,
-   "cam": 6.031,
+   "cam": 5.8,
    "look": "sideDoor",
    "zoom": 54,
    "moved": true
@@ -66,7 +66,7 @@
    "t1": 9.2,
    "cam": 8,
    "look": "sideDoor",
-   "zoom": 52.724088,
+   "zoom": 52.574400000000004,
    "moved": true
   },
   {
@@ -85,7 +85,7 @@
    "who": "lena_x",
    "text": "Nicht | umdrehen!",
    "t0": 11.2,
-   "t1": 12.154,
+   "t1": 12.29,
    "cam": 10.6,
    "look": "lenaRun",
    "zoom": 40,
@@ -94,11 +94,11 @@
   {
    "i": 8,
    "type": "hold",
-   "t0": 12.154,
+   "t0": 12.29,
    "t1": 13.6,
-   "cam": 12.154,
+   "cam": 12.29,
    "look": "lenaRun",
-   "zoom": 39.25408,
+   "zoom": 39.1888,
    "moved": true
   },
   {
@@ -137,7 +137,7 @@
    "who": "paul_x",
    "text": "Alle da?",
    "t0": 20.6,
-   "t1": 21.232,
+   "t1": 21.28,
    "cam": 20.45,
    "look": "paul_x",
    "zoom": 32,
@@ -146,9 +146,9 @@
   {
    "i": 13,
    "type": "hold",
-   "t0": 21.232,
+   "t0": 21.28,
    "t1": 23.4,
-   "cam": 21.232,
+   "cam": 21.28,
    "look": "three",
    "zoom": 62,
    "moved": true
@@ -182,7 +182,7 @@
    "fx": null,
    "text": "Keiner bleibt hier!",
    "t0": 4.8,
-   "dur": 1.231,
+   "dur": 1,
    "stretch": false
   },
   {
@@ -192,7 +192,7 @@
    "fx": null,
    "text": "Nicht umdrehen!",
    "t0": 11.2,
-   "dur": 0.954,
+   "dur": 1.09,
    "stretch": false
   },
   {
@@ -202,7 +202,7 @@
    "fx": null,
    "text": "Alle da?",
    "t0": 20.6,
-   "dur": 0.632,
+   "dur": 0.68,
    "stretch": false
   }
  ],
@@ -278,7 +278,7 @@
   ],
   [
    "whoosh",
-   6.031
+   5.8
   ],
   [
    "zoom",
@@ -443,13 +443,13 @@
    0.73
   ],
   [
-   "zoom",
-   12.154
-  ],
-  [
    "step",
    12.158,
    0.59
+  ],
+  [
+   "zoom",
+   12.29
   ],
   [
    "step",
@@ -869,11 +869,11 @@
   ],
   [
    "zoom",
-   21.232
+   21.28
   ],
   [
    "pant_soft",
-   21.432,
+   21.48,
    1
   ],
   [

@@ -23,7 +23,7 @@
    "who": "handy",
    "text": "Bleiben Sie drinnen. | Öffnen Sie niemandem.",
    "t0": 2.6,
-   "t1": 5.597,
+   "t1": 4.75,
    "cam": 2.25,
    "look": "maxPhone",
    "zoom": 24,
@@ -32,9 +32,9 @@
   {
    "i": 2,
    "type": "hold",
-   "t0": 5.597,
+   "t0": 4.75,
    "t1": 8,
-   "cam": 5.597,
+   "cam": 4.75,
    "look": "table",
    "zoom": 50,
    "moved": true
@@ -55,7 +55,7 @@
    "who": "aussen",
    "text": "Ben? | Ich habe den Schlüssel | vergessen.",
    "t0": 9.5,
-   "t1": 11.964,
+   "t1": 11.97,
    "cam": 9.4,
    "look": "door",
    "zoom": 33.048,
@@ -64,11 +64,11 @@
   {
    "i": 5,
    "type": "hold",
-   "t0": 11.964,
+   "t0": 11.97,
    "t1": 12.4,
-   "cam": 11.964,
+   "cam": 11.97,
    "look": "door",
-   "zoom": 31.353298560000002,
+   "zoom": 31.349332800000003,
    "moved": true
   },
   {
@@ -77,7 +77,7 @@
    "who": "max",
    "text": "Das ist | deine Stimme.",
    "t0": 12.4,
-   "t1": 13.487,
+   "t1": 13.57,
    "cam": 12.2,
    "look": "max",
    "zoom": 30,
@@ -86,9 +86,9 @@
   {
    "i": 7,
    "type": "hold",
-   "t0": 13.487,
+   "t0": 13.57,
    "t1": 20,
-   "cam": 13.487,
+   "cam": 13.57,
    "look": "two",
    "zoom": 70,
    "moved": true
@@ -109,7 +109,7 @@
    "who": "doppel",
    "text": "Ich weiß, | dass du mich siehst.",
    "t0": 22.3,
-   "t1": 24.152,
+   "t1": 23.996,
    "cam": 22.2,
    "look": "H_dop",
    "zoom": 89.5712,
@@ -118,11 +118,11 @@
   {
    "i": 10,
    "type": "hold",
-   "t0": 24.152,
+   "t0": 23.996,
    "t1": 27,
-   "cam": 24.152,
+   "cam": 23.996,
    "look": "H_dop",
-   "zoom": 87.4730842112,
+   "zoom": 87.6407614976,
    "moved": true
   },
   {
@@ -154,7 +154,7 @@
    "fx": "phone",
    "text": "Bleiben Sie drinnen. Öffnen Sie niemandem.",
    "t0": 2.6,
-   "dur": 2.997,
+   "dur": 2.15,
    "stretch": false
   },
   {
@@ -164,7 +164,7 @@
    "fx": "door",
    "text": "Ben? Ich habe den Schlüssel vergessen.",
    "t0": 9.5,
-   "dur": 2.464,
+   "dur": 2.47,
    "stretch": false
   },
   {
@@ -174,7 +174,7 @@
    "fx": null,
    "text": "Das ist deine Stimme.",
    "t0": 12.4,
-   "dur": 1.087,
+   "dur": 1.17,
    "stretch": false
   },
   {
@@ -184,7 +184,7 @@
    "fx": "door",
    "text": "Ich weiß, dass du mich siehst.",
    "t0": 22.3,
-   "dur": 1.852,
+   "dur": 1.696,
    "stretch": false
   }
  ],
@@ -227,7 +227,7 @@
   ],
   [
    "whoosh",
-   5.597
+   4.75
   ],
   [
    "whoosh",
@@ -244,7 +244,7 @@
   ],
   [
    "whoosh",
-   11.964
+   11.97
   ],
   [
    "whoosh",
@@ -252,7 +252,7 @@
   ],
   [
    "whoosh",
-   13.487
+   13.57
   ],
   [
    "chairscrape",
@@ -289,7 +289,7 @@
   ],
   [
    "zoom",
-   24.152
+   23.996
   ],
   [
    "whoosh_long",

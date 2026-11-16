@@ -23,7 +23,7 @@
    "who": "paul",
    "text": "Die geht | nicht mehr auf!",
    "t0": 4.3,
-   "t1": 5.429,
+   "t1": 5.48,
    "cam": 4.1,
    "look": "paul",
    "zoom": 34,
@@ -32,9 +32,9 @@
   {
    "i": 2,
    "type": "hold",
-   "t0": 5.429,
+   "t0": 5.48,
    "t1": 8,
-   "cam": 5.579,
+   "cam": 5.63,
    "look": "H_aisle",
    "zoom": 42,
    "moved": true
@@ -55,7 +55,7 @@
    "who": "lena",
    "text": "Hier stehen | unsere Namen.",
    "t0": 10.15,
-   "t1": 11.721,
+   "t1": 11.61,
    "cam": 10.05,
    "look": "lenaCam",
    "zoom": 29.262,
@@ -66,9 +66,9 @@
    "type": "say",
    "who": "emil",
    "text": "Und wann | kommen wir an?",
-   "t0": 11.721,
-   "t1": 13.045,
-   "cam": 11.521,
+   "t0": 11.61,
+   "t1": 12.77,
+   "cam": 11.41,
    "look": "emil",
    "zoom": 28,
    "moved": true
@@ -76,11 +76,11 @@
   {
    "i": 6,
    "type": "hold",
-   "t0": 13.045,
+   "t0": 12.77,
    "t1": 17.6,
-   "cam": 13.045,
+   "cam": 12.77,
    "look": "ticketsHeld",
-   "zoom": 24,
+   "zoom": 27,
    "moved": true
   },
   {
@@ -109,7 +109,7 @@
    "who": "schaffner",
    "text": "Bitte sitzen bleiben. | Die Toten | steigen zuerst aus.",
    "t0": 22.3,
-   "t1": 25.882,
+   "t1": 25.32,
    "cam": 22.05,
    "look": "speaker",
    "zoom": 18,
@@ -118,9 +118,9 @@
   {
    "i": 10,
    "type": "hold",
-   "t0": 25.882,
+   "t0": 25.32,
    "t1": 28,
-   "cam": 25.932,
+   "cam": 25.37,
    "look": "emil",
    "zoom": 30,
    "moved": true
@@ -154,7 +154,7 @@
    "fx": null,
    "text": "Die geht nicht mehr auf!",
    "t0": 4.3,
-   "dur": 1.129,
+   "dur": 1.18,
    "stretch": false
   },
   {
@@ -164,7 +164,7 @@
    "fx": null,
    "text": "Hier stehen unsere Namen.",
    "t0": 10.15,
-   "dur": 1.571,
+   "dur": 1.46,
    "stretch": false
   },
   {
@@ -173,8 +173,8 @@
    "voice": "emil",
    "fx": null,
    "text": "Und wann kommen wir an?",
-   "t0": 11.721,
-   "dur": 1.324,
+   "t0": 11.61,
+   "dur": 1.16,
    "stretch": false
   },
   {
@@ -184,7 +184,7 @@
    "fx": "radio",
    "text": "Bitte sitzen bleiben. Die Toten steigen zuerst aus.",
    "t0": 22.3,
-   "dur": 3.582,
+   "dur": 3.02,
    "stretch": false
   }
  ],
@@ -262,7 +262,7 @@
   ],
   [
    "whoosh",
-   5.579
+   5.63
   ],
   [
    "knips",
@@ -299,7 +299,7 @@
   ],
   [
    "whoosh",
-   11.521
+   11.41
   ],
   [
    "knips",
@@ -308,7 +308,12 @@
   ],
   [
    "whoosh",
-   13.045
+   12.77
+  ],
+  [
+   "heart",
+   13.67,
+   0.7
   ],
   [
    "knips",
@@ -317,12 +322,7 @@
   ],
   [
    "heart",
-   13.945,
-   0.7
-  ],
-  [
-   "heart",
-   14.845,
+   14.57,
    0.8
   ],
   [
@@ -332,7 +332,7 @@
   ],
   [
    "heart",
-   15.745,
+   15.47,
    0.9
   ],
   [
@@ -409,7 +409,7 @@
   ],
   [
    "whoosh",
-   25.932
+   25.37
   ],
   [
    "stumble",

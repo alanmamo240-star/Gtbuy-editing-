@@ -11,3 +11,7 @@ voices_piper/
 */node_modules
 gallery/
 __pycache__/
+*/timeline.old.json
+*/timings.old.json
+*/rerender.json
+queue*.log

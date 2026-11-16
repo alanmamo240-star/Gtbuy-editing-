@@ -1,0 +1,186 @@
+{
+ "paul": [
+  {
+   "ep": "zug-2",
+   "n": 0,
+   "who": "paul",
+   "text": "Die geht nicht mehr auf!"
+  },
+  {
+   "ep": "zug-3",
+   "n": 1,
+   "who": "paul",
+   "text": "Raus! Sofort!"
+  },
+  {
+   "ep": "zug-3",
+   "n": 3,
+   "who": "paul",
+   "text": "Einer muss ihn halten."
+  },
+  {
+   "ep": "zug-4",
+   "n": 2,
+   "who": "paul_x",
+   "text": "Alle da?"
+  }
+ ],
+ "lena": [
+  {
+   "ep": "zug-2",
+   "n": 1,
+   "who": "lena",
+   "text": "Hier stehen unsere Namen."
+  },
+  {
+   "ep": "zug-3",
+   "n": 0,
+   "who": "lena",
+   "text": "„Bei rotem Signal bleibt er stehen.“"
+  },
+  {
+   "ep": "zug-4",
+   "n": 1,
+   "who": "lena_x",
+   "text": "Nicht umdrehen!"
+  }
+ ],
+ "emil": [
+  {
+   "ep": "zug-2",
+   "n": 2,
+   "who": "emil",
+   "text": "Und wann kommen wir an?"
+  },
+  {
+   "ep": "zug-3",
+   "n": 2,
+   "who": "emil",
+   "text": "Paul! Komm!"
+  },
+  {
+   "ep": "zug-4",
+   "n": 0,
+   "who": "emil",
+   "text": "Keiner bleibt hier!"
+  }
+ ],
+ "schaffner": [
+  {
+   "ep": "zug-2",
+   "n": 3,
+   "who": "schaffner",
+   "text": "Bitte sitzen bleiben. Die Toten steigen zuerst aus."
+  }
+ ],
+ "durchsage": [
+  {
+   "ep": "stadt-1",
+   "n": 0,
+   "who": "handy",
+   "text": "Bleiben Sie drinnen. Öffnen Sie niemandem."
+  },
+  {
+   "ep": "stadt-2",
+   "n": 2,
+   "who": "lautsprecher",
+   "text": "Bitte begrüßen Sie Ihre Nachfolger."
+  }
+ ],
+ "ben": [
+  {
+   "ep": "stadt-1",
+   "n": 1,
+   "who": "aussen",
+   "text": "Ben? Ich habe den Schlüssel vergessen."
+  },
+  {
+   "ep": "stadt-1",
+   "n": 3,
+   "who": "doppel",
+   "text": "Ich weiß, dass du mich siehst."
+  },
+  {
+   "ep": "stadt-2",
+   "n": 0,
+   "who": "ben",
+   "text": "Zur Brücke! Schnell!"
+  },
+  {
+   "ep": "stadt-3",
+   "n": 2,
+   "who": "ben",
+   "text": "Da rein."
+  },
+  {
+   "ep": "stadt-3",
+   "n": 4,
+   "who": "draussen",
+   "text": "Ich helfe euch raus."
+  },
+  {
+   "ep": "stadt-4",
+   "n": 2,
+   "who": "ben_r",
+   "text": "Lauf weiter!"
+  }
+ ],
+ "max": [
+  {
+   "ep": "stadt-1",
+   "n": 2,
+   "who": "max",
+   "text": "Das ist deine Stimme."
+  },
+  {
+   "ep": "stadt-2",
+   "n": 1,
+   "who": "max",
+   "text": "Warum sehen die aus wie wir?"
+  },
+  {
+   "ep": "stadt-3",
+   "n": 0,
+   "who": "max",
+   "text": "Welche ist echt?"
+  },
+  {
+   "ep": "stadt-3",
+   "n": 3,
+   "who": "max",
+   "text": "Tageslicht!"
+  },
+  {
+   "ep": "stadt-4",
+   "n": 1,
+   "who": "max_r",
+   "text": "Sind wir jetzt draußen?"
+  }
+ ],
+ "nina": [
+  {
+   "ep": "stadt-2",
+   "n": 3,
+   "who": "nina",
+   "text": "Hier runter!"
+  },
+  {
+   "ep": "stadt-2",
+   "n": 4,
+   "who": "nina2",
+   "text": "Hier seid ihr also."
+  },
+  {
+   "ep": "stadt-3",
+   "n": 1,
+   "who": "nina",
+   "text": "Sie machen uns nur nach."
+  },
+  {
+   "ep": "stadt-4",
+   "n": 0,
+   "who": "nina",
+   "text": "Nicht zu ihm. Hier lang!"
+  }
+ ]
+}

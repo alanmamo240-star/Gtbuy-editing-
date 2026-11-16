@@ -33,7 +33,7 @@
    "who": "ben",
    "text": "Zur Brücke! | Schnell!",
    "t0": 4.6,
-   "t1": 6.152,
+   "t1": 6.04,
    "cam": 4.4,
    "look": "ben",
    "zoom": 34,
@@ -42,9 +42,9 @@
   {
    "i": 3,
    "type": "hold",
-   "t0": 6.152,
+   "t0": 6.04,
    "t1": 8,
-   "cam": 6.152,
+   "cam": 6.04,
    "look": "point",
    "zoom": 56,
    "moved": true
@@ -65,7 +65,7 @@
    "who": "max",
    "text": "Warum sehen die | aus wie wir?",
    "t0": 10.6,
-   "t1": 12.112,
+   "t1": 12.2,
    "cam": 10.4,
    "look": "max",
    "zoom": 32,
@@ -74,11 +74,11 @@
   {
    "i": 6,
    "type": "hold",
-   "t0": 12.112,
+   "t0": 12.2,
    "t1": 12.7,
-   "cam": 12.112,
+   "cam": 12.2,
    "look": "max",
-   "zoom": 31.342592,
+   "zoom": 31.3088,
    "moved": true
   },
   {
@@ -87,7 +87,7 @@
    "who": "lautsprecher",
    "text": "Bitte begrüßen Sie | Ihre Nachfolger.",
    "t0": 12.7,
-   "t1": 14.95,
+   "t1": 15.168,
    "cam": 12.4,
    "look": "horn",
    "zoom": 26,
@@ -96,9 +96,9 @@
   {
    "i": 8,
    "type": "hold",
-   "t0": 14.95,
+   "t0": 15.168,
    "t1": 20,
-   "cam": 14.95,
+   "cam": 15.168,
    "look": "alleyEnd",
    "zoom": 44,
    "moved": true
@@ -119,7 +119,7 @@
    "who": "nina",
    "text": "Hier runter!",
    "t0": 20.75,
-   "t1": 21.475,
+   "t1": 21.55,
    "cam": 20.65,
    "look": "ninaDoor",
    "zoom": 39.688,
@@ -128,9 +128,9 @@
   {
    "i": 11,
    "type": "hold",
-   "t0": 21.475,
+   "t0": 21.55,
    "t1": 24.6,
-   "cam": 21.475,
+   "cam": 21.55,
    "look": "H_up",
    "zoom": 52,
    "moved": true
@@ -151,7 +151,7 @@
    "who": "nina2",
    "text": "Hier seid | ihr also.",
    "t0": 26.2,
-   "t1": 27.445,
+   "t1": 27.296,
    "cam": 26.1,
    "look": "H_ninaStair",
    "zoom": 42.68000000000001,
@@ -160,11 +160,11 @@
   {
    "i": 14,
    "type": "hold",
-   "t0": 27.445,
+   "t0": 27.296,
    "t1": 29.6,
-   "cam": 27.445,
+   "cam": 27.296,
    "look": "H_ninaStair",
-   "zoom": 41.53190800000001,
+   "zoom": 41.65909440000001,
    "moved": true
   },
   {
@@ -174,7 +174,7 @@
    "t1": 30,
    "cam": 29.6,
    "look": "H_ninaStair",
-   "zoom": 39.74188276520001,
+   "zoom": 39.739443330048005,
    "moved": true
   }
  ],
@@ -186,7 +186,7 @@
    "fx": null,
    "text": "Zur Brücke! Schnell!",
    "t0": 4.6,
-   "dur": 1.552,
+   "dur": 1.44,
    "stretch": false
   },
   {
@@ -196,7 +196,7 @@
    "fx": null,
    "text": "Warum sehen die aus wie wir?",
    "t0": 10.6,
-   "dur": 1.512,
+   "dur": 1.6,
    "stretch": false
   },
   {
@@ -206,7 +206,7 @@
    "fx": "radio",
    "text": "Bitte begrüßen Sie Ihre Nachfolger.",
    "t0": 12.7,
-   "dur": 2.25,
+   "dur": 2.468,
    "stretch": false
   },
   {
@@ -216,7 +216,7 @@
    "fx": null,
    "text": "Hier runter!",
    "t0": 20.75,
-   "dur": 0.725,
+   "dur": 0.8,
    "stretch": false
   },
   {
@@ -226,7 +226,7 @@
    "fx": null,
    "text": "Hier seid ihr also.",
    "t0": 26.2,
-   "dur": 1.245,
+   "dur": 1.096,
    "stretch": false
   }
  ],
@@ -353,7 +353,7 @@
   ],
   [
    "whoosh",
-   6.152
+   6.04
   ],
   [
    "step",
@@ -565,7 +565,7 @@
   ],
   [
    "whoosh",
-   12.112
+   12.2
   ],
   [
    "whoosh",
@@ -578,7 +578,7 @@
   ],
   [
    "whoosh",
-   14.95
+   15.168
   ],
   [
    "stepw",
@@ -610,12 +610,12 @@
    20
   ],
   [
-   "whoosh",
+   "zoom",
    20.65
   ],
   [
    "whoosh",
-   21.475
+   21.55
   ],
   [
    "stepw",
@@ -657,11 +657,11 @@
   ],
   [
    "zoom",
-   27.445
+   27.296
   ],
   [
    "sting",
-   27.845,
+   27.696,
    0.7
   ],
   [

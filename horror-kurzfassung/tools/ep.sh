@@ -1,9 +1,11 @@
 #!/bin/bash
 # Run a tool for one episode folder. Each episode is served by its own local web server.
 #   tools/ep.sh zug-2 snap info|beats|range a b|<times>     -> snapshots / beat table   (env SCALE, NOTIMINGS)
-#   tools/ep.sh zug-2 tts            -> local German voices (Piper) for every line + timings.json
-#   tools/ep.sh zug-2 voice          -> cut a Nixly recording per voice into lines (kit voice.py)
-#   tools/ep.sh zug-2 mix            -> audio/mix.wav
+#   Voices for zug-2..4 and stadt-1..4 (run in horror-kurzfassung/): one Nixly recording per speaker in nixly/ (see
+#   voices_all.json), then python3 tools/asr.py (word times) and python3 tools/splitall.py -> every episode's lines + timings.json
+#   tools/ep.sh zug-2 tts            -> old local German voices (Piper), only as a fallback
+#   tools/ep.sh zug-2 mix            -> audio/mix.wav (voices, story effects, Nixly music; no camera whooshes)
+#   tools/ep.sh zug-2 remux          -> swap the audio of the finished mp4 for audio/mix.wav
 #   tools/ep.sh zug-2 render [N]     -> frames/ with N workers (default 2), resumable
 #   tools/ep.sh zug-2 encode         -> ../der_zug_ohne_morgen_folge2.mp4
 #   tools/ep.sh zug-2 all            -> snap info, tts, snap info, mix, render, encode
