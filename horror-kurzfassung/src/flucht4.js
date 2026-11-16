@@ -7,6 +7,7 @@ import { river, flashlight, keyed } from './fluchtsets.js';
 import { loadTimings, sequencer, mover, runPath, breathPuffs } from './lib.js';
 import { THREE, rbox, plane, flat, noOutline, sameId, grp, rad } from './util.js';
 
+const clock = (h, m, t) => { const mm = m + Math.floor(t / 60); return `${String(h + Math.floor(mm / 60)).padStart(2, '0')}:${String(mm % 60).padStart(2, '0')}`; };
 const TM = await loadTimings();
 await Promise.all([700, 800, 900].map(w => document.fonts.load(`${w} 40px Rubik`)));
 
@@ -50,6 +51,7 @@ const S = story({
   badge: { title: 'FOLGE 4', label: 'Flucht aus Aschental –', value: 'DER STEG', until: 3.6 },
   speakers: { luca: { color: '#ffffff', voice: 'liam' }, mira: { color: '#ffd84a', voice: 'elli' }, bruder: { color: '#ff9a6a', voice: 'harry' }, elias: { color: '#ff9ad0', voice: 'harry', fx: 'far' }, off: { color: '#ff8a7a', voice: 'callum', fx: 'radio' } },
   pov: { phone: true, name: 'Luca', skin: 'light', top: '#3d6a8a' },
+  infobar: t => `ASCHENTAL · ${t < 25.6 ? 'ALTER STEG' : 'AUF DEM FLUSS'} · DI ${clock(5, 58, t)}`,
   phone: { name: 'Elias', color: '#8a2a2e', clock: '05:58', history: [{ me: false, text: 'Da, wo Papa uns Schwimmen beigebracht hat.' }, { me: false, text: 'Weil du vor zwei Wochen weg warst.' }, { me: false, text: 'Weißt du das nicht mehr?' }] },
   povPath: t => { const [bx, bz] = boatAt(t); S.targets.down = [bx, SEAT - 0.05, bz + CAMZ - 0.62]; S.targets.H_bruderB = [bx - 0.08, SEAT + 0.95, bz + BRZ]; S.targets.H_miraB = [bx + MIX, SEAT + 0.92, bz + MIZ]; return walk(t) || board(t) || inBoat(t); },
   vars: { phone: 1, row: 0 },
@@ -99,7 +101,7 @@ say('mira', 'Luca. | Wo ist | dein Atem?', { look: 'H_miraB', zoom: 42, camAt: -
 hold(49.1, {});
 say('luca', 'Ich atme doch. | Ich… | atme doch.', { look: 'down', zoom: 70, camAt: -0.2, camDur: 0.5 });
 hold(51.8, { look: 'H_bruderB', zoom: 56, camDur: 0.45, do: { bruder: { pose: PHONE, face: 'sad', t: 0, dur: 0.5 } } });
-phone({ events: [{ in: 'Ich wollte es dir nicht sagen.', hold: 1.9 }, { in: 'Sie haben dich vor zwei Wochen zurückgeschickt.', hot: 'Du bist die Kopie.', hold: 3.0 }] });
+phone({ low: true, look: 'H_bruderB', zoom: 52, events: [{ in: 'Ich wollte es dir nicht sagen.', hold: 1.8 }, { in: 'Sie haben dich vor zwei Wochen zurückgeschickt.', hold: 2.2 }, { in: 'Du bist die Kopie.', alert: true, hold: 2.0 }] });
 hold(59.2, { look: 'H_bruderB', zoom: 38, camDur: 0.4, push: 0.02, sfx: [['sting', 0.1, 0.8]], do: { bruder: { pose: SITM, face: 'sad', t: 0.4, dur: 0.6 } } });
 say('luca', 'Nein. | Ich bin | Luca.', { look: 'H_bruderB', zoom: 44 });
 // 00:61–01:20 · from the fog behind: the man in the coat. The other Elias at the end of the jetty. Your hands.

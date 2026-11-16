@@ -104,7 +104,7 @@ async function boot(S, phone, povBody) {
   let cur = { set: cfg.set, look: cfg.look || [0, 1.2, -10], zoom: 'medium' };
   for (const b of B) {
     b.set ||= cur.set; b.setChanged = prev && b.set !== cur.set; if (b.setChanged || !prev) b.povPos = b.pov || b.set.pov || [0, 1.5, 3]; else b.povPos = b.pov || prev.povPos;
-    if (b.type === 'phone') { b.look = b.look ?? cur.look; b.zoom = b.zoom ?? 'phone'; b.isPhone = true; }
+    if (b.type === 'phone') { b.look = b.look ?? cur.look; if (!b.low) { b.zoom = b.zoom ?? 'phone'; b.isPhone = true; } }   // low: the phone stays in your hand at the bottom, the scene goes on
     if (b.type === 'choice') { b.look = cur.look; b.zoom = cur.zoom; }
     b.look = b.look ?? (b.setChanged ? (b.set.look || [0, 1.2, -10]) : cur.look); b.zoom = b.zoom ?? cur.zoom;
     b.camChanged = !prev || b.setChanged || b.look !== cur.look || b.zoom !== cur.zoom || b.isPhone !== !!prev.isPhone || (b.pov && b.pov !== prev.povPos);
@@ -211,14 +211,15 @@ async function boot(S, phone, povBody) {
         if (t < b.t1 + 0.35) { banner = { name: 'Du', letter: (cfg.pov?.name || 'Du')[0].toUpperCase(), color: '#7d9bff', text: sent ? e.type : e.type.slice(0, Math.max(1, n)), status: sent ? 'gesendet ✓' : 'schreibt …', statusColor: '#2f7bf6' }; bk = clamp((t - te) / 0.13); }
         if (sent) { msgs.push({ me: true, text: e.type, style: e.style, k: (t - ts) / 0.17 }); delivered = clamp((t - ts - 0.2) / 0.15); } else delivered = 0; }
       else { if (e.stamp) msgs.push({ stamp: e.stamp, k: 1 }); msgs.push({ me: false, text: e.in + (e.hot ? ' ' + e.hot : ''), style: e.style, k: (t - te - 0.03) / 0.17 }); delivered = 0;
-        if (t < b.t1 + 0.35) { banner = { name: cfgP.name || 'Zoe', color: cfgP.color, text: e.in, hot: e.hot, status: cfgP.clock || '10:55', statusColor: '#e23b3b' }; bk = clamp((t - te) / 0.13); } }
+        if (t < b.t1 + 0.35) { banner = { name: cfgP.name || 'Zoe', color: cfgP.color, text: e.in, hot: e.hot, alert: e.alert, status: cfgP.clock || '10:55', statusColor: '#e23b3b' }; bk = clamp((t - te) / 0.13); } }
     }
     const last = phoneBeats.filter(b => b.t0 <= t).pop(); if (last && t > last.t1) { const nb = camBeats.find(c => c.camAtT >= last.t1 - 0.01); const tOut = nb ? nb.camAtT : last.t1; bk *= 1 - clamp((t - tOut) / 0.12); }
     return { msgs, banner, bk, draft, delivered };
   }
 
   // ---- frame
-  const P_LOW = { p: [0.185, -0.41, -0.36], r: [-0.62, -0.25, 0.5] }, P_UP = { p: [-0.011, -0.012, -0.212], r: [0.02, 0.13, -0.035] };
+  const P_LOW = { p: [0.185, -0.41, -0.36], r: [-0.62, -0.25, 0.5] }, P_UP = { p: [-0.011, -0.012, -0.212], r: [0.02, 0.13, -0.035] }, P_MID = { p: [0.07, -0.168, -0.33], r: [-0.42, -0.12, 0.1] };
+  const lowBeats = B.filter(b => b.type === 'phone' && b.low), lowK = t => Math.max(0, ...lowBeats.map(b => easeIO(clamp((t - b.t0) / 0.35)) * easeIO(clamp((b.t1 + 0.35 - t) / 0.35))));
   const qa = new THREE.Quaternion(), qb = new THREE.Quaternion(), ea = new THREE.Euler();
   function drawSet(set, t, pos, st, target, vars) {
     for (const c of Object.values(S.chars)) poseChar(c, t, set);
@@ -226,9 +227,10 @@ async function boot(S, phone, povBody) {
     const k = setCamera(pos, st.yaw, st.pitch, st.fov, st.roll, t, cfg.shake ?? 1);
     // phone in the hand
     const r = easeIO(st.phone); phone.g.visible = cfg.pov?.phone !== false && (varAt('phone', t, 1) > 0.5);
-    phone.g.position.set(lerp(P_LOW.p[0], P_UP.p[0], r), lerp(P_LOW.p[1], P_UP.p[1], r) + 0.004 * Math.sin(t * 1.3), lerp(P_LOW.p[2], P_UP.p[2], r));
-    qa.setFromEuler(ea.set(...P_LOW.r)); qb.setFromEuler(ea.set(...P_UP.r)); phone.g.quaternion.slerpQuaternions(qa, qb, r);
-    povBody.root.visible = st.phone > 0.02 || st.pitch < rad(-28); if (povBody.root.visible) { set.scene.add(povBody.root); const sit = pos[1] < 1.1; povBody.reset().pose(sit ? { hipY: 0.12, lean: -4, lL: [100, 9], kL: 62, lR: [96, 9], kR: 50 } : 'stand');
+    const lk = lowK(t), PL = { p: P_LOW.p.map((v, i) => lerp(v, P_MID.p[i], lk)), r: P_LOW.r.map((v, i) => lerp(v, P_MID.r[i], lk)) };
+    phone.g.position.set(lerp(PL.p[0], P_UP.p[0], r), lerp(PL.p[1], P_UP.p[1], r) + 0.004 * Math.sin(t * 1.3), lerp(PL.p[2], P_UP.p[2], r));
+    qa.setFromEuler(ea.set(...PL.r)); qb.setFromEuler(ea.set(...P_UP.r)); phone.g.quaternion.slerpQuaternions(qa, qb, r);
+    povBody.root.visible = st.phone > 0.02 || lk > 0.02 || st.pitch < rad(-28); if (povBody.root.visible) { set.scene.add(povBody.root); const sit = pos[1] < 1.1; povBody.reset().pose(sit ? { hipY: 0.12, lean: -4, lL: [100, 9], kL: 62, lR: [96, 9], kR: 50 } : 'stand');
       const fx = -Math.sin(st.yaw), fz = -Math.cos(st.yaw); povBody.place(pos[0] - fx * 0.1, pos[2] - fz * 0.1, st.yaw * 180 / Math.PI + 180, sit ? 0 : pos[1] - 1.58); }
     renderSet(set, target); return k;
   }
@@ -256,6 +258,7 @@ async function boot(S, phone, povBody) {
     }
     const ph = render3D(t); ctx.drawImage(glc, 0, 0);
     // overlay
+    if (cfg.infobar) U.drawInfo(ctx, out.width, out.height, typeof cfg.infobar === 'function' ? cfg.infobar(t) : cfg.infobar);
     const bd = cfg.badge; if (bd) U.drawBadge(ctx, out.width, out.height, bd, Math.min(clamp((t - 0.07) / 0.23), 1 - clamp((t - (bd.until ?? 3.5)) / 0.17)));
     U.drawBanner(ctx, out.width, out.height, ph.banner, ph.bk);
     const c = caps.find(c => t >= c.s && t < c.e);

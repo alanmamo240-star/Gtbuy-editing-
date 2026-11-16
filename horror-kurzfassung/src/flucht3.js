@@ -8,6 +8,7 @@ import { river, suitcase, flashlight, photoCard, car } from './fluchtsets.js';
 import { at } from './util.js';
 import { towards, loadTimings, sequencer, mover, runPath, breathPuffs } from './lib.js';
 
+const clock = (h, m, t) => { const mm = m + Math.floor(t / 60); return `${String(h + Math.floor(mm / 60)).padStart(2, '0')}:${String(mm % 60).padStart(2, '0')}`; };
 const TM = await loadTimings();
 await Promise.all([700, 800, 900].map(w => document.fonts.load(`${w} 40px Rubik`)));
 
@@ -59,6 +60,7 @@ const S = story({
   badge: { title: 'FOLGE 3', label: 'Flucht aus Aschental –', value: 'DIE BRÜCKE', until: 3.6 },
   speakers: { luca: { color: '#ffffff', voice: 'liam' }, mira: { color: '#ffd84a', voice: 'elli' }, elias: { color: '#ff9ad0', voice: 'harry', fx: 'far' }, off: { color: '#ff8a7a', voice: 'callum' } },
   pov: { phone: true, name: 'Luca', skin: 'light', top: '#3d6a8a' },
+  infobar: t => `ASCHENTAL · ${t < 44 ? 'ALTE BRÜCKE' : 'FLUSSUFER'} · MO ${clock(23, 51, t)}`,
   phone: { name: 'Elias', color: '#8a2a2e', clock: '23:51', history: [{ me: false, text: 'Spatz. Sie hat dich Spatz genannt.' }, { me: true, text: 'Er liest mit.' }, { me: false, text: 'Dann schreib ich nicht, wo.' }, { me: false, text: 'Da, wo Papa uns Schwimmen beigebracht hat.' }] },
   povPath: t => run1(t) || run2(t),
   vars: { phone: 1 },
@@ -99,7 +101,7 @@ say('mira', 'Luca, | die haben | dein Foto.', { look: 'mira', zoom: 42, camAt: -
 hold(33.4, {});
 say('mira', 'Warum | ausgerechnet dich?', { look: 'mira', zoom: 40 });
 hold(35.3, {});
-phone({ events: [{ in: 'Weil du vor zwei Wochen weg warst.', hot: 'Weißt du das nicht mehr?', hold: 2.6 }] });
+phone({ low: true, look: 'mira', zoom: 50, events: [{ in: 'Weil du vor zwei Wochen weg warst.', hold: 1.6 }, { in: 'Weißt du das nicht mehr?', alert: true, hold: 1.6 }] });
 say('luca', 'Ich war | nie weg.', { look: 'mira', zoom: 40, camAt: -0.1 });
 hold(42.0, { look: 'mira', zoom: 34, push: 0.02, sfx: [['heart', 0.4, 0.7], ['heart', 1.2, 0.75]], do: { mira: { face: 'worried', t: 0.2 } } });
 hold(44.0, { look: 'slope', zoom: 52, camDur: 0.4, sfx: [['stop_crowd', 0.2]], do: { s0: { look: 'pov', t: 0 }, s2: { look: 'pov', t: 0.3 } } });

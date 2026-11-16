@@ -30,6 +30,13 @@ export function drawTag(x, W, H, text, alpha = 1) {
   rr(x, cx - w / 2, cy - h / 2, w, h, 13 * s); x.fillStyle = 'rgba(18,22,58,0.92)'; x.fill(); x.lineWidth = 4 * s; x.strokeStyle = '#d5d8ff'; x.stroke();
   x.fillStyle = '#ffffff'; x.textBaseline = 'middle'; spaced(x, text, cx, cy + 2 * s, sp, 'f'); x.restore();
 }
+// top info line: "ASCHENTAL · HAUPTSTRASSE · MO 07:42" (place and time, always on)
+export function drawInfo(x, W, H, text) {
+  if (!text) return; const s = W / 1080; x.save(); x.textBaseline = 'middle'; x.textAlign = 'left'; x.lineJoin = 'round';
+  x.font = font(800, 31 * s); const X = 40 * s, Y = 62 * s, t = text.toUpperCase();
+  x.lineWidth = 7 * s; x.strokeStyle = 'rgba(10,12,30,0.85)'; spacedL(x, t, X, Y, 1.6 * s, 's'); x.fillStyle = '#ffffff'; spacedL(x, t, X, Y, 1.6 * s, 'f'); x.restore();
+}
+function spacedL(x, t, X, Y, sp, mode) { let cx = X; for (const ch of t) { if (mode === 's') x.strokeText(ch, cx, Y); else x.fillText(ch, cx, Y); cx += x.measureText(ch).width + sp; } }
 // top-left badge: "PART 2" + "You chose: KEEP IT LOCKED". k = 0..1 visibility
 export function drawBadge(x, W, H, b, k) {
   if (!b || k <= 0) return; const s = W / 1080, X = 46 * s, Y = 200 * s; x.save(); x.globalAlpha = clamp(k); x.lineJoin = 'round'; x.textBaseline = 'middle'; x.textAlign = 'left';
@@ -43,7 +50,14 @@ export function drawBadge(x, W, H, b, k) {
 function wrap(x, text, maxW) { const out = []; let line = ''; for (const w of text.split(' ')) { const t = line ? line + ' ' + w : w; if (x.measureText(t).width > maxW && line) { out.push(line); line = w; } else line = t; } if (line) out.push(line); return out; }
 // phone notification banner at the top of the frame. n = { name, letter, color, text, hot, status, statusColor }, k = pop 0..1
 export function drawBanner(x, W, H, n, k) {
-  if (!n || k <= 0) return; const s = W / 1080, X = 66 * s, w = 790 * s, Y = 202 * s - (1 - easeOut(k)) * 26 * s; x.save(); x.globalAlpha = clamp(k * 1.6);
+  if (!n || k <= 0) return;
+  if (n.alert) {   // red push banner for the one message that matters: "Elias · jetzt" / "DAS BIN NICHT ICH."
+    const s = W / 1080, X = 66 * s, w = 790 * s, Y = 202 * s - (1 - easeOut(k)) * 26 * s; x.save(); x.globalAlpha = clamp(k * 1.6);
+    x.font = font(900, 62 * s); const lines = wrap(x, (n.text || ' ').toUpperCase(), w - 64 * s).slice(0, 3), h = (84 + lines.length * 70 + 18) * s;
+    x.shadowColor = 'rgba(30,0,0,0.5)'; x.shadowBlur = 22 * s; x.shadowOffsetY = 8 * s; rr(x, X, Y, w, h, 22 * s); x.fillStyle = '#c9232c'; x.fill(); x.shadowColor = 'transparent'; x.lineWidth = 5 * s; x.strokeStyle = '#2a0508'; x.stroke();
+    x.fillStyle = '#ffffff'; x.textAlign = 'left'; x.textBaseline = 'middle'; x.font = font(800, 33 * s); x.fillText((n.name || '') + ' · jetzt', X + 32 * s, Y + 48 * s);
+    x.font = font(900, 62 * s); let y = Y + 118 * s; for (const L of lines) { x.fillText(L, X + 32 * s, y); y += 70 * s; } x.restore(); return;
+  } const s = W / 1080, X = 66 * s, w = 790 * s, Y = 202 * s - (1 - easeOut(k)) * 26 * s; x.save(); x.globalAlpha = clamp(k * 1.6);
   x.font = font(800, 49 * s); const lines = wrap(x, n.text || ' ', w - 64 * s).slice(0, 3), hotLines = n.hot ? wrap(x, n.hot, w - 64 * s) : [];
   const h = (96 + (lines.length + hotLines.length) * 57 + 22) * s;
   x.shadowColor = 'rgba(0,0,20,0.5)'; x.shadowBlur = 22 * s; x.shadowOffsetY = 8 * s; rr(x, X, Y, w, h, 24 * s); x.fillStyle = '#fbf8ee'; x.fill(); x.shadowColor = 'transparent'; x.lineWidth = 5 * s; x.strokeStyle = '#0d1020'; x.stroke();

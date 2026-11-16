@@ -6,6 +6,7 @@ import { CAST } from './cast.js';
 import { courtyard, hideout } from './fluchtsets.js';
 import { towards, loadTimings, sequencer, mover, runPath, breathPuffs } from './lib.js';
 
+const clock = (h, m, t) => { const mm = m + Math.floor(t / 60); return `${String(h + Math.floor(mm / 60)).padStart(2, '0')}:${String(mm % 60).padStart(2, '0')}`; };
 const TM = await loadTimings();
 await Promise.all([700, 800, 900].map(w => document.fonts.load(`${w} 40px Rubik`)));
 
@@ -47,6 +48,7 @@ const S = story({
   badge: { title: 'FOLGE 2', label: 'Flucht aus Aschental –', value: 'DER HOF', until: 3.6 },
   speakers: { luca: { color: '#ffffff', voice: 'liam' }, mira: { color: '#ffd84a', voice: 'elli' }, elias: { color: '#ff9ad0', voice: 'harry', fx: 'door' }, offizier: { color: '#ff8a7a', voice: 'callum', fx: 'far' } },
   pov: { phone: true, name: 'Luca', skin: 'light', top: '#3d6a8a' },
+  infobar: t => `ASCHENTAL · ${t < 7.6 ? 'HINTERHOF' : t < 55.2 ? 'WOHNUNG 4. OG' : 'DACH'} · MO ${clock(19, 12, t)}`,
   phone: { name: 'Elias', color: '#8a2a2e', clock: '19:12', history: [{ me: false, text: 'Bin raus. Alte Brücke.' }, { me: false, text: 'Komm allein.' }, { me: true, text: 'Mira kommt mit.' }, { me: false, text: 'Ich bin schon über der Brücke.' }, { me: false, text: 'Wer steht da bei dir?' }] },
   povPath: t => runH(t) || runW(t),
   vars: { phone: 1, hofDoor: 0, feet: 0, torch: 0, window: 0, sweep: 0, gapLight: 1 },
@@ -68,7 +70,7 @@ hold(9.4, { set: flat, look: 'door', zoom: 62, pov: F0, sfx: [['slam', 0.05, 0.3
 hold(11.0, { look: 'mira', zoom: 48, camDur: 0.4, vars: { sweep: [0, 0.6, 0.1] } });
 say('mira', 'Psst. | Hörst du das?', { look: 'mira', zoom: 50, do: { mira: [{ pose: LISTEN, t: 0.1, dur: 0.4 }, { look: 'door', t: 0.6 }] } });
 hold(14.2, { look: 'gap', zoom: 50, push: 0.02, sfx: [['stepw', 0.2, 0.5], ['stepw', 0.75, 0.55], ['stepw', 1.3, 0.6], ['stepw', 1.85, 0.6]], vars: { feet: [1, 0.6, 1.5] } });
-phone({ events: [{ in: 'Versteckt euch.', hold: 1.4 }, { in: 'Die gehen von Haus zu Haus.', hold: 1.7 }, { in: 'Er klopft dreimal.', hot: 'Mach nicht auf.', hold: 2.2 }] });
+phone({ low: true, look: 'door', zoom: 54, events: [{ in: 'Versteckt euch.', hold: 1.3 }, { in: 'Die gehen von Haus zu Haus.', hold: 1.5 }, { in: 'Er klopft dreimal.', hold: 1.3 }, { in: 'Mach nicht auf.', alert: true, hold: 1.6 }] });
 hold(22.0, { look: 'door', zoom: 52, camDur: 0.4, sfx: [['knock3', 0.25, 1.0]], do: { mira: [{ pose: 'stand', look: 'door', face: 'scared', t: 0.4, dur: 0.4 }] } });
 say('elias', 'Luca? | Ich bin es. | Mach auf.', { look: 'peep', zoom: 40, push: 0.02, tag: 'VOR DER TÜR' });
 hold(24.4, {});
@@ -78,7 +80,7 @@ say('elias', '…Luca.', { tag: 'VOR DER TÜR', look: 'peep', zoom: 26 });
 hold(28.8, {});
 say('mira', 'Falsch.', { look: 'mira', zoom: 48, camAt: -0.15, do: { mira: { look: 'pov', face: 'worried', t: 0, dur: 0.3 } } });
 hold(30.0, {});
-phone({ events: [{ in: 'Spatz. Sie hat dich Spatz genannt.', hold: 2.2 }] });
+phone({ low: true, look: 'door', zoom: 56, events: [{ in: 'Spatz. Sie hat dich Spatz genannt.', hold: 2.2 }] });
 hold(34.6, { look: 'door', zoom: 40, push: 0.03, sfx: [['heart', 0.3, 0.8], ['heart', 1.1, 0.85]] });
 say('elias', 'Spatz. | Mach auf, | Spatz.', { tag: 'VOR DER TÜR', look: 'peep', zoom: 30, sfx: [['sting', 0, 0.75]] });
 hold(36.4, {});

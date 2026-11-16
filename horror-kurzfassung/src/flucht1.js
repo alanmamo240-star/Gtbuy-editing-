@@ -7,6 +7,7 @@ import { street, suitcase } from './fluchtsets.js';
 import { towards, loadTimings, sequencer, mover, runPath, breathPuffs } from './lib.js';
 import { THREE, rad } from './util.js';
 
+const clock = (h, m, t) => { const mm = m + Math.floor(t / 60); return `${String(h + Math.floor(mm / 60)).padStart(2, '0')}:${String(mm % 60).padStart(2, '0')}`; };
 const TM = await loadTimings();
 await Promise.all([700, 800, 900].map(w => document.fonts.load(`${w} 40px Rubik`)));
 
@@ -61,6 +62,7 @@ const S = story({
   badge: { title: 'FOLGE 1', label: 'Flucht aus Aschental –', value: 'DIE KOLONNE', until: 3.6 },
   speakers: { luca: { color: '#ffffff', voice: 'liam' }, mira: { color: '#ffd84a', voice: 'elli' }, elias: { color: '#ff9ad0', voice: 'harry' }, soldat: { color: '#ff8a7a', voice: 'callum', fx: 'radio' } },
   pov: { phone: true, name: 'Luca', skin: 'light', top: '#3d6a8a' },
+  infobar: t => `ASCHENTAL · ${t < 33 ? 'HAUPTSTRASSE' : 'LINDENGASSE'} · MO ${clock(7, 42, t)}`,
   phone: { name: 'Elias', color: '#8a2a2e', clock: '07:42', history: [{ me: false, text: 'Pass auf Mama auf.' }, { me: true, text: 'Wo bist du??' }, { me: true, text: 'Elias???' }] },
   povPath: t => run1(t) || run2(t),
   vars: { phone: 1 },
@@ -112,7 +114,7 @@ hold(51.8, { look: 'mira', zoom: 26, camDur: 0.4, push: 0.012, do: { mira: [{ lo
 hold(53.5, { look: 'elias', zoom: 20, camDur: 0.4, push: 0.018, sfx: [['heart', 0.1, 0.7], ['heart', 0.95, 0.75]], do: { elias: { face: 'smile', t: 0 } } });
 say('mira', 'Luca. | Sein Atem. | Er hat keinen.', { look: 'mira', zoom: 36, camAt: -0.15, do: { mira: { look: 'pov', t: 0.2, dur: 0.4 } } });
 hold(56.8, {});
-phone({ events: [{ in: 'Ich bin schon über der Brücke.', hold: 1.8 }, { in: 'Wer steht da bei dir?', hot: 'Das bin nicht ich.', hold: 2.2 }], do: { elias: [{ face: 'neutral', t: 1.0 }] } });
+phone({ low: true, look: 'elias', zoom: 56, events: [{ in: 'Ich bin schon über der Brücke.', hold: 1.6 }, { in: 'Wer steht da bei dir?', hold: 1.3 }, { in: 'Das bin nicht ich.', alert: true, hold: 1.7 }], do: { elias: [{ face: 'neutral', t: 1.0 }] } });
 say('elias', 'Gib mir | dein Handy, | Luca.', { look: 'elias', zoom: 28, camAt: -0.2, do: { elias: [{ pose: REACH, t: -0.2, dur: 0.6 }, { face: 'creepy', t: 0.3 }] } });
 hold(62.6, {});
 say('luca', 'Lauf!', { look: 'mira', zoom: 50, camAt: 0, do: { mira: [{ look: 'sideEnd', t: 0.1 }] } });
