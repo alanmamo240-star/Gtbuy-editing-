@@ -11,6 +11,17 @@ In diesem Ordner werden ausschließlich **POV-Geschichten** als Cartoon-Videos g
 - **Ende:** Ein Cliffhanger und eine Frage an den Zuschauer, z. B. „Welcher ist echt? A oder B?“
 - **Format:** Hochkant 1080x1920, 30 fps. Projekt liegt in `cartoon-videos/` (Remotion + three.js), siehe `cartoon-videos/ANLEITUNG.md`.
 
+## Ablauf jeder POV-Geschichte (immer in dieser Reihenfolge)
+
+1. **Widerspruch in Sekunde 0:** Was man hört, passt nicht zu dem, was man liest (z. B. Stimme ruft „Komm rein!“, Handy zeigt „Bin verreist“).
+2. **Erst wirkt alles normal, dann der erste RISS.**
+3. **Die andere Seite meldet sich** (Nachricht, Klopfen oder Anruf).
+4. **Beide behaupten, der andere ist falsch.** Es gibt einen Test, den **beide** bestehen.
+5. **Es wird schlimmer:** Licht geht aus, ein Gerät macht etwas von allein.
+6. **Twist am Ende, beide Seiten bleiben möglich.** Schlussfrage: „A oder B?“
+
+Bei jeder Geschichte dem Nutzer zeigen, welcher Teil welchen der 6 Schritte erfüllt.
+
 ## Die 5 Hook-Regeln (bei JEDEM Video einhalten)
 
 1. **Konflikt in Sekunde 0.** Das Problem ist sofort da, ohne Einleitung. Kein „Hallo, heute zeige ich euch …“.
