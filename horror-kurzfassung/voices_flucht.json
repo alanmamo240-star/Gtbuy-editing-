@@ -1,0 +1,395 @@
+{
+ "liam": [
+  {
+   "ep": "flucht-1",
+   "n": 2,
+   "who": "luca",
+   "text": "Ohne Elias geh ich nicht.",
+   "text_vo": "Ohne Elias | geh ich nicht."
+  },
+  {
+   "ep": "flucht-1",
+   "n": 4,
+   "who": "luca",
+   "text": "Er lebt. Er ist an der Brücke.",
+   "text_vo": "Er lebt. | Er ist | an der Brücke."
+  },
+  {
+   "ep": "flucht-1",
+   "n": 6,
+   "who": "luca",
+   "text": "Weg hier. Durch die Seitenstraße.",
+   "text_vo": "Weg hier. | Durch die Seitenstraße."
+  },
+  {
+   "ep": "flucht-1",
+   "n": 8,
+   "who": "luca",
+   "text": "Elias?! Du bist doch an der Brücke.",
+   "text_vo": "Elias?! | Du bist doch | an der Brücke."
+  },
+  {
+   "ep": "flucht-1",
+   "n": 10,
+   "who": "luca",
+   "text": "Wo warst du die ganze Nacht?",
+   "text_vo": "Wo warst du | die ganze Nacht?"
+  },
+  {
+   "ep": "flucht-1",
+   "n": 14,
+   "who": "luca",
+   "text": "Lauf!",
+   "text_vo": "Lauf!"
+  },
+  {
+   "ep": "flucht-2",
+   "n": 3,
+   "who": "luca",
+   "text": "Wie hat Mama mich immer genannt?",
+   "text_vo": "Wie hat Mama | mich immer | genannt?"
+  },
+  {
+   "ep": "flucht-2",
+   "n": 8,
+   "who": "luca",
+   "text": "Er liest mit. Er liest alles mit.",
+   "text_vo": "Er liest mit. | Er liest | alles mit."
+  },
+  {
+   "ep": "flucht-2",
+   "n": 11,
+   "who": "luca",
+   "text": "Der alte Steg. Am Fluss.",
+   "text_vo": "Der alte Steg. | Am Fluss."
+  },
+  {
+   "ep": "flucht-3",
+   "n": 2,
+   "who": "luca",
+   "text": "Nicht über die Brücke. Zum Steg darunter.",
+   "text_vo": "Nicht über die Brücke. | Zum Steg | darunter."
+  },
+  {
+   "ep": "flucht-3",
+   "n": 5,
+   "who": "luca",
+   "text": "Die schicken Kopien zurück. Zu den Familien.",
+   "text_vo": "Die schicken | Kopien zurück. | Zu den Familien."
+  },
+  {
+   "ep": "flucht-3",
+   "n": 9,
+   "who": "luca",
+   "text": "Ich war nie weg.",
+   "text_vo": "Ich war | nie weg."
+  },
+  {
+   "ep": "flucht-4",
+   "n": 1,
+   "who": "luca",
+   "text": "Elias! Bist du es wirklich?",
+   "text_vo": "Elias! | Bist du es | wirklich?"
+  },
+  {
+   "ep": "flucht-4",
+   "n": 8,
+   "who": "luca",
+   "text": "Was denn?",
+   "text_vo": "Was denn?"
+  },
+  {
+   "ep": "flucht-4",
+   "n": 10,
+   "who": "luca",
+   "text": "Ich atme doch. Ich… atme doch.",
+   "text_vo": "Ich atme doch. | Ich… | atme doch."
+  },
+  {
+   "ep": "flucht-4",
+   "n": 11,
+   "who": "luca",
+   "text": "Nein. Ich bin Luca.",
+   "text_vo": "Nein. | Ich bin | Luca."
+  }
+ ],
+ "harry": [
+  {
+   "ep": "flucht-1",
+   "n": 7,
+   "who": "elias",
+   "text": "Luca!",
+   "text_vo": "Luca!"
+  },
+  {
+   "ep": "flucht-1",
+   "n": 9,
+   "who": "elias",
+   "text": "Die Brücke ist zu. Komm mit mir.",
+   "text_vo": "Die Brücke | ist zu. | Komm mit mir."
+  },
+  {
+   "ep": "flucht-1",
+   "n": 11,
+   "who": "elias",
+   "text": "Hier. Ich hab auf dich gewartet.",
+   "text_vo": "Hier. | Ich hab | auf dich gewartet."
+  },
+  {
+   "ep": "flucht-1",
+   "n": 13,
+   "who": "elias",
+   "text": "Gib mir dein Handy, Luca.",
+   "text_vo": "Gib mir | dein Handy, | Luca."
+  },
+  {
+   "ep": "flucht-1",
+   "n": 15,
+   "who": "elias",
+   "text": "Du kannst nicht weglaufen, Luca.",
+   "text_vo": "Du kannst | nicht weglaufen, | Luca."
+  },
+  {
+   "ep": "flucht-2",
+   "n": 2,
+   "who": "elias",
+   "text": "Luca? Ich bin es. Mach auf.",
+   "text_vo": "Luca? | Ich bin es. | Mach auf."
+  },
+  {
+   "ep": "flucht-2",
+   "n": 4,
+   "who": "elias",
+   "text": "…Luca.",
+   "text_vo": "…Luca."
+  },
+  {
+   "ep": "flucht-2",
+   "n": 6,
+   "who": "elias",
+   "text": "Spatz. Mach auf, Spatz.",
+   "text_vo": "Spatz. | Mach auf, | Spatz."
+  },
+  {
+   "ep": "flucht-2",
+   "n": 12,
+   "who": "elias",
+   "text": "Bis gleich, Spatz.",
+   "text_vo": "Bis gleich, | Spatz."
+  },
+  {
+   "ep": "flucht-3",
+   "n": 10,
+   "who": "elias",
+   "text": "Spatz! Du kommst sowieso zurück.",
+   "text_vo": "Spatz! | Du kommst | sowieso zurück."
+  },
+  {
+   "ep": "flucht-4",
+   "n": 0,
+   "who": "bruder",
+   "text": "Spatz? Bist du das?",
+   "text_vo": "Spatz? | Bist du das?"
+  },
+  {
+   "ep": "flucht-4",
+   "n": 2,
+   "who": "bruder",
+   "text": "Schnell. Bevor der Nebel weg ist.",
+   "text_vo": "Schnell. | Bevor der Nebel | weg ist."
+  },
+  {
+   "ep": "flucht-4",
+   "n": 4,
+   "who": "elias",
+   "text": "Luca! Steig nicht in das Boot!",
+   "text_vo": "Luca! | Steig nicht | in das Boot!"
+  },
+  {
+   "ep": "flucht-4",
+   "n": 5,
+   "who": "elias",
+   "text": "Er ist nicht dein Bruder.",
+   "text_vo": "Er ist nicht | dein Bruder."
+  },
+  {
+   "ep": "flucht-4",
+   "n": 6,
+   "who": "bruder",
+   "text": "Mama ist schon drüben.",
+   "text_vo": "Mama ist | schon drüben."
+  },
+  {
+   "ep": "flucht-4",
+   "n": 7,
+   "who": "bruder",
+   "text": "Luca… sag mal was.",
+   "text_vo": "Luca… | sag mal was."
+  },
+  {
+   "ep": "flucht-4",
+   "n": 13,
+   "who": "elias",
+   "text": "Bis gleich, Spatz.",
+   "text_vo": "Bis gleich, | Spatz."
+  }
+ ],
+ "elli": [
+  {
+   "ep": "flucht-1",
+   "n": 0,
+   "who": "mira",
+   "text": "Luca! Nicht stehen bleiben!",
+   "text_vo": "Luca! | Nicht stehen bleiben!"
+  },
+  {
+   "ep": "flucht-1",
+   "n": 1,
+   "who": "mira",
+   "text": "Die holen alle Jungs aus den Häusern.",
+   "text_vo": "Die holen | alle Jungs | aus den Häusern."
+  },
+  {
+   "ep": "flucht-1",
+   "n": 3,
+   "who": "mira",
+   "text": "Elias ist weg, Luca. Seit gestern.",
+   "text_vo": "Elias ist weg, | Luca. | Seit gestern."
+  },
+  {
+   "ep": "flucht-1",
+   "n": 12,
+   "who": "mira",
+   "text": "Luca. Sein Atem. Er hat keinen.",
+   "text_vo": "Luca. | Sein Atem. | Er hat keinen."
+  },
+  {
+   "ep": "flucht-2",
+   "n": 0,
+   "who": "mira",
+   "text": "Hier rein! Schnell!",
+   "text_vo": "Hier rein! | Schnell!"
+  },
+  {
+   "ep": "flucht-2",
+   "n": 1,
+   "who": "mira",
+   "text": "Psst. Hörst du das?",
+   "text_vo": "Psst. | Hörst du das?"
+  },
+  {
+   "ep": "flucht-2",
+   "n": 5,
+   "who": "mira",
+   "text": "Falsch.",
+   "text_vo": "Falsch."
+  },
+  {
+   "ep": "flucht-2",
+   "n": 7,
+   "who": "mira",
+   "text": "Woher weiß er das?",
+   "text_vo": "Woher | weiß er das?"
+  },
+  {
+   "ep": "flucht-2",
+   "n": 10,
+   "who": "mira",
+   "text": "Das Fenster! Über das Dach!",
+   "text_vo": "Das Fenster! | Über das Dach!"
+  },
+  {
+   "ep": "flucht-3",
+   "n": 1,
+   "who": "mira",
+   "text": "Da vorne lassen sie Leute durch.",
+   "text_vo": "Da vorne | lassen sie | Leute durch."
+  },
+  {
+   "ep": "flucht-3",
+   "n": 4,
+   "who": "mira",
+   "text": "Der Mann da. Auch kein Atem.",
+   "text_vo": "Der Mann da. | Auch kein Atem."
+  },
+  {
+   "ep": "flucht-3",
+   "n": 7,
+   "who": "mira",
+   "text": "Luca, die haben dein Foto.",
+   "text_vo": "Luca, | die haben | dein Foto."
+  },
+  {
+   "ep": "flucht-3",
+   "n": 8,
+   "who": "mira",
+   "text": "Warum ausgerechnet dich?",
+   "text_vo": "Warum | ausgerechnet dich?"
+  },
+  {
+   "ep": "flucht-3",
+   "n": 11,
+   "who": "mira",
+   "text": "Da! Der Steg!",
+   "text_vo": "Da! | Der Steg!"
+  },
+  {
+   "ep": "flucht-4",
+   "n": 3,
+   "who": "mira",
+   "text": "Er atmet. Das ist er.",
+   "text_vo": "Er atmet. | Das ist er."
+  },
+  {
+   "ep": "flucht-4",
+   "n": 9,
+   "who": "mira",
+   "text": "Luca. Wo ist dein Atem?",
+   "text_vo": "Luca. | Wo ist | dein Atem?"
+  }
+ ],
+ "callum": [
+  {
+   "ep": "flucht-1",
+   "n": 5,
+   "who": "soldat",
+   "text": "Alle Jungen ab vierzehn zum Wagen!",
+   "text_vo": "Alle Jungen | ab vierzehn | zum Wagen!"
+  },
+  {
+   "ep": "flucht-2",
+   "n": 9,
+   "who": "offizier",
+   "text": "Jedes Stockwerk. Jede Tür.",
+   "text_vo": "Jedes Stockwerk. | Jede Tür."
+  },
+  {
+   "ep": "flucht-3",
+   "n": 0,
+   "who": "offizier",
+   "text": "Nächster.",
+   "text_vo": "Nächster."
+  },
+  {
+   "ep": "flucht-3",
+   "n": 3,
+   "who": "offizier",
+   "text": "Kapuze runter. Name?",
+   "text_vo": "Kapuze runter. | Name?"
+  },
+  {
+   "ep": "flucht-3",
+   "n": 6,
+   "who": "offizier",
+   "text": "Wir suchen nur einen Jungen. Er heißt Luca.",
+   "text_vo": "Wir suchen | nur einen Jungen. | Er heißt Luca."
+  },
+  {
+   "ep": "flucht-4",
+   "n": 12,
+   "who": "offizier",
+   "text": "Lasst ihn gehen. Er findet immer nach Hause.",
+   "text_vo": "Lasst ihn gehen. | Er findet immer | nach Hause."
+  }
+ ]
+}

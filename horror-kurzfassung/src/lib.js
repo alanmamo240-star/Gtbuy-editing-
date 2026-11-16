@@ -29,6 +29,8 @@ export function sequencer(S, TM) {
     abs: x => x - T,                                   // absolute time -> offset inside the beat being written
     hold(until, o = {}) { const d = Math.max(0.1, until - T); S.hold(d, { gap: 0, ...camOpts(o, false) }); T += d; return api; },
     say(who, text, o = {}) { const d = lineDur(text); N++; S.say(who, text, { gap: 0, autoLook: false, ...camOpts(o, true) }); T += d; return api; },
+    // a phone beat (incoming texts / a typed reply) that lasts exactly as long as the engine will make it
+    phone(o = {}) { let a = 0.45; for (const e of o.events || []) { if (e.type != null) a += 0.25 + e.type.length / 27 + 0.17 + (e.hold ?? 1.1); else a += e.hold ?? 1.5; } S.phone({ gap: 0, ...o }); T += a; return api; },
     black(from = 29.6, to = 30) { api.hold(from, {}); api.hold(to, { overlay: blackOverlay }); return api; },
   };
   return api;
@@ -95,5 +97,16 @@ export function breathPuffs(group, figures, period, active) {
         if (!live) { m.visible = false; return; } m.visible = true; const u = age / 1.15; m.position.copy(v3).addScaledVector(v4, 0.05 + 0.32 * u); m.position.y += 0.06 * u; m.scale.setScalar(0.07 + 0.34 * u);
         m.material.opacity = 0.3 * Math.min(1, age / 0.08) * Math.pow(1 - u, 1.6); m.lookAt(cam[0], cam[1], cam[2]); });
     }
+  };
+}
+
+// camera / figure path through points with constant speed per segment and a running bob. keys: [[t, x, y, z], ...]
+export function runPath(keys, bob = 0.05, step = 0.3) {
+  return t => {
+    if (t < keys[0][0] || t > keys[keys.length - 1][0]) return null;
+    for (let i = 1; i < keys.length; i++) { const a = keys[i - 1], b = keys[i]; if (t <= b[0]) { const u = (t - a[0]) / Math.max(1e-6, b[0] - a[0]), e = i === 1 ? u * u * (3 - 2 * u) * 0.5 + u * 0.5 : i === keys.length - 1 ? 1 - (1 - u) * (1 - u) * 0.5 - (1 - u) * 0.5 : u;
+      const moving = Math.hypot(b[1] - a[1], b[3] - a[3]) > 0.05, ph = (t - keys[0][0]) / step * Math.PI;
+      return [lerp(a[1], b[1], e), lerp(a[2], b[2], e) + (moving ? bob * Math.abs(Math.sin(ph)) - bob * 0.5 : 0), lerp(a[3], b[3], e)]; } }
+    return null;
   };
 }

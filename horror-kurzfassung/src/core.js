@@ -169,8 +169,9 @@ async function boot(S, phone, povBody) {
   }
 
   // ---- camera
-  function povAt(t) { let i = 0; for (let k = 0; k < B.length; k++) if (B[k].camAtT <= t) i = k; else break; const b = B[i]; let j = i; while (j > 0 && B[j].povPos === B[j - 1].povPos && !B[j].setChanged) j--;
+  function povAt(t) { const ov = cfg.povPath?.(t); if (ov) return ov; let i = 0; for (let k = 0; k < B.length; k++) if (B[k].camAtT <= t) i = k; else break; const b = B[i]; let j = i; while (j > 0 && B[j].povPos === B[j - 1].povPos && !B[j].setChanged) j--;
     if (j === 0 || B[j].setChanged) return b.povPos; const u = B[j].cut ? 1 : easeIO((t - B[j].camAtT) / (B[j].povDur ?? 0.9)); return B[j - 1].povPos.map((v, k) => lerp(v, b.povPos[k], u)); }
+  S.povAt = povAt;   // cfg.povPath(t) -> [x, y, z] or null overrides the camera position (running along a path)
   const zoomDeg = z => typeof z === 'number' ? z : ZOOM[z] ?? 60;
   function aimOf(b, t, fixedPos) {   // yaw, pitch, fov of a beat's own framing at time t
     const pos = fixedPos || povAt(t); let pt = resolvePt(b.look, t, null, b.set), isChar = typeof b.look === 'string' && S.chars[b.look];
@@ -207,7 +208,7 @@ async function boot(S, phone, povBody) {
     const cfgP = cfg.phone || {}; let msgs = [...(cfgP.history || [])].map(m => ({ ...m, k: 1 })), banner = null, bk = 0, draft = '', delivered = 0;
     for (const b of phoneBeats) for (const e of b.ev) { const te = b.t0 + e.t; if (t < te) continue;
       if (e.type != null) { const n = Math.floor(clamp((t - te - 0.2) / e.typeDur) * e.type.length), ts = b.t0 + e.sent, sent = t >= ts; if (!sent) draft = e.type.slice(0, n);
-        if (t < b.t1 + 0.35) { banner = { name: 'You', letter: (cfg.pov?.name || 'You')[0].toUpperCase(), color: '#7d9bff', text: sent ? e.type : e.type.slice(0, Math.max(1, n)), status: sent ? 'sent ✓' : 'typing...', statusColor: '#2f7bf6' }; bk = clamp((t - te) / 0.13); }
+        if (t < b.t1 + 0.35) { banner = { name: 'Du', letter: (cfg.pov?.name || 'Du')[0].toUpperCase(), color: '#7d9bff', text: sent ? e.type : e.type.slice(0, Math.max(1, n)), status: sent ? 'gesendet ✓' : 'schreibt …', statusColor: '#2f7bf6' }; bk = clamp((t - te) / 0.13); }
         if (sent) { msgs.push({ me: true, text: e.type, style: e.style, k: (t - ts) / 0.17 }); delivered = clamp((t - ts - 0.2) / 0.15); } else delivered = 0; }
       else { if (e.stamp) msgs.push({ stamp: e.stamp, k: 1 }); msgs.push({ me: false, text: e.in + (e.hot ? ' ' + e.hot : ''), style: e.style, k: (t - te - 0.03) / 0.17 }); delivered = 0;
         if (t < b.t1 + 0.35) { banner = { name: cfgP.name || 'Zoe', color: cfgP.color, text: e.in, hot: e.hot, status: cfgP.clock || '10:55', statusColor: '#e23b3b' }; bk = clamp((t - te) / 0.13); } }

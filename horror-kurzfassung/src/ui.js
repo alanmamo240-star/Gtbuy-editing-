@@ -57,7 +57,7 @@ export function drawBanner(x, W, H, n, k) {
 }
 // chat app on the phone screen (dark mode). Drawn into the phone's own canvas (w x h px).
 // msgs: [{ me, text, style: 'alert' | undefined, k: pop 0..1, stamp }]  draft: text in the input bar
-export function drawPhone(x, w, h, { name = 'Zoe', letter, color = '#ff5c8d', clock = '10:55', status = 'Active now', msgs = [], draft = '', delivered = 0 }) {
+export function drawPhone(x, w, h, { name = 'Zoe', letter, color = '#ff5c8d', clock = '10:55', status = 'online', msgs = [], draft = '', delivered = 0 }) {
   const u = w / 400; x.fillStyle = '#0b0e17'; x.fillRect(0, 0, w, h); x.textBaseline = 'middle';
   x.fillStyle = '#fff'; x.font = font(700, 19 * u); x.textAlign = 'left'; x.fillText(clock, 34 * u, 40 * u);
   x.strokeStyle = '#cfd3e6'; x.lineWidth = 2 * u; x.strokeRect(w - 62 * u, 32 * u, 30 * u, 15 * u); x.fillStyle = '#ff4d5e'; x.fillRect(w - 59 * u, 35 * u, 8 * u, 9 * u);
@@ -67,7 +67,7 @@ export function drawPhone(x, w, h, { name = 'Zoe', letter, color = '#ff5c8d', cl
   x.fillStyle = '#1c2130'; x.fillRect(22 * u, 138 * u, w - 44 * u, 2 * u);
   // input bar
   const by = h - 78 * u; rr(x, 22 * u, by, w - 106 * u, 48 * u, 24 * u); x.fillStyle = '#161b28'; x.fill();
-  x.font = font(draft ? 700 : 500, 15.5 * u); x.fillStyle = draft ? '#fff' : '#6b7286'; let d = draft || 'Message'; while (x.measureText(d).width > w - 150 * u) d = d.slice(1); x.fillText(d, 40 * u, by + 25 * u);
+  x.font = font(draft ? 700 : 500, 15.5 * u); x.fillStyle = draft ? '#fff' : '#6b7286'; let d = draft || 'Nachricht'; while (x.measureText(d).width > w - 150 * u) d = d.slice(1); x.fillText(d, 40 * u, by + 25 * u);
   x.beginPath(); x.arc(w - 50 * u, by + 24 * u, 23 * u, 0, 7); x.fillStyle = draft ? '#2f7bf6' : '#1d2333'; x.fill(); x.strokeStyle = '#fff'; x.lineWidth = 3 * u; x.beginPath(); x.moveTo(w - 50 * u, by + 33 * u); x.lineTo(w - 50 * u, by + 15 * u); x.moveTo(w - 57 * u, by + 22 * u); x.lineTo(w - 50 * u, by + 15 * u); x.lineTo(w - 43 * u, by + 22 * u); x.stroke();
   // bubbles, bottom anchored; a new one pushes the others up while it pops in
   x.save(); x.beginPath(); x.rect(0, 142 * u, w, by - 150 * u); x.clip();

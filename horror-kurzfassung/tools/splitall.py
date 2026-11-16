@@ -7,7 +7,7 @@
 import json, os, re, subprocess, sys, wave
 import numpy as np
 SR = 48000; TEMPO = float(os.environ.get('TEMPO', '0.97'))
-G = json.load(open('voices_all.json')); FILES = json.load(open('nixly/files.json'))
+G = json.load(open(os.environ.get('VOICES', 'voices_all.json'))); FILES = json.load(open(os.environ.get('VDIR', 'nixly/') + 'files.json'))
 DOUBLE = {'doppel', 'draussen', 'nina2'}
 def syl(w): w = re.sub(r'[^a-zäöüß]', '', w.lower()); return max(1, len(re.findall(r'(?:au|äu|eu|ei|ie|ai|[aeiouyäöü])', w)))
 def load(path, af=f'atempo={TEMPO}'):
@@ -42,7 +42,7 @@ def doubled(a):
     save('nixly/_in.wav', a)
     b = np.frombuffer(subprocess.run(['ffmpeg', '-v', 'error', '-i', 'nixly/_in.wav', '-af', f'rubberband=pitch={2 ** (-0.5 / 12):.4f}', '-ar', str(SR), '-ac', '1', '-f', 'f32le', '-'], capture_output=True, check=True).stdout, np.float32)
     d = int(0.026 * SR); n = max(len(a), len(b) + d); m = np.zeros(n, np.float32); m[:len(a)] += a * 0.86; m[d:d + len(b)] += b * 0.32; os.remove('nixly/_in.wav'); return m
-ASR = json.load(open('nixly/asr.json')) if os.path.exists('nixly/asr.json') else {}
+_A = os.environ.get('VDIR', 'nixly/') + 'asr.json'; ASR = json.load(open(_A)) if os.path.exists(_A) else {}
 def split_asr(a, lines, W):   # W: [[word, start, end], ...] in the raw recording's time
     db = envelope(a); sm = np.convolve(db, np.ones(5) / 5, 'same'); thr = np.percentile(db, 95) - 34; sp = db > thr
     A = np.fft.rfft(a); f = np.fft.rfftfreq(len(a), 1 / SR); hb = np.fft.irfft(A * (f > 3500), len(a)).astype(np.float32)

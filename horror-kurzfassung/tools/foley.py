@@ -227,6 +227,50 @@ KIT = {
     'slam': lambda: (np.sin(2 * np.pi * 85 * tt(0.6)) * env(int(0.6 * SR), 0.001, 0.09) + filt(noise(0.6), 200, 3000) * env(int(0.6 * SR), 0.001, 0.04)) * 0.9,
 }
 KITG = {'whoosh': 0.22, 'whoosh_long': 0.3, 'zoom': 0.15, 'punch': 0.55, 'notify': 0.8, 'boom': 0.95, 'sting': 0.7}
+# ---- war city (Flucht aus Aschental): convoy, helicopters, distant impacts, water, a door knocked three times
+def convoy(t0, d=19.0):    # tracked and wheeled vehicles rolling past: diesel rumble, track clatter, fading down the street
+    t = tt(d); e = np.minimum(1, t / 0.6) * np.clip(1 - (t - 4.0) / (d - 4.0), 0.12, 1) ** 1.6
+    eng = sum(np.sin(2 * np.pi * f * t + 0.6 * np.sin(2 * np.pi * 0.7 * t)) * a for f, a in ((31, 1.0), (62, 0.6), (93, 0.35), (47, 0.4)))
+    eng = eng * (0.75 + 0.25 * np.sign(np.sin(2 * np.pi * 12.5 * t)))
+    clat = np.zeros(len(t), np.float32); k = 0.0
+    while k < d - 0.2: n = int(0.06 * SR); i = int(k * SR); clat[i:i + n] += filt(noise(0.06), 500, 4200) * env(n, 0.001, 0.015)[:len(clat[i:i + n])]; k += 0.16 + 0.03 * rs.rand()
+    a = (filt(eng.astype(np.float32), 25, 300) * 0.16 + clat * 0.22 + filt(noise(d), 60, 500) * 0.05) * e
+    put(verb(a.astype(np.float32), 1.2, 0.3, 40, 2500), t0, 0.6)
+def heli(t0, d=10.0, peak=4.3, g=1.0):    # a helicopter passing: blade thumps, turbine whine, louder as it passes over
+    t = tt(d); e = np.exp(-((t - peak) / (d * 0.28)) ** 2) * np.minimum(1, t / 0.5)
+    rate = 4.7 + 0.25 * np.tanh((t - peak) / 1.5)   # a little doppler
+    ph = np.cumsum(rate) / SR; chop = (0.5 + 0.5 * np.cos(2 * np.pi * ph)) ** 6
+    a = filt(noise(d), 60, 900) * chop * 0.9 + np.sin(2 * np.pi * 1650 * (1 - 0.03 * np.tanh((t - peak) / 1.5)) * t) * 0.02 + filt(noise(d), 1500, 6000) * 0.04
+    put((filt(a.astype(np.float32), 40, None) * e).astype(np.float32), t0, 0.42 * g)
+def heli_far(t0, t1, g=1.0):    # helicopters somewhere over the city the whole time
+    d = max(0.5, t1 - t0); t = tt(d); ph = np.cumsum(4.4 + 0.1 * np.sin(2 * np.pi * 0.05 * t)) / SR; chop = (0.5 + 0.5 * np.cos(2 * np.pi * ph)) ** 5
+    a = filt(noise(d), 80, 600) * chop * (0.6 + 0.4 * np.sin(2 * np.pi * 0.03 * t + 1)) ** 2; f = int(0.5 * SR); a[:f] *= np.linspace(0, 1, f); a[-f:] *= np.linspace(1, 0, f)
+    put(verb(a.astype(np.float32), 2.0, 0.5, 60, 900), t0, 0.07 * g)
+def boom_far(t0, g=1.0):   # an impact far away: felt more than heard
+    d = 2.6; n = int(d * SR); a = np.sin(2 * np.pi * 38 * tt(d) * (1 - 0.2 * tt(d) / d)) * env(n, 0.01, 0.5) + filt(noise(d), 30, 260) * env(n, 0.005, 0.7) * 1.2
+    put(verb(filt(a.astype(np.float32), None, 400), 3.0, 0.6, 30, 500), t0, 0.32 * g)
+def cityamb(t0, t1, g=1.0):   # a city at war, in the distance: low wind, a far rumble, scattered impacts
+    d = max(0.5, t1 - t0); t = tt(d); a = filt(noise(d), 70, 500, 2.0) * (0.6 + 0.4 * np.sin(2 * np.pi * 0.07 * t) * np.sin(2 * np.pi * 0.031 * t + 1)) * 0.03
+    f = int(0.6 * SR); a[:f] *= np.linspace(0, 1, f); a[-f:] *= np.linspace(1, 0, f); put(a.astype(np.float32), t0, g)
+    k = t0 + 3.0 + 3 * rs.rand()
+    while k < t1 - 2.5: boom_far(k, 0.5 + 0.5 * rs.rand()); k += 7 + 7 * rs.rand()
+def knock3(t0, g=1.0):     # three slow knocks on a wooden door
+    for o in (0, 0.42, 0.84): n = int(0.25 * SR); a = np.sin(2 * np.pi * 120 * tt(0.25)) * env(n, 0.001, 0.05) + filt(noise(0.25), 300, 2500) * env(n, 0.0005, 0.012) * 0.8; put(verb(a.astype(np.float32), 0.4, 0.25), t0 + o, 0.6 * g)
+def water(t0, t1, g=1.0):  # river lapping against stone and wood
+    d = max(0.5, t1 - t0); t = tt(d); a = filt(noise(d), 200, 1400, 2.0) * (0.5 + 0.5 * np.sin(2 * np.pi * 0.35 * t) * np.sin(2 * np.pi * 0.13 * t + 2)) ** 2 * 0.05
+    f = int(0.6 * SR); a[:f] *= np.linspace(0, 1, f); a[-f:] *= np.linspace(1, 0, f); put(a.astype(np.float32), t0, g)
+def oars(t0, t1, g=1.0):   # oar strokes: the splash, the creak of the rowlock
+    k = t0
+    while k < t1: n = int(0.6 * SR); a = filt(noise(0.6), 300, 3000) * env(n, 0.05, 0.18) * 0.6 + np.sin(2 * np.pi * (300 + 80 * tt(0.6)) * tt(0.6)) * env(n, 0.002, 0.04) * 0.08; put(verb(a.astype(np.float32), 0.6, 0.25), k, 0.35 * g); k += 2.6
+def crowd(t0, t1, g=1.0):  # people waiting in a line, murmuring, a cough, shuffling
+    d = max(0.5, t1 - t0); t = tt(d); a = filt(noise(d), 250, 1100, 2.0) * (0.5 + 0.5 * np.abs(np.sin(2 * np.pi * 0.9 * t + np.sin(2 * np.pi * 0.23 * t) * 3))) * 0.025
+    f = int(0.5 * SR); a[:f] *= np.linspace(0, 1, f); a[-f:] *= np.linspace(1, 0, f); put(verb(a.astype(np.float32), 1.0, 0.4), t0, g)
+def drip(t0, t1, g=1.0):
+    k = t0
+    while k < t1: n = int(0.12 * SR); a = np.sin(2 * np.pi * (1400 + 600 * tt(0.12) * 8) * tt(0.12)) * env(n, 0.001, 0.02); put(verb(a.astype(np.float32), 0.8, 0.5), k, 0.08 * g); k += 0.9 + 1.4 * rs.rand()
+def endof(name, t0, default):   # the time a looping cue stops: its 'stop_<name>' event, else the end
+    return next((e[1] for e in TL['events'] if e[0] == 'stop_' + name and e[1] > t0), default)
+
 # ---- ambience: cold wind in the fog for the whole scene
 t = np.arange(N) / SR
 amb = filt(rs.randn(N).astype(np.float32), 90, 650, 2.0) * (0.7 + 0.3 * np.sin(2 * np.pi * 0.09 * t) * np.sin(2 * np.pi * 0.037 * t + 1))
@@ -235,9 +279,13 @@ put(amb * (0.0 if os.environ.get('WITH_KIT') == '1' else 0.018), 0)
 events = TL['events']; slam_t = next((e[1] for e in events if e[0] == 'slam'), TL['duration'])
 B = {'step': lambda t0, g: put(verb(step(4.0), 0.5, 0.3), t0, 0.55 * g), 'stepw': lambda t0, g: put(verb(filt(step(4.0), None, 1800), 0.6, 0.35), t0, 0.45 * g), 'siren': lambda t0, g: siren(t0), 'explosion': lambda t0, g: explosion(t0), 'latch': lambda t0, g: latch(t0),
      'warm': lambda t0, g: warm(t0, slam_t + 0.02), 'pant': lambda t0, g: pant(t0, 2.5, 0.62, [(0, 1.0), (0.21, 1.12), (0.4, 1.25)], 0.9 * g),
-     'pant_soft': lambda t0, g: pant(t0, 1.4, 0.9, [(0.1, 1.25)], 0.7 * g), 'pant_fast': lambda t0, g: pant(t0, 29.62 - t0, 0.46, [(0, 1.05)], 1.1 * g),
+     'pant_soft': lambda t0, g: pant(t0, 1.4, 0.9, [(0.1, 1.25)], 0.7 * g), 'pant_fast': lambda t0, g: pant(t0, (29.62 - t0) if TL['duration'] < 31 else 4.5, 0.46, [(0, 1.05)], 1.1 * g),
      'wind': lambda t0, g: wind(t0), 'chain': lambda t0, g: chain(t0), 'paper': lambda t0, g: paper(t0), 'whistle': lambda t0, g: whistle(t0),
      'slam_far': lambda t0, g: slam_far(t0, g), 'clank': lambda t0, g: clank(t0), 'gasp': lambda t0, g: gasp(t0), 'train': lambda t0, g: train(t0, next((e[1] for e in events if e[0] in ('trainstop', 'lightsout') and e[1] > t0), TL['duration'])), 'knips': lambda t0, g: knips(t0, g), 'rattle': lambda t0, g: rattle(t0), 'chime': lambda t0, g: chime(t0), 'stumble': lambda t0, g: stumble(t0), 'lightsout': lambda t0, g: lightsout(t0), 'alarmhum': lambda t0, g: alarmhum(t0, TL['duration'] - 0.4), 'lever': lambda t0, g: lever(t0), 'jolt': lambda t0, g: jolt(t0), 'brake': lambda t0, g: brake(t0), 'windout': lambda t0, g: windout(t0), 'spring': lambda t0, g: spring(t0, g), 'land': lambda t0, g: land(t0), 'birds': lambda t0, g: birds(t0, g), 'crack': lambda t0, g: crack(t0), 'wood': lambda t0, g: wood(t0), 'whistle_long': lambda t0, g: whistle_long(t0), 'alert': lambda t0, g: alert(t0), 'doorbell': lambda t0, g: doorbell(t0), 'handle': lambda t0, g: handle(t0), 'chairscrape': lambda t0, g: chairscrape(t0), 'doorbang': lambda t0, g: doorbang(t0), 'drips': lambda t0, g: drips(t0, next((e[1] for e in events if e[0] == 'cut' and e[1] > t0), TL['duration']) - t0), 'click': lambda t0, g: click(t0), 'river': lambda t0, g: river(t0), 'ventoff': lambda t0, g: ventoff(t0), 'shuffle': lambda t0, g: shuffle(t0), 'crawl': lambda t0, g: crawl(t0), 'grate': lambda t0, g: grate(t0), 'scrape': lambda t0, g: scrape(t0), 'megaphone': lambda t0, g: megaphone(t0), 'doorshut': lambda t0, g: doorshut(t0), 'nightamb': lambda t0, g: nightamb(t0, next((e[1] for e in events if e[0] == 'doorshut'), TL['duration']) - t0), 'roomtone': lambda t0, g: roomtone(t0, next((e[1] for e in events if e[0] == 'cut' and e[1] > t0), TL['duration'])), 'heart': lambda t0, g: heart(t0, g)}
+B.update({'convoy': lambda t0, g: convoy(t0), 'heli': lambda t0, g: heli(t0, g=g), 'heli_far': lambda t0, g: heli_far(t0, endof('heli_far', t0, TL['duration']), g), 'boom_far': lambda t0, g: boom_far(t0, g),
+          'cityamb': lambda t0, g: cityamb(t0, endof('cityamb', t0, TL['duration']), g), 'knock3': lambda t0, g: knock3(t0, g), 'water': lambda t0, g: water(t0, endof('water', t0, TL['duration']), g),
+          'oars': lambda t0, g: oars(t0, endof('oars', t0, TL['duration']), g), 'crowd': lambda t0, g: crowd(t0, endof('crowd', t0, TL['duration']), g), 'drip': lambda t0, g: drip(t0, endof('drip', t0, TL['duration']), g)})
+for k in list(B): B.setdefault('stop_' + k, lambda t0, g: None)
 used = []
 WITH_KIT = os.environ.get('WITH_KIT') == '1'
 for e in events:

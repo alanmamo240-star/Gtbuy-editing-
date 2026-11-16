@@ -11,7 +11,8 @@
 #   tools/ep.sh zug-2 all            -> snap info, tts, snap info, mix, render, encode
 ROOT=$(cd "$(dirname "$(readlink -f "$0")")/.." && pwd); EP=$1; shift; cd "$ROOT/$EP" || exit 1
 case $EP in zug-*) PORT=$((8200 + ${EP#zug-})); OUT="der_zug_ohne_morgen_folge${EP#zug-}.mp4";;
-            stadt-*) PORT=$((8210 + ${EP#stadt-})); OUT="die_stadt_hinter_der_sperre_folge${EP#stadt-}.mp4";; *) PORT=8299; OUT="$EP.mp4";; esac
+            stadt-*) PORT=$((8210 + ${EP#stadt-})); OUT="die_stadt_hinter_der_sperre_folge${EP#stadt-}.mp4";;
+            flucht-*) PORT=$((8220 + ${EP#flucht-})); OUT="flucht_aus_aschental_folge${EP#flucht-}.mp4";; *) PORT=8299; OUT="$EP.mp4";; esac
 STORY=${STORY:-$(echo "$EP" | tr -d '-')}; export STORY PORT
 for f in index.html src node_modules tools; do [ -e "$f" ] || ln -s "../$f" "$f"; done
 if ! curl -s -o /dev/null "http://localhost:$PORT/index.html"; then

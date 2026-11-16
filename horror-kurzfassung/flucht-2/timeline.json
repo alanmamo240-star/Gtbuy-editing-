@@ -1,0 +1,1290 @@
+{
+ "duration": 80,
+ "frames": 2400,
+ "target": null,
+ "pace": 1,
+ "voiced": true,
+ "unvoiced": [],
+ "mood": "tension",
+ "beats": [
+  {
+   "i": 0,
+   "type": "hold",
+   "t0": 0,
+   "t1": 1.9,
+   "cam": -1,
+   "look": "miraH",
+   "zoom": 80,
+   "moved": true
+  },
+  {
+   "i": 1,
+   "type": "say",
+   "who": "mira",
+   "text": "Hier rein! | Schnell!",
+   "t0": 1.9,
+   "t1": 3.49,
+   "cam": 1.8,
+   "look": "H_miraDoor",
+   "zoom": 64,
+   "moved": true
+  },
+  {
+   "i": 2,
+   "type": "hold",
+   "t0": 3.49,
+   "t1": 7.6,
+   "cam": 3.49,
+   "look": "door",
+   "zoom": 70,
+   "moved": true
+  },
+  {
+   "i": 3,
+   "type": "hold",
+   "t0": 7.6,
+   "t1": 9.4,
+   "cam": 7.6,
+   "look": "door",
+   "zoom": 62,
+   "moved": true
+  },
+  {
+   "i": 4,
+   "type": "hold",
+   "t0": 9.4,
+   "t1": 11,
+   "cam": 9.4,
+   "look": "mira",
+   "zoom": 48,
+   "moved": true
+  },
+  {
+   "i": 5,
+   "type": "say",
+   "who": "mira",
+   "text": "Psst. | Hörst du das?",
+   "t0": 11,
+   "t1": 12.57,
+   "cam": 10.9,
+   "look": "mira",
+   "zoom": 50,
+   "moved": true
+  },
+  {
+   "i": 6,
+   "type": "hold",
+   "t0": 12.57,
+   "t1": 14.2,
+   "cam": 12.57,
+   "look": "gap",
+   "zoom": 50,
+   "moved": true
+  },
+  {
+   "i": 7,
+   "type": "phone",
+   "t0": 14.2,
+   "t1": 19.95,
+   "cam": 14.2,
+   "look": "gap",
+   "zoom": "phone",
+   "moved": true
+  },
+  {
+   "i": 8,
+   "type": "hold",
+   "t0": 19.95,
+   "t1": 22,
+   "cam": 19.95,
+   "look": "door",
+   "zoom": 52,
+   "moved": true
+  },
+  {
+   "i": 9,
+   "type": "say",
+   "who": "elias",
+   "text": "Luca? | Ich bin es. | Mach auf.",
+   "t0": 22,
+   "t1": 24.02,
+   "cam": 21.9,
+   "look": "peep",
+   "zoom": 40,
+   "moved": true
+  },
+  {
+   "i": 10,
+   "type": "hold",
+   "t0": 24.02,
+   "t1": 24.4,
+   "cam": 24.02,
+   "look": "peep",
+   "zoom": 38.304,
+   "moved": true
+  },
+  {
+   "i": 11,
+   "type": "say",
+   "who": "luca",
+   "text": "Wie hat Mama | mich immer | genannt?",
+   "t0": 24.4,
+   "t1": 26.05,
+   "cam": 24.4,
+   "look": "door",
+   "zoom": 46,
+   "moved": true
+  },
+  {
+   "i": 12,
+   "type": "hold",
+   "t0": 26.05,
+   "t1": 28,
+   "cam": 26.05,
+   "look": "peep",
+   "zoom": 30,
+   "moved": true
+  },
+  {
+   "i": 13,
+   "type": "say",
+   "who": "elias",
+   "text": "…Luca.",
+   "t0": 28,
+   "t1": 28.46,
+   "cam": 27.9,
+   "look": "peep",
+   "zoom": 26,
+   "moved": true
+  },
+  {
+   "i": 14,
+   "type": "hold",
+   "t0": 28.46,
+   "t1": 28.8,
+   "cam": 28.46,
+   "look": "peep",
+   "zoom": 25.82528,
+   "moved": true
+  },
+  {
+   "i": 15,
+   "type": "say",
+   "who": "mira",
+   "text": "Falsch.",
+   "t0": 28.8,
+   "t1": 29.72,
+   "cam": 28.65,
+   "look": "mira",
+   "zoom": 48,
+   "moved": true
+  },
+  {
+   "i": 16,
+   "type": "hold",
+   "t0": 29.72,
+   "t1": 30,
+   "cam": 29.72,
+   "look": "mira",
+   "zoom": 47.38368,
+   "moved": true
+  },
+  {
+   "i": 17,
+   "type": "phone",
+   "t0": 30,
+   "t1": 32.65,
+   "cam": 30,
+   "look": "mira",
+   "zoom": "phone",
+   "moved": true
+  },
+  {
+   "i": 18,
+   "type": "hold",
+   "t0": 32.65,
+   "t1": 34.6,
+   "cam": 32.65,
+   "look": "door",
+   "zoom": 40,
+   "moved": true
+  },
+  {
+   "i": 19,
+   "type": "say",
+   "who": "elias",
+   "text": "Spatz. | Mach auf, | Spatz.",
+   "t0": 34.6,
+   "t1": 36.15,
+   "cam": 34.5,
+   "look": "peep",
+   "zoom": 30,
+   "moved": true
+  },
+  {
+   "i": 20,
+   "type": "hold",
+   "t0": 36.15,
+   "t1": 36.4,
+   "cam": 36.15,
+   "look": "peep",
+   "zoom": 29.406,
+   "moved": true
+  },
+  {
+   "i": 21,
+   "type": "say",
+   "who": "mira",
+   "text": "Woher | weiß er das?",
+   "t0": 36.4,
+   "t1": 37.36,
+   "cam": 36.25,
+   "look": "mira",
+   "zoom": 48,
+   "moved": true
+  },
+  {
+   "i": 22,
+   "type": "hold",
+   "t0": 37.36,
+   "t1": 37.6,
+   "cam": 37.36,
+   "look": "mira",
+   "zoom": 47.360640000000004,
+   "moved": true
+  },
+  {
+   "i": 23,
+   "type": "say",
+   "who": "luca",
+   "text": "Er liest mit. | Er liest | alles mit.",
+   "t0": 37.6,
+   "t1": 39.79,
+   "cam": 37.5,
+   "look": "mira",
+   "zoom": 50,
+   "moved": true
+  },
+  {
+   "i": 24,
+   "type": "hold",
+   "t0": 39.79,
+   "t1": 40.2,
+   "cam": 39.79,
+   "look": "mira",
+   "zoom": 48.626000000000005,
+   "moved": true
+  },
+  {
+   "i": 25,
+   "type": "phone",
+   "t0": 40.2,
+   "t1": 46.651,
+   "cam": 40.2,
+   "look": "mira",
+   "zoom": "phone",
+   "moved": true
+  },
+  {
+   "i": 26,
+   "type": "hold",
+   "t0": 46.651,
+   "t1": 49,
+   "cam": 46.651,
+   "look": "gap",
+   "zoom": 46,
+   "moved": true
+  },
+  {
+   "i": 27,
+   "type": "say",
+   "who": "offizier",
+   "text": "Jedes Stockwerk. | Jede Tür.",
+   "t0": 49,
+   "t1": 51.11,
+   "cam": 48.9,
+   "look": "door",
+   "zoom": 50,
+   "moved": true
+  },
+  {
+   "i": 28,
+   "type": "hold",
+   "t0": 51.11,
+   "t1": 52.8,
+   "cam": 51.11,
+   "look": "window",
+   "zoom": 56,
+   "moved": true
+  },
+  {
+   "i": 29,
+   "type": "say",
+   "who": "mira",
+   "text": "Das Fenster! | Über das Dach!",
+   "t0": 52.8,
+   "t1": 54.86,
+   "cam": 52.8,
+   "look": "mira",
+   "zoom": 56,
+   "moved": true
+  },
+  {
+   "i": 30,
+   "type": "hold",
+   "t0": 54.86,
+   "t1": 55.2,
+   "cam": 54.86,
+   "look": "mira",
+   "zoom": 54.61568,
+   "moved": true
+  },
+  {
+   "i": 31,
+   "type": "hold",
+   "t0": 55.2,
+   "t1": 61,
+   "cam": 55.2,
+   "look": "mira",
+   "zoom": 82,
+   "moved": true
+  },
+  {
+   "i": 32,
+   "type": "hold",
+   "t0": 61,
+   "t1": 64.6,
+   "cam": 61,
+   "look": "chimney",
+   "zoom": 60,
+   "moved": true
+  },
+  {
+   "i": 33,
+   "type": "say",
+   "who": "luca",
+   "text": "Der alte Steg. | Am Fluss.",
+   "t0": 64.6,
+   "t1": 66.45,
+   "cam": 64.5,
+   "look": "mira",
+   "zoom": 46,
+   "moved": true
+  },
+  {
+   "i": 34,
+   "type": "hold",
+   "t0": 66.45,
+   "t1": 68.4,
+   "cam": 66.45,
+   "look": "across",
+   "zoom": 52,
+   "moved": true
+  },
+  {
+   "i": 35,
+   "type": "hold",
+   "t0": 68.4,
+   "t1": 71.2,
+   "cam": 68.4,
+   "look": "H_elias",
+   "zoom": 15,
+   "moved": true
+  },
+  {
+   "i": 36,
+   "type": "say",
+   "who": "elias",
+   "text": "Bis gleich, | Spatz.",
+   "t0": 71.2,
+   "t1": 72.09,
+   "cam": 71.1,
+   "look": "H_elias",
+   "zoom": 14,
+   "moved": true
+  },
+  {
+   "i": 37,
+   "type": "hold",
+   "t0": 72.09,
+   "t1": 76.6,
+   "cam": 72.09,
+   "look": "H_elias",
+   "zoom": 11,
+   "moved": true
+  },
+  {
+   "i": 38,
+   "type": "hold",
+   "t0": 76.6,
+   "t1": 79.6,
+   "cam": 76.6,
+   "look": "across",
+   "zoom": 30,
+   "moved": true
+  },
+  {
+   "i": 39,
+   "type": "hold",
+   "t0": 79.6,
+   "t1": 79.7,
+   "cam": 79.6,
+   "look": "across",
+   "zoom": 28.919999999999998,
+   "moved": true
+  },
+  {
+   "i": 40,
+   "type": "hold",
+   "t0": 79.7,
+   "t1": 80,
+   "cam": 79.7,
+   "look": "across",
+   "zoom": 28.885296,
+   "moved": true
+  }
+ ],
+ "lines": [
+  {
+   "n": 0,
+   "who": "mira",
+   "voice": "elli",
+   "fx": null,
+   "text": "Hier rein! Schnell!",
+   "t0": 1.9,
+   "dur": 1.59,
+   "stretch": false
+  },
+  {
+   "n": 1,
+   "who": "mira",
+   "voice": "elli",
+   "fx": null,
+   "text": "Psst. Hörst du das?",
+   "t0": 11,
+   "dur": 1.57,
+   "stretch": false
+  },
+  {
+   "n": 2,
+   "who": "elias",
+   "voice": "harry",
+   "fx": "door",
+   "text": "Luca? Ich bin es. Mach auf.",
+   "t0": 22,
+   "dur": 2.02,
+   "stretch": false
+  },
+  {
+   "n": 3,
+   "who": "luca",
+   "voice": "liam",
+   "fx": null,
+   "text": "Wie hat Mama mich immer genannt?",
+   "t0": 24.4,
+   "dur": 1.65,
+   "stretch": false
+  },
+  {
+   "n": 4,
+   "who": "elias",
+   "voice": "harry",
+   "fx": "door",
+   "text": "…Luca.",
+   "t0": 28,
+   "dur": 0.46,
+   "stretch": false
+  },
+  {
+   "n": 5,
+   "who": "mira",
+   "voice": "elli",
+   "fx": null,
+   "text": "Falsch.",
+   "t0": 28.8,
+   "dur": 0.92,
+   "stretch": false
+  },
+  {
+   "n": 6,
+   "who": "elias",
+   "voice": "harry",
+   "fx": "door",
+   "text": "Spatz. Mach auf, Spatz.",
+   "t0": 34.6,
+   "dur": 1.55,
+   "stretch": false
+  },
+  {
+   "n": 7,
+   "who": "mira",
+   "voice": "elli",
+   "fx": null,
+   "text": "Woher weiß er das?",
+   "t0": 36.4,
+   "dur": 0.96,
+   "stretch": false
+  },
+  {
+   "n": 8,
+   "who": "luca",
+   "voice": "liam",
+   "fx": null,
+   "text": "Er liest mit. Er liest alles mit.",
+   "t0": 37.6,
+   "dur": 2.19,
+   "stretch": false
+  },
+  {
+   "n": 9,
+   "who": "offizier",
+   "voice": "callum",
+   "fx": "far",
+   "text": "Jedes Stockwerk. Jede Tür.",
+   "t0": 49,
+   "dur": 2.11,
+   "stretch": false
+  },
+  {
+   "n": 10,
+   "who": "mira",
+   "voice": "elli",
+   "fx": null,
+   "text": "Das Fenster! Über das Dach!",
+   "t0": 52.8,
+   "dur": 2.06,
+   "stretch": false
+  },
+  {
+   "n": 11,
+   "who": "luca",
+   "voice": "liam",
+   "fx": null,
+   "text": "Der alte Steg. Am Fluss.",
+   "t0": 64.6,
+   "dur": 1.85,
+   "stretch": false
+  },
+  {
+   "n": 12,
+   "who": "elias",
+   "voice": "harry",
+   "fx": "far",
+   "text": "Bis gleich, Spatz.",
+   "t0": 71.2,
+   "dur": 0.89,
+   "stretch": false
+  }
+ ],
+ "speakers": {
+  "luca": {
+   "voice": "liam",
+   "fx": null,
+   "color": "#ffffff"
+  },
+  "mira": {
+   "voice": "elli",
+   "fx": null,
+   "color": "#ffd84a"
+  },
+  "elias": {
+   "voice": "harry",
+   "fx": "door",
+   "color": "#ff9ad0"
+  },
+  "offizier": {
+   "voice": "callum",
+   "fx": "far",
+   "color": "#ff8a7a"
+  }
+ },
+ "events": [
+  [
+   "cityamb",
+   0,
+   1
+  ],
+  [
+   "heli_far",
+   0,
+   0.8
+  ],
+  [
+   "heli",
+   0,
+   1
+  ],
+  [
+   "step",
+   0.037,
+   1.3
+  ],
+  [
+   "step",
+   0.05,
+   0.9
+  ],
+  [
+   "pant",
+   0.3,
+   0.8
+  ],
+  [
+   "step",
+   0.335,
+   1.1
+  ],
+  [
+   "step",
+   0.35,
+   0.9
+  ],
+  [
+   "step",
+   0.633,
+   1.03
+  ],
+  [
+   "step",
+   0.65,
+   0.9
+  ],
+  [
+   "step",
+   0.931,
+   1.02
+  ],
+  [
+   "step",
+   0.95,
+   0.9
+  ],
+  [
+   "step",
+   1.229,
+   0.93
+  ],
+  [
+   "step",
+   1.25,
+   0.9
+  ],
+  [
+   "step",
+   1.527,
+   0.58
+  ],
+  [
+   "step",
+   1.55,
+   0.9
+  ],
+  [
+   "whoosh",
+   1.8
+  ],
+  [
+   "step",
+   1.825,
+   0.39
+  ],
+  [
+   "step",
+   1.85,
+   0.9
+  ],
+  [
+   "step",
+   1.937,
+   1.3
+  ],
+  [
+   "step",
+   2.15,
+   0.9
+  ],
+  [
+   "step",
+   2.235,
+   1.3
+  ],
+  [
+   "step",
+   2.45,
+   0.9
+  ],
+  [
+   "step",
+   2.533,
+   1.15
+  ],
+  [
+   "step",
+   2.75,
+   0.9
+  ],
+  [
+   "step",
+   2.831,
+   1.01
+  ],
+  [
+   "step",
+   3.05,
+   0.9
+  ],
+  [
+   "step",
+   3.129,
+   0.9
+  ],
+  [
+   "step",
+   3.35,
+   0.9
+  ],
+  [
+   "step",
+   3.427,
+   0.81
+  ],
+  [
+   "zoom",
+   3.49
+  ],
+  [
+   "step",
+   3.65,
+   0.9
+  ],
+  [
+   "step",
+   3.725,
+   0.74
+  ],
+  [
+   "step",
+   3.95,
+   0.9
+  ],
+  [
+   "step",
+   4.023,
+   0.67
+  ],
+  [
+   "step",
+   4.25,
+   0.9
+  ],
+  [
+   "step",
+   4.321,
+   0.56
+  ],
+  [
+   "step",
+   4.55,
+   0.9
+  ],
+  [
+   "step",
+   4.619,
+   0.32
+  ],
+  [
+   "creak",
+   4.69,
+   0.6
+  ],
+  [
+   "step",
+   4.85,
+   0.9
+  ],
+  [
+   "step",
+   4.917,
+   0.21
+  ],
+  [
+   "step",
+   5.15,
+   0.9
+  ],
+  [
+   "step",
+   5.45,
+   0.9
+  ],
+  [
+   "step",
+   5.75,
+   0.9
+  ],
+  [
+   "step",
+   6.05,
+   0.9
+  ],
+  [
+   "step",
+   6.35,
+   0.9
+  ],
+  [
+   "whoosh_long",
+   7.6
+  ],
+  [
+   "stop_cityamb",
+   7.6,
+   1
+  ],
+  [
+   "slam",
+   7.65,
+   0.35
+  ],
+  [
+   "cityamb",
+   7.65,
+   0.6
+  ],
+  [
+   "pant_soft",
+   7.9,
+   0.9
+  ],
+  [
+   "whoosh",
+   9.4
+  ],
+  [
+   "zoom",
+   10.9
+  ],
+  [
+   "whoosh",
+   12.57
+  ],
+  [
+   "stepw",
+   12.77,
+   0.5
+  ],
+  [
+   "stepw",
+   13.32,
+   0.55
+  ],
+  [
+   "stepw",
+   13.87,
+   0.6
+  ],
+  [
+   "rustle",
+   14.2
+  ],
+  [
+   "stepw",
+   14.42,
+   0.6
+  ],
+  [
+   "notify",
+   14.65
+  ],
+  [
+   "notify",
+   16.05
+  ],
+  [
+   "notify",
+   17.75
+  ],
+  [
+   "whoosh",
+   19.95
+  ],
+  [
+   "knock3",
+   20.2,
+   1
+  ],
+  [
+   "zoom",
+   21.9
+  ],
+  [
+   "zoom",
+   24.02
+  ],
+  [
+   "zoom",
+   24.4
+  ],
+  [
+   "zoom",
+   26.05
+  ],
+  [
+   "heart",
+   26.45,
+   0.7
+  ],
+  [
+   "heart",
+   27.35,
+   0.75
+  ],
+  [
+   "zoom",
+   27.9
+  ],
+  [
+   "heart",
+   28.25,
+   0.8
+  ],
+  [
+   "zoom",
+   28.46
+  ],
+  [
+   "whoosh",
+   28.65
+  ],
+  [
+   "zoom",
+   29.72
+  ],
+  [
+   "rustle",
+   30
+  ],
+  [
+   "notify",
+   30.45
+  ],
+  [
+   "whoosh",
+   32.65
+  ],
+  [
+   "heart",
+   32.95,
+   0.8
+  ],
+  [
+   "heart",
+   33.75,
+   0.85
+  ],
+  [
+   "zoom",
+   34.5
+  ],
+  [
+   "sting",
+   34.6,
+   0.75
+  ],
+  [
+   "zoom",
+   36.15
+  ],
+  [
+   "whoosh",
+   36.25
+  ],
+  [
+   "zoom",
+   37.36
+  ],
+  [
+   "zoom",
+   37.5
+  ],
+  [
+   "zoom",
+   39.79
+  ],
+  [
+   "rustle",
+   40.2
+  ],
+  [
+   "key",
+   40.85
+  ],
+  [
+   "key",
+   40.887
+  ],
+  [
+   "key",
+   40.961
+  ],
+  [
+   "key",
+   40.998
+  ],
+  [
+   "key",
+   41.035
+  ],
+  [
+   "key",
+   41.072
+  ],
+  [
+   "key",
+   41.109
+  ],
+  [
+   "key",
+   41.183
+  ],
+  [
+   "key",
+   41.22
+  ],
+  [
+   "key",
+   41.257
+  ],
+  [
+   "key",
+   41.294
+  ],
+  [
+   "send",
+   41.551
+  ],
+  [
+   "notify",
+   42.451
+  ],
+  [
+   "notify",
+   44.251
+  ],
+  [
+   "whoosh",
+   46.651
+  ],
+  [
+   "stepw",
+   46.751,
+   0.8
+  ],
+  [
+   "stepw",
+   47.151,
+   0.85
+  ],
+  [
+   "stepw",
+   47.551,
+   0.9
+  ],
+  [
+   "slam_far",
+   47.651,
+   0.7
+  ],
+  [
+   "stepw",
+   47.951,
+   0.85
+  ],
+  [
+   "whoosh",
+   48.9
+  ],
+  [
+   "slam_far",
+   50.6,
+   0.8
+  ],
+  [
+   "whoosh",
+   51.11
+  ],
+  [
+   "whoosh",
+   52.8
+  ],
+  [
+   "creak",
+   54.5,
+   0.5
+  ],
+  [
+   "whoosh",
+   54.86
+  ],
+  [
+   "whoosh",
+   55.2
+  ],
+  [
+   "stop_cityamb",
+   55.2,
+   1
+  ],
+  [
+   "cityamb",
+   55.25,
+   1
+  ],
+  [
+   "step",
+   55.3,
+   0.9
+  ],
+  [
+   "pant",
+   55.5,
+   0.8
+  ],
+  [
+   "step",
+   55.64,
+   0.9
+  ],
+  [
+   "heli",
+   55.8,
+   1
+  ],
+  [
+   "step",
+   55.98,
+   0.9
+  ],
+  [
+   "step",
+   56.32,
+   0.9
+  ],
+  [
+   "step",
+   56.66,
+   0.9
+  ],
+  [
+   "step",
+   57,
+   0.9
+  ],
+  [
+   "step",
+   57.34,
+   0.9
+  ],
+  [
+   "step",
+   57.68,
+   0.9
+  ],
+  [
+   "step",
+   58.02,
+   0.9
+  ],
+  [
+   "step",
+   58.36,
+   0.9
+  ],
+  [
+   "step",
+   58.7,
+   0.9
+  ],
+  [
+   "step",
+   59.04,
+   0.9
+  ],
+  [
+   "step",
+   59.38,
+   0.9
+  ],
+  [
+   "step",
+   59.72,
+   0.9
+  ],
+  [
+   "step",
+   60.06,
+   0.9
+  ],
+  [
+   "step",
+   60.4,
+   0.9
+  ],
+  [
+   "step",
+   60.74,
+   0.9
+  ],
+  [
+   "whoosh",
+   61
+  ],
+  [
+   "zoom",
+   64.5
+  ],
+  [
+   "whoosh",
+   66.45
+  ],
+  [
+   "zoom",
+   68.4
+  ],
+  [
+   "sting",
+   68.45,
+   0.7
+  ],
+  [
+   "zoom",
+   71.1
+  ],
+  [
+   "zoom",
+   72.09
+  ],
+  [
+   "heart",
+   72.69,
+   0.8
+  ],
+  [
+   "heart",
+   73.49,
+   0.85
+  ],
+  [
+   "zoom",
+   76.6
+  ],
+  [
+   "zoom",
+   79.6
+  ],
+  [
+   "zoom",
+   79.7
+  ]
+ ]
+}

@@ -100,6 +100,13 @@ export function makeToon(o = {}) {
   if (P.cap) { const cp = new THREE.Mesh(new THREE.SphereGeometry(R * 1.1, 24, 12, 0, Math.PI * 2, 0, Math.PI * 0.34), toon(P.cap)); cp.rotation.x = -0.12; head.add(sameId(grp(cp, at(rbox(0.2, 0.02, 0.12, 0.01, toon(P.cap)), [0, R * 0.74, R * 1.0], [0.18, 0, 0])))); }
   if (P.hat) { const c = toon(P.hat); head.add(sameId(grp(at(cyl(R * 1.1, R * 1.04, 0.13, c), [0, R * 1.0, -0.01]), at(cyl(R * 1.14, R * 1.14, 0.016, c), [0, R * 1.0 + 0.07, -0.01]), at(rbox(0.21, 0.016, 0.1, 0.008, flat('#101018')), [0, R * 0.66, R * 0.97], [0.3, 0, 0]))));
     head.add(noOutline(rbox(0.05, 0.035, 0.012, 0.006, flat('#d9b65a'), [0, R * 0.98, R * 1.08]))); }
+  if (P.helmet) { const c = toon(P.helmet); const dome = new THREE.Mesh(new THREE.SphereGeometry(R * 1.24, 24, 14, 0, Math.PI * 2, 0, Math.PI * 0.5), c); dome.position.set(0, R * 0.12, -0.01); dome.rotation.x = -0.1;
+    head.add(sameId(grp(dome, at(cyl(R * 1.34, R * 1.34, 0.025, c), [0, R * 0.14, -0.01], [-0.1, 0, 0]))));
+    if (P.strap !== false) head.add(noOutline(at(torus(R * 0.98, 0.008, flat('#2a2a22')), [0, -0.02, 0], [0, Math.PI / 2, 0]))); }
+  if (P.hood) { const hm = toon(P.hoodColor || P.top, { side: THREE.DoubleSide }), hg = new THREE.Group();
+    hg.add(new THREE.Mesh(new THREE.SphereGeometry(R * 1.2, 26, 10, 0, Math.PI * 2, 0, Math.PI * 0.3), hm));                                  // closed crown over the hair
+    hg.add(new THREE.Mesh(new THREE.SphereGeometry(R * 1.2, 26, 14, Math.PI * 0.84, Math.PI * 1.32, Math.PI * 0.3, Math.PI * 0.44), hm));      // sides and back, open at the face
+    hg.position.set(0, 0.012, -0.012); hg.scale.set(1, 1.06, 1.05); head.add(sameId(hg)); }
   const ex = P.glasses ? 0.07 : P.eye * 0.97, ey = 0.022, ez = Math.sqrt(R * R - ex * ex - ey * ey) * 0.9;
   const eyes = [], pupils = [], white = toon('#ffffff');
   for (const s of [1, -1]) {

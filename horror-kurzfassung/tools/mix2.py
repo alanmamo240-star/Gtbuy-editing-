@@ -58,10 +58,11 @@ SILENCE = [e[1] for e in TL['events'] if e[0] == 'silence']
 # ---- 3. the music, slowed like a dying tape, and a quiet layer of dread under it
 R = 0.94 if EP.startswith('zug') else 0.90; PEAK_AT = 30.6                       # music second that lands on 29.6 s
 off = PEAK_AT / R - 29.6
+if DUR > 40: R, off = 0.815, 0.3                                                  # long episodes: the whole track, a little darker still, its drop near the end
 raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', MUSIC, '-af', f'asetrate={int(44100 * R)},aresample={SR},atrim=start={off:.3f}', '-ac', '2', '-f', 'f32le', '-'], capture_output=True, check=True).stdout
 mus = np.frombuffer(raw, np.float32).reshape(-1, 2)[:N].copy(); mus = np.pad(mus, ((0, N - len(mus)), (0, 0)))
 fi = int(1.2 * SR); mus[:fi] *= np.linspace(0, 1, fi)[:, None] ** 2
-mus *= 0.05 / (np.sqrt((mus[:int(29.6 * SR)] ** 2).mean()) + 1e-6)              # average level ~ -26 dBFS, its own build kept
+mus *= (0.05 if DUR < 40 else 0.036) / (np.sqrt((mus[:int((DUR - 0.7) * SR)] ** 2).mean()) + 1e-6)   # average level ~ -26 dBFS (long episodes -29), its own build kept
 t = np.arange(N) / SR; T = DUR
 rise = 0.75 + 0.25 * np.clip(t / max(1, T - 3), 0, 1) ** 1.5
 sub = (np.sin(2 * np.pi * 36 * t) + 0.7 * np.sin(2 * np.pi * 36.35 * t) + 0.4 * np.sin(2 * np.pi * 54.2 * t)) * (0.7 + 0.3 * np.sin(2 * np.pi * 0.07 * t))

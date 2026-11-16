@@ -1,0 +1,42 @@
+{
+ "callum": {
+  "lines": [
+   0,
+   3,
+   6
+  ],
+  "chars": 76,
+  "file": "audio/vo_callum.mp3",
+  "script": "script_callum.txt"
+ },
+ "elli": {
+  "lines": [
+   1,
+   4,
+   7,
+   8,
+   11
+  ],
+  "chars": 131,
+  "file": "audio/vo_elli.mp3",
+  "script": "script_elli.txt"
+ },
+ "liam": {
+  "lines": [
+   2,
+   5,
+   9
+  ],
+  "chars": 105,
+  "file": "audio/vo_liam.mp3",
+  "script": "script_liam.txt"
+ },
+ "harry": {
+  "lines": [
+   10
+  ],
+  "chars": 32,
+  "file": "audio/vo_harry.mp3",
+  "script": "script_harry.txt"
+ }
+}

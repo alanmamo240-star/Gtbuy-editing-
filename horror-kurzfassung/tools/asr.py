@@ -3,7 +3,7 @@
 import json, os, sys, subprocess, numpy as np
 from faster_whisper import WhisperModel
 m = WhisperModel('small', device='cpu', compute_type='int8', download_root=os.environ.get('WHISPER_DIR', os.path.expanduser('~/.cache/whisper')))
-D = 'nixly/'
+D = os.environ.get('VDIR', 'nixly/')
 out = {}
 for v in json.load(open(D + 'files.json')):
     au = np.frombuffer(subprocess.run(['ffmpeg','-v','error','-i',D+v+'.mp3','-ar','16000','-ac','1','-f','f32le','-'],capture_output=True,check=True).stdout, np.float32)
