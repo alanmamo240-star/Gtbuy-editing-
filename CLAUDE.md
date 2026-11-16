@@ -30,6 +30,17 @@ Bei jeder Geschichte dem Nutzer zeigen, welcher Teil welchen der 6 Schritte erf�
 - **Keine Pausen:** Keine langen Pausen in der Stimme. Kurz und knackig.
 - **Mindestens 3 Orte**, und man sieht, wie man von einem Ort zum nächsten geht.
 
+## Stimme (Sprechtext für die KI-Stimme)
+
+- **Gefühls-Tags** in den Sprechtext schreiben, z. B. `[excited]`, sonst klingt die Stimme gelangweilt. Motiviert hält Zuschauer.
+- **Zahlen als Wörter** schreiben („zweitausend“ statt „2000“), sonst liest die Stimme sie komisch vor.
+
+## Schnitt und Untertitel
+
+- Jede Szene **genau auf die Sätze** der Stimme schneiden (Bildwechsel beim Satzanfang).
+- **Untertitel:** höchstens 3 Wörter pro Zeile, das **gerade gesprochene Wort farbig** hervorheben.
+- **Vor dem Rendern des ganzen Videos** dem Nutzer von jeder Szene ein Standbild zeigen und auf sein OK warten.
+
 ## Arbeitsablauf
 
 1. Skript schreiben: Idee + gewählter Hook, Format (POV / Serie / Story), Bauplan des Formats einhalten, 165–190 Wörter.
