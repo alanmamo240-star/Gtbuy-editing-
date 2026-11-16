@@ -1,8 +1,0 @@
-node_modules/
-frames/
-frames_preview/
-snaps/
-audio/
-*.log
-package-lock.json
-timeline.full.json

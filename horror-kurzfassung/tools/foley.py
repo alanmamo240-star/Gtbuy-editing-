@@ -86,33 +86,49 @@ def heart(t0, g):          # two low thumps: lub-dub
 def gasp(t0):
     d = 0.3; n = int(d * SR); a = filt(noise(d), 900, 3600) * np.linspace(0.2, 1, n) ** 1.5 * np.minimum(1, (n - np.arange(n)) / (0.03 * SR)); put(a.astype(np.float32), t0, 0.14)
 
-# ---- running feet: three kids, stride every 0.298 s (the run cycle in story.js), loudness by distance to the camera
-RUN = [((-11.2, 0.25), (1.45, -0.45), 4.45, 0.0), ((-12.9, 0.35), (0.15, 0.1), 4.65, 0.23), ((-13.9, 0.3), (-0.6, 0.75), 4.95, 0.41)]
-DEC = 0.75
-def run_feet():
-    for fr, to, T, ph in RUN:
-        L = np.hypot(to[0] - fr[0], to[1] - fr[1]); v = L / (T - DEC / 2); k = 0
-        while True:
-            t = k * 0.298 - ph * 0.298 / 0.6; k += 1
-            if t < 0: continue
-            if t > T - 0.05: break
-            s = v * t if t <= T - DEC else v * (T - DEC) + v * (t - (T - DEC)) - v * (t - (T - DEC)) ** 2 / (2 * DEC)
-            x = fr[0] + (to[0] - fr[0]) * s / L; z = fr[1] + (to[1] - fr[1]) * s / L
-            cam = (6.2, 0.75) if t < 3.3 else (3.3, 1.1); dist = np.hypot(x - cam[0], z - cam[1])
-            sp = 1.0 if t <= T - DEC else max(0.3, 1 - (t - (T - DEC)) / DEC)
-            put(verb(step(dist), 0.5, 0.3), t + 0.01 * rs.rand(), 0.55 * sp * min(1.3, 3.0 / max(2.2, dist)))
-
+# ---- more cues (train interior, town)
+def train(t0, t1):        # moving train: wheel clatter over the rail joints and a low rumble
+    d = max(0.5, t1 - t0); n = int(d * SR); t = np.arange(n) / SR
+    rum = filt(rs.randn(n).astype(np.float32), 25, 170, 2.0) * 0.06 * (0.85 + 0.15 * np.sin(2 * np.pi * 0.3 * t))
+    a = rum.copy(); k = 0
+    while k * 1.05 < d:
+        for o, g in ((0, 1.0), (0.14, 0.8)):
+            i = int((k * 1.05 + o) * SR); m = int(0.12 * SR)
+            if i + m < n: a[i:i + m] += (filt(rs.randn(m).astype(np.float32), 70, 900) * env(m, 0.001, 0.035) * 0.22 * g).astype(np.float32)
+        k += 1
+    f = int(0.3 * SR); a[-f:] *= np.linspace(1, 0, f); put(a, t0, 1.0)
+def knips(t0, g):         # a conductor's punch, somewhere in the dark: click-clack and a small metal ring
+    m = int(0.4 * SR); a = np.zeros(m, np.float32)
+    for o, q in ((0, 1.0), (0.07, 0.7)):
+        i = int(o * SR); c = filt(rs.randn(int(0.05 * SR)).astype(np.float32), 2000, 7000) * env(int(0.05 * SR), 0.0003, 0.004); a[i:i + len(c)] += c * q
+    a += (np.sin(2 * np.pi * 1850 * np.arange(m) / SR) * env(m, 0.001, 0.05) * 0.08).astype(np.float32)
+    put(verb(a, 1.1, 0.45, 400, 6000), t0, 0.22 * g)
+def rattle(t0):
+    m = int(0.35 * SR); a = np.zeros(m, np.float32)
+    for o in (0, 0.05, 0.11, 0.16, 0.24):
+        i = int(o * SR); c = filt(rs.randn(int(0.04 * SR)).astype(np.float32), 900, 5000) * env(int(0.04 * SR), 0.0005, 0.008); a[i:i + len(c)] += c
+    a += (filt(rs.randn(m).astype(np.float32), 60, 400) * env(m, 0.002, 0.05) * 0.8).astype(np.float32); put(verb(a, 0.5, 0.25), t0, 0.35)
+def chime(t0):            # loudspeaker gong through a small speaker
+    d = 1.4; t = tt(d); n = len(t); a = np.zeros(n, np.float32)
+    for o, f in ((0, 880), (0.45, 660)):
+        i = int(o * SR); m = n - i; x = (np.sin(2 * np.pi * f * t[:m]) + 0.4 * np.sin(2 * np.pi * f * 2.01 * t[:m]) + 0.2 * np.sin(2 * np.pi * f * 3.0 * t[:m])) * env(m, 0.003, 0.5); a[i:] += x.astype(np.float32)
+    a = np.tanh(filt(a, 450, 2800, 3.0) * 2.5) * 0.4 + filt(rs.randn(n).astype(np.float32), 2000, 6000) * 0.01; put(a.astype(np.float32), t0, 0.35)
+def stumble(t0):
+    for o, g in ((0, 0.8), (0.18, 0.9), (0.33, 0.7)): put(verb(step(3.0), 0.4, 0.2), t0 + o, 0.5 * g)
+    n = int(0.5 * SR); put((np.sin(2 * np.pi * 95 * tt(0.5)) * env(n, 0.002, 0.07) + filt(rs.randn(n).astype(np.float32), 120, 900) * env(n, 0.001, 0.03)).astype(np.float32), t0 + 0.4, 0.5)
+def lightsout(t0):
+    n = int(0.8 * SR); a = (np.sin(2 * np.pi * 70 * tt(0.8)) * env(n, 0.001, 0.06) + filt(rs.randn(n).astype(np.float32), 1500, 8000) * env(n, 0.0005, 0.01) * 0.6).astype(np.float32); put(verb(a, 0.9, 0.35), t0, 0.5)
 # ---- ambience: cold wind in the fog for the whole scene
 t = np.arange(N) / SR
 amb = filt(rs.randn(N).astype(np.float32), 90, 650, 2.0) * (0.7 + 0.3 * np.sin(2 * np.pi * 0.09 * t) * np.sin(2 * np.pi * 0.037 * t + 1))
 put(amb * 0.018, 0)
 
 events = TL['events']; slam_t = next((e[1] for e in events if e[0] == 'slam'), TL['duration'])
-B = {'run': lambda t0, g: run_feet(), 'siren': lambda t0, g: siren(t0), 'explosion': lambda t0, g: explosion(t0), 'latch': lambda t0, g: latch(t0),
+B = {'step': lambda t0, g: put(verb(step(4.0), 0.5, 0.3), t0, 0.55 * g), 'stepw': lambda t0, g: put(verb(filt(step(4.0), None, 1800), 0.6, 0.35), t0, 0.45 * g), 'siren': lambda t0, g: siren(t0), 'explosion': lambda t0, g: explosion(t0), 'latch': lambda t0, g: latch(t0),
      'warm': lambda t0, g: warm(t0, slam_t + 0.02), 'pant': lambda t0, g: pant(t0, 2.5, 0.62, [(0, 1.0), (0.21, 1.12), (0.4, 1.25)], 0.9 * g),
      'pant_soft': lambda t0, g: pant(t0, 1.4, 0.9, [(0.1, 1.25)], 0.7 * g), 'pant_fast': lambda t0, g: pant(t0, 29.62 - t0, 0.46, [(0, 1.05)], 1.1 * g),
      'wind': lambda t0, g: wind(t0), 'chain': lambda t0, g: chain(t0), 'paper': lambda t0, g: paper(t0), 'whistle': lambda t0, g: whistle(t0),
-     'slam_far': lambda t0, g: slam_far(t0, g), 'clank': lambda t0, g: clank(t0), 'gasp': lambda t0, g: gasp(t0), 'heart': lambda t0, g: heart(t0, g)}
+     'slam_far': lambda t0, g: slam_far(t0, g), 'clank': lambda t0, g: clank(t0), 'gasp': lambda t0, g: gasp(t0), 'train': lambda t0, g: train(t0, next((e[1] for e in events if e[0] in ('trainstop', 'lightsout') and e[1] > t0), TL['duration'])), 'knips': lambda t0, g: knips(t0, g), 'rattle': lambda t0, g: rattle(t0), 'chime': lambda t0, g: chime(t0), 'stumble': lambda t0, g: stumble(t0), 'lightsout': lambda t0, g: lightsout(t0), 'heart': lambda t0, g: heart(t0, g)}
 used = []
 for e in events:
     name, at = e[0], e[1]; g = e[2] if len(e) > 2 else 1.0

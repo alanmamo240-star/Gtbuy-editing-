@@ -4,14 +4,16 @@
 # 4. lays the foley under the kit mix at the voices' level and normalises everything to -14 LUFS -> audio/mix.wav
 import json, os, shutil, subprocess, sys, wave
 import numpy as np
-SR = 48000; CUTS = [27.3]          # beats that start with a hard cut (story.js: cut: true)
+SR = 48000
 TL = json.load(open('timeline.json')); shutil.copy('timeline.json', 'timeline.full.json')
+CUTS = [e[1] for e in TL['events'] if e[0] == 'cut']          # beats that start with a hard cut (lib.js marks cut: true)
 B = TL['beats']; drop = set()
 for i in range(1, len(B)):
     a, b = B[i - 1], B[i]
     if a['look'] == b['look'] and abs(a['zoom'] - b['zoom']) / max(1, a['zoom']) < 0.12: drop.add(round(b['cam'], 3))
 ev = []
 for e in TL['events']:
+    if e[0] == 'cut': continue
     if e[0] in ('whoosh', 'zoom') and (round(e[1], 3) in drop or any(abs(e[1] - c) < 0.08 for c in CUTS)): continue
     ev.append(e)
 ev += [['punch', c, 1.3] for c in CUTS]

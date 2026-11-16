@@ -3,12 +3,13 @@
 // Unlike the kit's first-person example this is a third-person scene: the camera is an invisible observer on the platform that
 // whip-pans and dollies between a few stations. Every beat is placed on the script's time marks (0–8, 8–20, 20–30 s).
 import { story } from './core.js';
-import { makeToon, POSES } from './toon.js';
+import { POSES } from './toon.js';
 import { makeSet } from './sets.js';
+import { CAST } from './cast.js';
+import { Q, towards, fogOff, texRep, loadTimings, sequencer, mover, breathPuffs } from './lib.js';
 import { THREE, toon, lam, flat, box, rbox, sph, cyl, plane, torus, grp, at, noOutline, sameId, sign, glow, canvasTex, rng, clamp, lerp, smooth, easeIO, noise, rad, FONT } from './util.js';
 
-const Q = new URLSearchParams(location.search);
-let TM = null; if (!Q.has('notimings')) try { const r = await fetch('timings.json?' + Date.now()); if (r.ok) TM = await r.json(); } catch (e) {}
+const TM = await loadTimings();
 await Promise.all([700, 800, 900].map(w => document.fonts.load(`${w} 40px Rubik`)));
 
 // ------------------------------------------------------------------------------------------------ camera stations
@@ -23,8 +24,6 @@ const camPt = t => t < 3.3 ? PA : t < 8.3 ? PB : t < 9.9 ? PE : t < 19.0 ? PF : 
 const FOG = new THREE.Color('#1a1f38'), FLASH = new THREE.Color('#6e4432');
 const billboards = [], fogLayers = [];
 const g = new THREE.Group();
-const fogOff = o => { o.traverse(m => { if (m.material) m.material.fog = false; }); return o; };
-const texRep = (t, x, y) => { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(x, y); return t; };
 
 // platform: paving slabs, curb, canopy with columns
 const pave = texRep(canvasTex(256, 256, x => { x.fillStyle = '#fff'; x.fillRect(0, 0, 256, 256); x.strokeStyle = 'rgba(20,24,60,0.32)'; x.lineWidth = 5; x.strokeRect(2, 2, 252, 252); x.beginPath(); x.moveTo(128, 0); x.lineTo(128, 256); x.stroke();
@@ -140,12 +139,7 @@ const T_X = 1.0;
 const flash = t => { const u = t - T_X; if (u < 0) return 0; const a = (u < 0.05 ? u / 0.05 : 1) * Math.exp(-u / 0.5), v = u - 0.3, b = v < 0 ? 0 : (v < 0.04 ? v / 0.04 : 1) * Math.exp(-v / 0.4); return clamp(a + 0.55 * b + 0.07 * Math.exp(-u / 5)) * (1 + 0.12 * noise(t * 30, 3)); };
 
 // ------------------------------------------------------------------------------------------------ people
-const paulAv = makeToon({ skin: 'light', height: 0.9, hair: 'short', hairColor: '#6a4024', top: '#4f8f3e', topStyle: 'jacket', inner: '#d9d2bf', bottom: '#2e2c44', shoe: '#2a1f1c', collar: '#3f7432', seed: 3 });
-const emilAv = makeToon({ skin: 'tan', height: 0.92, hair: 'short', hairColor: '#2a1c16', cap: '#6e4a2c', top: '#3d4a7a', topStyle: 'sweater', bottom: '#2b2a3c', shoe: '#1e1a1a', seed: 5 });
-const lenaAv = makeToon({ skin: 'fair', height: 0.88, hair: 'pigtails', hairColor: '#9a4f2a', top: '#8a8c98', topStyle: 'dress', bottom: '#3a3446', shoe: '#2a2020', collar: '#b0443c', seed: 8 });
-const condAv = makeToon({ skin: '#ddd3cb', height: 1.06, hair: 'short', hairColor: '#8a8a96', top: '#232a46', topStyle: 'jacket', inner: '#b8b4a4', bottom: '#1c2036', shoe: '#101220', cap: '#1d2238', eye: 0.056, brows: true, seed: 21 });
-condAv.head.add(noOutline(rbox(0.05, 0.035, 0.012, 0.006, flat('#d8b860'), [0, 0.105, 0.155])));
-for (const y of [0.4, 0.27, 0.14]) condAv.torso.add(noOutline(sph(0.014, flat('#c9a850'), [0.05, y, 0.133])));
+const paulAv = CAST.paul(), emilAv = CAST.emil(), lenaAv = CAST.lena(), condAv = CAST.schaffner();
 const lantern = new THREE.Group(); lantern.position.set(0, -0.13, 0.02);
 lantern.add(torus(0.035, 0.008, toon('#2a2c3a'), [0, 0.02, 0])); lantern.add(box(0.1, 0.02, 0.1, toon('#2a2c3a'), [0, -0.03, 0])); lantern.add(box(0.11, 0.02, 0.11, toon('#2a2c3a'), [0, -0.19, 0]));
 for (const [dx, dz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) lantern.add(box(0.012, 0.15, 0.012, toon('#2a2c3a'), [dx * 0.045, -0.11, dz * 0.045]));
@@ -156,12 +150,10 @@ condAv.handL.add(lantern);
 condAv.handR.add(noOutline(cyl(0.012, 0.016, 0.07, flat('#c9c9d4'), [0, -0.03, 0.05], [Math.PI / 2, 0, 0])));
 
 // where everyone ends up after the run (x, z, rotation in degrees; 0 = facing +z, 90 = facing +x)
-const towards = (a, b) => Math.atan2(b[0] - a[0], b[1] - a[1]) * 180 / Math.PI;
 const EMIL_DOOR = [1.35, -0.85], FRONT = [7.5, -3.0];
 const HOME = { emil: [1.45, -0.45, 100], paul: [0.15, 0.1, 120], lena: [-0.6, 0.75, 95], schaffner: [-0.9, 2.3, 0] };
 HOME.schaffner[2] = towards(HOME.schaffner, HOME.paul) - 30;
 const RUN = { emil: { from: [-11.2, 0.25], T: 4.45, ph: 0.0 }, paul: { from: [-12.9, 0.35], T: 4.65, ph: 0.23 }, lena: { from: [-13.9, 0.3], T: 4.95, ph: 0.41 } };
-const DEC = 0.75, ROT = 0.45;
 const WALK = { from: [-6.4, 2.9], T0: 11.6, T1: 15.35 };   // the conductor walks out of the fog
 const FACE = { emil: (p) => towards(EMIL_DOOR, p), paul: (p) => towards(HOME.paul, p), lena: (p) => towards(HOME.lena, p) };
 const PAUL_FACE = FACE.paul(HOME.schaffner);
@@ -189,27 +181,16 @@ const ticketTex = canvasTex(560, 330, x => {
 const ticket = new THREE.Mesh(new THREE.PlaneGeometry(0.19, 0.112), new THREE.MeshLambertMaterial({ map: ticketTex, emissive: '#ffffff', emissiveMap: ticketTex, emissiveIntensity: 0.32, side: THREE.DoubleSide }));
 g.add(ticket);
 
-// cold breath: a soft puff from each kid's mouth
-const puffTex = canvasTex(128, 128, x => { const gr = x.createRadialGradient(64, 64, 0, 64, 64, 64); gr.addColorStop(0, 'rgba(255,255,255,0.9)'); gr.addColorStop(0.5, 'rgba(255,255,255,0.35)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = gr; x.fillRect(0, 0, 128, 128); });
-const puffs = {}; for (const n of ['paul', 'emil', 'lena']) puffs[n] = [0, 1].map(() => { const m = noOutline(new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: puffTex, color: '#c6cde6', transparent: true, opacity: 0, depthWrite: false }))); g.add(m); return m; });
 const breathPeriod = (n, t) => n === 'paul' && t > 27.2 ? 0.46 : t < 9 ? 0.62 : t < 17 ? 0.9 : 0.7;
+const AV = { paul: paulAv, emil: emilAv, lena: lenaAv };
+const puffs = breathPuffs(g, AV, breathPeriod, (n, t) => t > RUN[n].T + 0.2 && t < 29.6);
+// the run in, and the conductor's walk out of the fog
+const MV = mover();
+for (const n of ['paul', 'emil', 'lena']) MV.add(AV[n], n, { from: RUN[n].from, to: HOME[n].slice(0, 2), T0: 0, T1: RUN[n].T, endRy: HOME[n][2], ph: RUN[n].ph });
+MV.add(condAv, 'schaffner', { from: WALK.from, to: HOME.schaffner.slice(0, 2), T0: WALK.T0, T1: WALK.T1, endRy: HOME.schaffner[2], mode: 'walk' });
 
 // ------------------------------------------------------------------------------------------------ set
-const AV = { paul: paulAv, emil: emilAv, lena: lenaAv };
-const legsOf = av => { const body = av.root.children[0], legs = body.children.filter(c => c.isGroup && c !== av.torso), arms = av.torso.children.filter(c => c.isGroup && Math.abs(c.position.x) > 0.2);
-  return { legs: legs.map(l => [l, l.children.find(c => c.isGroup)]), arms: arms.map(a => [a, a.children.find(c => c.isGroup)]) }; };
-const RIG = { paul: legsOf(paulAv), emil: legsOf(emilAv), lena: legsOf(lenaAv), schaffner: legsOf(condAv) };
 const v3 = new THREE.Vector3(), v4 = new THREE.Vector3(), q1 = new THREE.Quaternion();
-function stride(n, av, t, amp, ph, speed = 1.7) {   // run / walk cycle scaled by amp (0 = standing still)
-  av.walk(t + ph, speed); if (speed > 1.2) { av.torso.rotation.x += rad(12) * amp; }
-  for (const [l, k] of RIG[n].legs) { l.rotation.x *= amp; k.rotation.x *= amp; }
-  for (const [a, e] of RIG[n].arms) { a.rotation.x *= amp; if (speed > 1.2) e.rotation.x = lerp(-rad(8), -rad(80), amp); }
-}
-function pathAt(from, to, T, t) {   // constant speed, then a linear stop over DEC seconds
-  const L = Math.hypot(to[0] - from[0], to[1] - from[1]), v = L / (T - DEC / 2); let s, sp;
-  if (t <= T - DEC) { s = v * Math.max(0, t); sp = 1; } else if (t < T) { const u = t - (T - DEC); s = v * (T - DEC) + v * u - v * u * u / (2 * DEC); sp = 1 - u / DEC; } else { s = L; sp = 0; }
-  const k = s / L; return { x: lerp(from[0], to[0], k), z: lerp(from[1], to[1], k), sp, ry: Math.atan2(to[0] - from[0], to[1] - from[1]) };
-}
 const station = makeSet(g, {
   mood: 'night', moodOverride: { bg: '#1a1f38', amb: ['#4a55aa', 1.25], hemi: ['#5d68c8', '#141634', 0.85], key: ['#9fb0ff', 0.75, [-3, 6, 4]], spill: ['#ffbd72', 4.6] },
   pov: PA, look: [-8, 1.0, -0.4], spillAt: [0.78, 1.25, -1.35],
@@ -226,22 +207,8 @@ const station = makeSet(g, {
     const f = flash(t); flashLight.intensity = 3.4 * f; flare.material.opacity = 0.95 * f; const fc = FOG.clone().lerp(FLASH, 0.8 * f); S.scene.fog.color.copy(fc); S.bg = fc.getHex();
     // door + warm light
     const d = v.door ?? 0; hinge.rotation.y = -d * rad(98); const sp = v.spill ?? 0; vest.visible = d > 0.01; doorGlow.material.opacity = 0.42 * sp; doorPool.material.opacity = 0.5 * sp;
-    // kids running in, the conductor walking in
-    for (const n of ['paul', 'emil', 'lena']) {
-      const r = RUN[n], h = HOME[n]; if (t > r.T + ROT) continue; const av = AV[n], p = pathAt(r.from, h, r.T, t);
-      av.root.position.x = p.x; av.root.position.z = p.z; av.root.rotation.y = t < r.T ? p.ry : p.ry + (rad(h[2]) - p.ry) * smooth((t - r.T) / ROT);
-      if (p.sp > 0.01) stride(n, av, t, clamp(p.sp * 1.15), r.ph);
-    }
-    if (t > WALK.T0 && t < WALK.T1 + 0.4) { const h = HOME.schaffner, p = pathAt(WALK.from, h, WALK.T1 - WALK.T0, t - WALK.T0); condAv.root.position.x = p.x; condAv.root.position.z = p.z;
-      condAv.root.rotation.y = t < WALK.T1 ? p.ry : p.ry + (rad(h[2]) - p.ry) * smooth((t - WALK.T1) / 0.4); if (p.sp > 0.01) stride('schaffner', condAv, t, clamp(p.sp * 1.1), 0, 1.0); }
-    // breathing: chest rise and a puff of cold breath
-    for (const n of ['paul', 'emil', 'lena']) {
-      const av = AV[n], stop = RUN[n].T, P = breathPeriod(n, t), ph = (t + RUN[n].ph * 3) / P; av.torso.position.y = 0.006 * Math.sin(ph * Math.PI * 2);
-      av.head.updateMatrixWorld(true); av.head.localToWorld(v3.set(0, -0.085, 0.2)); av.head.getWorldDirection(v4);
-      puffs[n].forEach((m, k) => { const cyc = Math.floor(ph) - k, age = (ph - Math.floor(ph) + k) * P, live = t > stop + 0.2 && cyc >= 0 && age < 1.15 && !(n === 'paul' && t > 29.6);
-        if (!live) { m.visible = false; return; } m.visible = true; const u = age / 1.15; m.position.copy(v3).addScaledVector(v4, 0.05 + 0.32 * u); m.position.y += 0.06 * u; m.scale.setScalar(0.07 + 0.34 * u);
-        m.material.opacity = 0.3 * Math.min(1, age / 0.08) * Math.pow(1 - u, 1.6); m.lookAt(...camPt(t)); });
-    }
+    // kids running in, the conductor walking in; cold breath
+    MV.update(t); puffs(t, camPt(t));
     // the ticket: on the floor, then in Paul's hands
     if (t < T_PICK) { ticket.position.set(...TICKET_FLOOR); ticket.rotation.set(-Math.PI / 2, 0, rad(PAUL_FACE - 180) + 0.3); }
     else { paulAv.root.updateMatrixWorld(true); paulAv.handL.getWorldPosition(v3); paulAv.handR.getWorldPosition(v4); const u = smooth((t - T_PICK) / 0.12);
@@ -277,29 +244,14 @@ S.cast('lena', lenaAv, { at: HOME.lena, pose: 'stand', face: 'worried' });
 S.cast('schaffner', condAv, { at: HOME.schaffner, pose: 'stand', face: 'neutral', hide: true });
 
 // timing: holds fill the gaps so every beat lands on its mark (line lengths come from the real voices once they exist)
-const nWords = s => s.replace(/\|/g, ' ').split(/\s+/).filter(Boolean).length;
-const est = s => s.split('|').reduce((a, p) => a + 0.22 + 0.3 * nWords(p), 0) - 0.2;
-let T = 0, N = 0;
-const lineDur = text => { const tm = TM?.lines?.[N]; return tm && tm.words && tm.words.length === nWords(text) ? tm.dur : est(text); };
-// The engine restarts the slow push-in on every beat. A beat that keeps the same shot gets the zoom the previous one had reached.
-const ZN = { tight: 44, medium: 60, close: 76, wide: 96 };
-let CAM = { look: null, zoom: 60, push: 0.012, at: 0 };
-function camOpts(o, isSay) {
-  const at = T + (o.camAt ?? (isSay ? -0.1 : 0));
-  if (o.look === undefined && o.zoom === undefined && o.pov === undefined && !o.cut && CAM.look) o = { ...o, look: CAM.look, zoom: CAM.zoom * Math.max(0.72, 1 - CAM.push * Math.max(0, at - CAM.at)), push: o.push ?? CAM.push };
-  CAM = { look: o.look ?? CAM.look, zoom: typeof o.zoom === 'number' ? o.zoom : (ZN[o.zoom] ?? CAM.zoom), push: o.push ?? 0.012, at };
-  return o;
-}
-const hold = (until, o = {}) => { const d = Math.max(0.1, until - T); S.hold(d, { gap: 0, ...camOpts(o, false) }); T += d; };
-const say = (who, text, o = {}) => { const d = lineDur(text); N++; S.say(who, text, { gap: 0, autoLook: false, ...camOpts(o, true) }); T += d; };
-const abs = x => x - T;                                   // absolute time -> offset inside the beat being written
+const Z = sequencer(S, TM), hold = Z.hold, say = Z.say, abs = Z.abs;
 const POINT_L = { hipY: 0.83, lean: 4, aL: [30, 80, 0], eL: 6, aR: [14, 10, 0], eR: 30 };
 const REACH = { hipY: 0.83, lean: 4, aR: [38, 22, 0], eR: 34 };
 const HOLD_UP = { ...HOLD, head: [4, 0, 0] };
 const turn = (n, p, o = {}) => ({ at: [...(n === 'emil' ? EMIL_DOOR : HOME[n].slice(0, 2)), FACE[n](p)], dur: 0.32, ...o });
 
 // 00:00–00:08 · they run across the foggy platform, a distant explosion, the train opens a door. EMIL: "Da! Wir müssen rein!"
-hold(2.85, { look: 'runView', zoom: 54, push: 0.02, sfx: [['run', 0], ['siren', 0, 0.8], ['explosion', T_X + 0.22]] });
+hold(2.85, { look: 'runView', zoom: 54, push: 0.02, sfx: [...MV.steps(camPt), ['siren', 0, 0.8], ['explosion', T_X + 0.22]] });
 hold(3.95, { look: 'door', zoom: 46, pov: PB, povDur: 1.1, camDur: 0.55, vars: { door: [1, 0.85, 0.1], spill: [1, 0.7, 0.2] }, sfx: [['latch', 0.08], ['creak', 0.2, 0.8], ['warm', 0.3]] });
 say('emil', 'Da! | Wir müssen rein!', { look: 'emil', zoom: 36, camAt: -0.12, headroom: 0.15, do: { emil: [{ pose: POINT_L, face: 'shock', look: 'H_emilFwd', t: -0.1, dur: 0.22 }] } });
 hold(8.0, { look: 'groupA', zoom: 60, sfx: [['pant', 0.05, 1]], do: {
@@ -314,8 +266,8 @@ hold(9.75, { do: { lena: [{ look: 'front', t: 0.2, dur: 0.5 }, { pose: 'stand', 
 say('lena', 'Der hat | keine Lok.', { look: 'trackPan', zoom: 50, pov: PF, povDur: 0.9, camDur: 0.6, camAt: -0.25, push: 0.02,
   do: { emil: turn('emil', FRONT, { look: 'front', t: 0.35, dur: 0.45 }), paul: turn('paul', FRONT, { look: 'front', t: 0.5, dur: 0.45 }) } });
 hold(13.75, { sfx: [['wind', 0], ['chain', 0.6]], do: { schaffner: { hide: false, t: abs(WALK.T0), dur: 0 } } });
-hold(15.55, { look: 'groupF', zoom: 66, sfx: [['steps', 0.05, 0.9]] });
-say('schaffner', 'Heute braucht er keine.', { look: 'schaffner', zoom: 11, camAt: -0.15, headroom: 0.1, push: 0.03,
+hold(15.55, { look: 'groupF', zoom: 66, sfx: [] });
+say('schaffner', 'Heute braucht er keine.', { look: 'schaffner', zoom: 15, camAt: -0.15, headroom: 0.07, push: 0.03,
   do: { schaffner: { face: 'sus', look: 'H_paul', t: -0.1 },
         emil: turn('emil', HOME.schaffner, { look: 'H_schaffner', face: 'shock', tremble: 0.6, t: 0.35 }),
         paul: turn('paul', HOME.schaffner, { look: 'H_schaffner', face: 'shock', tremble: 0.5, t: 0.25 }),
@@ -333,5 +285,5 @@ hold(26.2, { look: 'schaffner', zoom: 50, headroom: 0.12, do: { schaffner: { pos
 hold(27.3, { look: 'doorPaul', zoom: 50, vars: { door: [0, 0.14, 0.2], spill: [0, 0.12, 0.26] }, sfx: [['slam', 0.3], ['slam_far', 0.55], ['slam_far', 0.82, 0.7], ['clank', 1.0]],
   do: { schaffner: { pose: 'stand', t: 0.2 }, paul: { look: 'door', face: 'shock', tremble: 1, t: 0.33, dur: 0.15 }, emil: { look: 'door', t: 0.35, dur: 0.15 }, lena: { look: 'door', pose: 'stand', t: 0.4, dur: 0.2 } } });
 hold(29.6, { look: 'paul', zoom: 19, cut: true, push: 0.03, headroom: 0.05, do: { paul: { look: 'H_schaffner', face: 'shock', tremble: 1, t: 0 } }, sfx: [['gasp', 0.02], ['pant_fast', 0.35]] });
-hold(30.0, { overlay: (ctx, w, h) => { ctx.fillStyle = '#000'; ctx.fillRect(0, 0, w, h); } });
+Z.hold(30.0, { overlay: (ctx, w, h) => { ctx.fillStyle = '#000'; ctx.fillRect(0, 0, w, h); } });
 S.start();

@@ -1,0 +1,13 @@
+node_modules/
+package-lock.json
+*/frames/
+*/frames_preview/
+*/snaps/
+*/audio/
+*/tts/
+*.log
+*/timeline.full.json
+voices_piper/
+*/node_modules
+gallery/
+__pycache__/

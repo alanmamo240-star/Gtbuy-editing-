@@ -1,0 +1,443 @@
+{
+ "duration": 30,
+ "frames": 900,
+ "target": null,
+ "pace": 1,
+ "voiced": true,
+ "unvoiced": [],
+ "mood": "tension",
+ "beats": [
+  {
+   "i": 0,
+   "type": "hold",
+   "t0": 0,
+   "t1": 4.3,
+   "cam": -1,
+   "look": "paulDoor",
+   "zoom": 50,
+   "moved": true
+  },
+  {
+   "i": 1,
+   "type": "say",
+   "who": "paul",
+   "text": "Die geht | nicht mehr auf!",
+   "t0": 4.3,
+   "t1": 5.429,
+   "cam": 4.1,
+   "look": "paul",
+   "zoom": 34,
+   "moved": true
+  },
+  {
+   "i": 2,
+   "type": "hold",
+   "t0": 5.429,
+   "t1": 8,
+   "cam": 5.579,
+   "look": "H_aisle",
+   "zoom": 42,
+   "moved": true
+  },
+  {
+   "i": 3,
+   "type": "hold",
+   "t0": 8,
+   "t1": 10.15,
+   "cam": 8,
+   "look": "lenaCam",
+   "zoom": 30,
+   "moved": true
+  },
+  {
+   "i": 4,
+   "type": "say",
+   "who": "lena",
+   "text": "Hier stehen | unsere Namen.",
+   "t0": 10.15,
+   "t1": 11.721,
+   "cam": 10.05,
+   "look": "lenaCam",
+   "zoom": 29.262,
+   "moved": true
+  },
+  {
+   "i": 5,
+   "type": "say",
+   "who": "emil",
+   "text": "Und wann | kommen wir an?",
+   "t0": 11.721,
+   "t1": 13.045,
+   "cam": 11.521,
+   "look": "emil",
+   "zoom": 28,
+   "moved": true
+  },
+  {
+   "i": 6,
+   "type": "hold",
+   "t0": 13.045,
+   "t1": 17.6,
+   "cam": 13.045,
+   "look": "ticketsHeld",
+   "zoom": 24,
+   "moved": true
+  },
+  {
+   "i": 7,
+   "type": "hold",
+   "t0": 17.6,
+   "t1": 20,
+   "cam": 17.6,
+   "look": "groupZ",
+   "zoom": 40,
+   "moved": true
+  },
+  {
+   "i": 8,
+   "type": "hold",
+   "t0": 20,
+   "t1": 22.3,
+   "cam": 20,
+   "look": "winL",
+   "zoom": 30,
+   "moved": true
+  },
+  {
+   "i": 9,
+   "type": "say",
+   "who": "schaffner",
+   "text": "Bitte sitzen bleiben. | Die Toten | steigen zuerst aus.",
+   "t0": 22.3,
+   "t1": 25.882,
+   "cam": 22.05,
+   "look": "speaker",
+   "zoom": 18,
+   "moved": true
+  },
+  {
+   "i": 10,
+   "type": "hold",
+   "t0": 25.882,
+   "t1": 28,
+   "cam": 25.932,
+   "look": "emil",
+   "zoom": 30,
+   "moved": true
+  },
+  {
+   "i": 11,
+   "type": "hold",
+   "t0": 28,
+   "t1": 29.6,
+   "cam": 28,
+   "look": "winWide",
+   "zoom": 40,
+   "moved": true
+  },
+  {
+   "i": 12,
+   "type": "hold",
+   "t0": 29.6,
+   "t1": 30,
+   "cam": 29.6,
+   "look": "winWide",
+   "zoom": 39.232,
+   "moved": true
+  }
+ ],
+ "lines": [
+  {
+   "n": 0,
+   "who": "paul",
+   "voice": "paul",
+   "fx": null,
+   "text": "Die geht nicht mehr auf!",
+   "t0": 4.3,
+   "dur": 1.129,
+   "stretch": false
+  },
+  {
+   "n": 1,
+   "who": "lena",
+   "voice": "lena",
+   "fx": null,
+   "text": "Hier stehen unsere Namen.",
+   "t0": 10.15,
+   "dur": 1.571,
+   "stretch": false
+  },
+  {
+   "n": 2,
+   "who": "emil",
+   "voice": "emil",
+   "fx": null,
+   "text": "Und wann kommen wir an?",
+   "t0": 11.721,
+   "dur": 1.324,
+   "stretch": false
+  },
+  {
+   "n": 3,
+   "who": "schaffner",
+   "voice": "schaffner",
+   "fx": "radio",
+   "text": "Bitte sitzen bleiben. Die Toten steigen zuerst aus.",
+   "t0": 22.3,
+   "dur": 3.582,
+   "stretch": false
+  }
+ ],
+ "speakers": {
+  "paul": {
+   "voice": "paul",
+   "fx": null,
+   "color": "#ffffff"
+  },
+  "emil": {
+   "voice": "emil",
+   "fx": null,
+   "color": "#ffd84a"
+  },
+  "lena": {
+   "voice": "lena",
+   "fx": null,
+   "color": "#7fe3ff"
+  },
+  "schaffner": {
+   "voice": "schaffner",
+   "fx": "radio",
+   "color": "#ff9ad0"
+  }
+ },
+ "events": [
+  [
+   "train",
+   0,
+   1
+  ],
+  [
+   "rattle",
+   0.68,
+   1
+  ],
+  [
+   "knips",
+   0.7,
+   1
+  ],
+  [
+   "rattle",
+   1.44,
+   1
+  ],
+  [
+   "knips",
+   2.15,
+   1
+  ],
+  [
+   "rattle",
+   2.2,
+   1
+  ],
+  [
+   "rattle",
+   2.96,
+   1
+  ],
+  [
+   "knips",
+   3.6,
+   1
+  ],
+  [
+   "whoosh",
+   4.1
+  ],
+  [
+   "knips",
+   5.05,
+   1
+  ],
+  [
+   "whoosh",
+   5.579
+  ],
+  [
+   "knips",
+   6.5,
+   1
+  ],
+  [
+   "knips",
+   7.95,
+   1
+  ],
+  [
+   "whoosh",
+   8
+  ],
+  [
+   "knips",
+   9.4,
+   0.6
+  ],
+  [
+   "paper",
+   9.55,
+   1
+  ],
+  [
+   "zoom",
+   10.05
+  ],
+  [
+   "knips",
+   10.85,
+   0.6
+  ],
+  [
+   "whoosh",
+   11.521
+  ],
+  [
+   "knips",
+   12.3,
+   0.6
+  ],
+  [
+   "whoosh",
+   13.045
+  ],
+  [
+   "knips",
+   13.75,
+   0.6
+  ],
+  [
+   "heart",
+   13.945,
+   0.7
+  ],
+  [
+   "heart",
+   14.845,
+   0.8
+  ],
+  [
+   "knips",
+   15.2,
+   0.6
+  ],
+  [
+   "heart",
+   15.745,
+   0.9
+  ],
+  [
+   "knips",
+   16.65,
+   0.6
+  ],
+  [
+   "whoosh",
+   17.6
+  ],
+  [
+   "pant_soft",
+   17.9,
+   1
+  ],
+  [
+   "knips",
+   18.1,
+   0.6
+  ],
+  [
+   "buzz",
+   18.5,
+   0.6
+  ],
+  [
+   "knips",
+   19.55,
+   0.6
+  ],
+  [
+   "whoosh",
+   20
+  ],
+  [
+   "buzz",
+   20,
+   0.8
+  ],
+  [
+   "sting",
+   20.34,
+   0.7
+  ],
+  [
+   "knips",
+   21,
+   0.6
+  ],
+  [
+   "chime",
+   21.75,
+   1
+  ],
+  [
+   "whoosh",
+   22.05
+  ],
+  [
+   "knips",
+   22.45,
+   0.6
+  ],
+  [
+   "knips",
+   23.9,
+   0.6
+  ],
+  [
+   "knips",
+   25.35,
+   0.6
+  ],
+  [
+   "whoosh",
+   25.932
+  ],
+  [
+   "stumble",
+   26.2,
+   1
+  ],
+  [
+   "knips",
+   26.8,
+   0.6
+  ],
+  [
+   "whoosh",
+   28
+  ],
+  [
+   "buzz",
+   28,
+   0.8
+  ],
+  [
+   "lightsout",
+   28.35,
+   1
+  ],
+  [
+   "zoom",
+   29.6
+  ]
+ ]
+}
