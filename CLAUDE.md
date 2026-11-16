@@ -22,6 +22,22 @@ In diesem Ordner werden ausschließlich **POV-Geschichten** als Cartoon-Videos g
 
 Bei jeder Geschichte dem Nutzer zeigen, welcher Teil welchen der 6 Schritte erfüllt.
 
+## Länge, Schnitt und Orte (bei JEDEM Video)
+
+- **Länge:** 60 bis 85 Sekunden. Kürzer wirkt billig, länger verliert Zuschauer.
+- **Sprechtext:** 165 bis 190 gesprochene Wörter (für ca. 60 Sekunden). Wörter immer nachzählen und Summe angeben.
+- **Schnitt:** Alle 2–3 Sekunden ein neues Bild. Bei jedem neuen Satz wechselt die Einstellung.
+- **Keine Pausen:** Keine langen Pausen in der Stimme. Kurz und knackig.
+- **Mindestens 3 Orte**, und man sieht, wie man von einem Ort zum nächsten geht.
+
+## Arbeitsablauf
+
+1. Skript schreiben: Idee + gewählter Hook, Format (POV / Serie / Story), Bauplan des Formats einhalten, 165–190 Wörter.
+2. Neben jeden Satz schreiben, was man in der Szene sieht (mit ungefährer Zeit).
+3. **Skript dem Nutzer zeigen und auf sein OK warten, bevor das Video gebaut wird.**
+
+Alles, was der Nutzer an Regeln oder Vorgaben schickt, hier in CLAUDE.md eintragen.
+
 ## Die 5 Hook-Regeln (bei JEDEM Video einhalten)
 
 1. **Konflikt in Sekunde 0.** Das Problem ist sofort da, ohne Einleitung. Kein „Hallo, heute zeige ich euch …“.
