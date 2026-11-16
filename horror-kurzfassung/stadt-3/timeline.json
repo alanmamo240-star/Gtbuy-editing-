@@ -1,0 +1,396 @@
+{
+ "duration": 30,
+ "frames": 900,
+ "target": null,
+ "pace": 1,
+ "voiced": true,
+ "unvoiced": [],
+ "mood": "tension",
+ "beats": [
+  {
+   "i": 0,
+   "type": "hold",
+   "t0": 0,
+   "t1": 1.6,
+   "cam": -1,
+   "look": "kids",
+   "zoom": 50,
+   "moved": true
+  },
+  {
+   "i": 1,
+   "type": "hold",
+   "t0": 1.6,
+   "t1": 4.6,
+   "cam": 1.6,
+   "look": "H_dn",
+   "zoom": 32,
+   "moved": true
+  },
+  {
+   "i": 2,
+   "type": "say",
+   "who": "max",
+   "text": "Welche | ist echt?",
+   "t0": 4.6,
+   "t1": 5.672,
+   "cam": 4.4,
+   "look": "max",
+   "zoom": 30,
+   "moved": true
+  },
+  {
+   "i": 3,
+   "type": "hold",
+   "t0": 5.672,
+   "t1": 8,
+   "cam": 5.672,
+   "look": "mirror",
+   "zoom": 42,
+   "moved": true
+  },
+  {
+   "i": 4,
+   "type": "hold",
+   "t0": 8,
+   "t1": 11.6,
+   "cam": 8,
+   "look": "mirror",
+   "zoom": 40.826688000000004,
+   "moved": true
+  },
+  {
+   "i": 5,
+   "type": "say",
+   "who": "nina",
+   "text": "Sie machen | uns nur nach.",
+   "t0": 11.6,
+   "t1": 12.738,
+   "cam": 11.4,
+   "look": "nina",
+   "zoom": 32,
+   "moved": true
+  },
+  {
+   "i": 6,
+   "type": "hold",
+   "t0": 12.738,
+   "t1": 15.6,
+   "cam": 12.738,
+   "look": "vent",
+   "zoom": 32,
+   "moved": true
+  },
+  {
+   "i": 7,
+   "type": "hold",
+   "t0": 15.6,
+   "t1": 18.1,
+   "cam": 15.6,
+   "look": "kidsLow",
+   "zoom": 56,
+   "moved": true
+  },
+  {
+   "i": 8,
+   "type": "say",
+   "who": "ben",
+   "text": "Da rein.",
+   "t0": 18.1,
+   "t1": 18.836,
+   "cam": 17.95,
+   "look": "benVent",
+   "zoom": 52,
+   "moved": true
+  },
+  {
+   "i": 9,
+   "type": "hold",
+   "t0": 18.836,
+   "t1": 20,
+   "cam": 18.836,
+   "look": "benVent",
+   "zoom": 51.447136,
+   "moved": true
+  },
+  {
+   "i": 10,
+   "type": "hold",
+   "t0": 20,
+   "t1": 23,
+   "cam": 20,
+   "look": "crawlers",
+   "zoom": 58,
+   "moved": true
+  },
+  {
+   "i": 11,
+   "type": "say",
+   "who": "max",
+   "text": "Tageslicht!",
+   "t0": 23,
+   "t1": 23.975,
+   "cam": 22.9,
+   "look": "maxFace",
+   "zoom": 66,
+   "moved": true
+  },
+  {
+   "i": 12,
+   "type": "hold",
+   "t0": 23.975,
+   "t1": 24.6,
+   "cam": 23.975,
+   "look": "maxFace",
+   "zoom": 65.1486,
+   "moved": true
+  },
+  {
+   "i": 13,
+   "type": "hold",
+   "t0": 24.6,
+   "t1": 26.4,
+   "cam": 24.6,
+   "look": "grille",
+   "zoom": 72,
+   "moved": true
+  },
+  {
+   "i": 14,
+   "type": "say",
+   "who": "draussen",
+   "text": "Ich helfe | euch raus.",
+   "t0": 26.4,
+   "t1": 28.192,
+   "cam": 26.3,
+   "look": "grille",
+   "zoom": 70.5312,
+   "moved": true
+  },
+  {
+   "i": 15,
+   "type": "hold",
+   "t0": 28.192,
+   "t1": 29.6,
+   "cam": 28.192,
+   "look": "benFace",
+   "zoom": 86,
+   "moved": true
+  },
+  {
+   "i": 16,
+   "type": "hold",
+   "t0": 29.6,
+   "t1": 30,
+   "cam": 29.6,
+   "look": "benFace",
+   "zoom": 82.36735999999999,
+   "moved": true
+  }
+ ],
+ "lines": [
+  {
+   "n": 0,
+   "who": "max",
+   "voice": "max",
+   "fx": null,
+   "text": "Welche ist echt?",
+   "t0": 4.6,
+   "dur": 1.072,
+   "stretch": false
+  },
+  {
+   "n": 1,
+   "who": "nina",
+   "voice": "nina",
+   "fx": null,
+   "text": "Sie machen uns nur nach.",
+   "t0": 11.6,
+   "dur": 1.138,
+   "stretch": false
+  },
+  {
+   "n": 2,
+   "who": "ben",
+   "voice": "ben",
+   "fx": "whisper",
+   "text": "Da rein.",
+   "t0": 18.1,
+   "dur": 0.736,
+   "stretch": false
+  },
+  {
+   "n": 3,
+   "who": "max",
+   "voice": "max",
+   "fx": null,
+   "text": "Tageslicht!",
+   "t0": 23,
+   "dur": 0.975,
+   "stretch": false
+  },
+  {
+   "n": 4,
+   "who": "draussen",
+   "voice": "ben2",
+   "fx": "far",
+   "text": "Ich helfe euch raus.",
+   "t0": 26.4,
+   "dur": 1.792,
+   "stretch": false
+  }
+ ],
+ "speakers": {
+  "max": {
+   "voice": "max",
+   "fx": null,
+   "color": "#9cf09c"
+  },
+  "nina": {
+   "voice": "nina",
+   "fx": null,
+   "color": "#ffb0a8"
+  },
+  "ben": {
+   "voice": "ben",
+   "fx": "whisper",
+   "color": "#7fb4ff"
+  },
+  "draussen": {
+   "voice": "ben2",
+   "fx": "far",
+   "color": "#d0d4ee"
+  }
+ },
+ "events": [
+  [
+   "drips",
+   0,
+   1
+  ],
+  [
+   "click",
+   1,
+   1
+  ],
+  [
+   "zoom",
+   1.6
+  ],
+  [
+   "sting",
+   2.65,
+   0.7
+  ],
+  [
+   "whoosh",
+   4.4
+  ],
+  [
+   "whoosh",
+   5.672
+  ],
+  [
+   "zoom",
+   8
+  ],
+  [
+   "sting",
+   9.6,
+   0.5
+  ],
+  [
+   "whoosh",
+   11.4
+  ],
+  [
+   "whoosh",
+   12.738
+  ],
+  [
+   "whoosh",
+   15.6
+  ],
+  [
+   "shuffle",
+   15.7,
+   1
+  ],
+  [
+   "ventoff",
+   17.6,
+   1
+  ],
+  [
+   "whoosh",
+   17.95
+  ],
+  [
+   "zoom",
+   18.836
+  ],
+  [
+   "zoom",
+   20
+  ],
+  [
+   "crawl",
+   20,
+   1
+  ],
+  [
+   "birds",
+   20,
+   0.6
+  ],
+  [
+   "cut",
+   20,
+   1
+  ],
+  [
+   "whoosh",
+   22.9
+  ],
+  [
+   "whoosh",
+   23.975
+  ],
+  [
+   "whoosh",
+   24.6
+  ],
+  [
+   "grate",
+   25.1,
+   1
+  ],
+  [
+   "sting",
+   25.1,
+   0.6
+  ],
+  [
+   "zoom",
+   26.3
+  ],
+  [
+   "whoosh",
+   28.192
+  ],
+  [
+   "heart",
+   28.492,
+   0.9
+  ],
+  [
+   "heart",
+   29.292,
+   1
+  ],
+  [
+   "zoom",
+   29.6
+  ]
+ ]
+}

@@ -1,0 +1,42 @@
+{
+ "ben": {
+  "lines": [
+   0
+  ],
+  "chars": 20,
+  "file": "audio/vo_ben.mp3",
+  "script": "script_ben.txt"
+ },
+ "max": {
+  "lines": [
+   1
+  ],
+  "chars": 28,
+  "file": "audio/vo_max.mp3",
+  "script": "script_max.txt"
+ },
+ "durchsage": {
+  "lines": [
+   2
+  ],
+  "chars": 35,
+  "file": "audio/vo_durchsage.mp3",
+  "script": "script_durchsage.txt"
+ },
+ "nina": {
+  "lines": [
+   3
+  ],
+  "chars": 12,
+  "file": "audio/vo_nina.mp3",
+  "script": "script_nina.txt"
+ },
+ "nina2": {
+  "lines": [
+   4
+  ],
+  "chars": 19,
+  "file": "audio/vo_nina2.mp3",
+  "script": "script_nina2.txt"
+ }
+}

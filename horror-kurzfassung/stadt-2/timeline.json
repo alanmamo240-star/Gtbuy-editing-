@@ -1,0 +1,672 @@
+{
+ "duration": 30,
+ "frames": 900,
+ "target": null,
+ "pace": 1,
+ "voiced": true,
+ "unvoiced": [],
+ "mood": "tension",
+ "beats": [
+  {
+   "i": 0,
+   "type": "hold",
+   "t0": 0,
+   "t1": 2.4,
+   "cam": -1,
+   "look": "backDoor",
+   "zoom": 50,
+   "moved": true
+  },
+  {
+   "i": 1,
+   "type": "hold",
+   "t0": 2.4,
+   "t1": 4.6,
+   "cam": 2.4,
+   "look": "dumpster",
+   "zoom": 46,
+   "moved": true
+  },
+  {
+   "i": 2,
+   "type": "say",
+   "who": "ben",
+   "text": "Zur Brücke! | Schnell!",
+   "t0": 4.6,
+   "t1": 6.152,
+   "cam": 4.4,
+   "look": "ben",
+   "zoom": 34,
+   "moved": true
+  },
+  {
+   "i": 3,
+   "type": "hold",
+   "t0": 6.152,
+   "t1": 8,
+   "cam": 6.152,
+   "look": "point",
+   "zoom": 56,
+   "moved": true
+  },
+  {
+   "i": 4,
+   "type": "hold",
+   "t0": 8,
+   "t1": 10.6,
+   "cam": 8,
+   "look": "alleyEnd",
+   "zoom": 46,
+   "moved": true
+  },
+  {
+   "i": 5,
+   "type": "say",
+   "who": "max",
+   "text": "Warum sehen die | aus wie wir?",
+   "t0": 10.6,
+   "t1": 12.112,
+   "cam": 10.4,
+   "look": "max",
+   "zoom": 32,
+   "moved": true
+  },
+  {
+   "i": 6,
+   "type": "hold",
+   "t0": 12.112,
+   "t1": 12.7,
+   "cam": 12.112,
+   "look": "max",
+   "zoom": 31.342592,
+   "moved": true
+  },
+  {
+   "i": 7,
+   "type": "say",
+   "who": "lautsprecher",
+   "text": "Bitte begrüßen Sie | Ihre Nachfolger.",
+   "t0": 12.7,
+   "t1": 14.95,
+   "cam": 12.4,
+   "look": "horn",
+   "zoom": 26,
+   "moved": true
+  },
+  {
+   "i": 8,
+   "type": "hold",
+   "t0": 14.95,
+   "t1": 20,
+   "cam": 14.95,
+   "look": "alleyEnd",
+   "zoom": 44,
+   "moved": true
+  },
+  {
+   "i": 9,
+   "type": "hold",
+   "t0": 20,
+   "t1": 20.75,
+   "cam": 20,
+   "look": "ninaDoor",
+   "zoom": 40,
+   "moved": true
+  },
+  {
+   "i": 10,
+   "type": "say",
+   "who": "nina",
+   "text": "Hier runter!",
+   "t0": 20.75,
+   "t1": 21.475,
+   "cam": 20.65,
+   "look": "ninaDoor",
+   "zoom": 39.688,
+   "moved": true
+  },
+  {
+   "i": 11,
+   "type": "hold",
+   "t0": 21.475,
+   "t1": 24.6,
+   "cam": 21.475,
+   "look": "H_up",
+   "zoom": 52,
+   "moved": true
+  },
+  {
+   "i": 12,
+   "type": "hold",
+   "t0": 24.6,
+   "t1": 26.2,
+   "cam": 24.6,
+   "look": "H_ninaStair",
+   "zoom": 44,
+   "moved": true
+  },
+  {
+   "i": 13,
+   "type": "say",
+   "who": "nina2",
+   "text": "Hier seid | ihr also.",
+   "t0": 26.2,
+   "t1": 27.445,
+   "cam": 26.1,
+   "look": "H_ninaStair",
+   "zoom": 42.68000000000001,
+   "moved": true
+  },
+  {
+   "i": 14,
+   "type": "hold",
+   "t0": 27.445,
+   "t1": 29.6,
+   "cam": 27.445,
+   "look": "H_ninaStair",
+   "zoom": 41.53190800000001,
+   "moved": true
+  },
+  {
+   "i": 15,
+   "type": "hold",
+   "t0": 29.6,
+   "t1": 30,
+   "cam": 29.6,
+   "look": "H_ninaStair",
+   "zoom": 39.74188276520001,
+   "moved": true
+  }
+ ],
+ "lines": [
+  {
+   "n": 0,
+   "who": "ben",
+   "voice": "ben",
+   "fx": null,
+   "text": "Zur Brücke! Schnell!",
+   "t0": 4.6,
+   "dur": 1.552,
+   "stretch": false
+  },
+  {
+   "n": 1,
+   "who": "max",
+   "voice": "max",
+   "fx": null,
+   "text": "Warum sehen die aus wie wir?",
+   "t0": 10.6,
+   "dur": 1.512,
+   "stretch": false
+  },
+  {
+   "n": 2,
+   "who": "lautsprecher",
+   "voice": "durchsage",
+   "fx": "radio",
+   "text": "Bitte begrüßen Sie Ihre Nachfolger.",
+   "t0": 12.7,
+   "dur": 2.25,
+   "stretch": false
+  },
+  {
+   "n": 3,
+   "who": "nina",
+   "voice": "nina",
+   "fx": null,
+   "text": "Hier runter!",
+   "t0": 20.75,
+   "dur": 0.725,
+   "stretch": false
+  },
+  {
+   "n": 4,
+   "who": "nina2",
+   "voice": "nina2",
+   "fx": null,
+   "text": "Hier seid ihr also.",
+   "t0": 26.2,
+   "dur": 1.245,
+   "stretch": false
+  }
+ ],
+ "speakers": {
+  "ben": {
+   "voice": "ben",
+   "fx": null,
+   "color": "#7fb4ff"
+  },
+  "max": {
+   "voice": "max",
+   "fx": null,
+   "color": "#9cf09c"
+  },
+  "lautsprecher": {
+   "voice": "durchsage",
+   "fx": "radio",
+   "color": "#ff8a7a"
+  },
+  "nina": {
+   "voice": "nina",
+   "fx": null,
+   "color": "#ffb0a8"
+  },
+  "nina2": {
+   "voice": "nina2",
+   "fx": null,
+   "color": "#ff9ad0"
+  }
+ },
+ "events": [
+  [
+   "nightamb",
+   0,
+   1
+  ],
+  [
+   "doorbang",
+   0.12,
+   1
+  ],
+  [
+   "step",
+   0.3,
+   0.71
+  ],
+  [
+   "step",
+   0.598,
+   0.75
+  ],
+  [
+   "step",
+   0.6,
+   0.71
+  ],
+  [
+   "step",
+   0.896,
+   0.39
+  ],
+  [
+   "step",
+   0.898,
+   0.91
+  ],
+  [
+   "step",
+   0.95,
+   0.71
+  ],
+  [
+   "step",
+   1.196,
+   0.39
+  ],
+  [
+   "step",
+   1.248,
+   0.51
+  ],
+  [
+   "step",
+   1.546,
+   0.24
+  ],
+  [
+   "step",
+   1.844,
+   0.15
+  ],
+  [
+   "whoosh",
+   2.4
+  ],
+  [
+   "stepw",
+   2.5,
+   0.73
+  ],
+  [
+   "scrape",
+   2.5,
+   1
+  ],
+  [
+   "stepw",
+   3.007,
+   0.79
+  ],
+  [
+   "stepw",
+   3.514,
+   0.85
+  ],
+  [
+   "stepw",
+   4.021,
+   0.46
+  ],
+  [
+   "whoosh",
+   4.4
+  ],
+  [
+   "whoosh",
+   6.152
+  ],
+  [
+   "step",
+   6.424,
+   0.38
+  ],
+  [
+   "step",
+   6.617,
+   0.61
+  ],
+  [
+   "step",
+   6.722,
+   0.43
+  ],
+  [
+   "step",
+   6.809,
+   0.71
+  ],
+  [
+   "step",
+   6.915,
+   0.74
+  ],
+  [
+   "step",
+   7.02,
+   0.49
+  ],
+  [
+   "step",
+   7.107,
+   0.87
+  ],
+  [
+   "step",
+   7.213,
+   0.92
+  ],
+  [
+   "step",
+   7.318,
+   0.57
+  ],
+  [
+   "step",
+   7.405,
+   1.12
+  ],
+  [
+   "step",
+   7.511,
+   1.19
+  ],
+  [
+   "step",
+   7.616,
+   0.67
+  ],
+  [
+   "step",
+   7.703,
+   1.3
+  ],
+  [
+   "step",
+   7.809,
+   1.3
+  ],
+  [
+   "step",
+   7.914,
+   0.81
+  ],
+  [
+   "whoosh",
+   8
+  ],
+  [
+   "step",
+   8.001,
+   1.28
+  ],
+  [
+   "step",
+   8.107,
+   1.3
+  ],
+  [
+   "step",
+   8.212,
+   0.84
+  ],
+  [
+   "step",
+   8.299,
+   1.3
+  ],
+  [
+   "step",
+   8.405,
+   1.3
+  ],
+  [
+   "step",
+   8.51,
+   1.08
+  ],
+  [
+   "step",
+   8.597,
+   1.3
+  ],
+  [
+   "step",
+   8.703,
+   1.3
+  ],
+  [
+   "step",
+   8.808,
+   1.3
+  ],
+  [
+   "step",
+   8.895,
+   1.3
+  ],
+  [
+   "step",
+   9.001,
+   1.3
+  ],
+  [
+   "step",
+   9.106,
+   1.3
+  ],
+  [
+   "step",
+   9.193,
+   1.3
+  ],
+  [
+   "step",
+   9.299,
+   1.3
+  ],
+  [
+   "step",
+   9.404,
+   1.3
+  ],
+  [
+   "step",
+   9.491,
+   1.3
+  ],
+  [
+   "step",
+   9.597,
+   1.02
+  ],
+  [
+   "step",
+   9.702,
+   1.3
+  ],
+  [
+   "step",
+   9.789,
+   0.99
+  ],
+  [
+   "step",
+   9.895,
+   0.45
+  ],
+  [
+   "sting",
+   9.9,
+   0.6
+  ],
+  [
+   "step",
+   10,
+   0.75
+  ],
+  [
+   "step",
+   10.087,
+   0.43
+  ],
+  [
+   "step",
+   10.193,
+   0.27
+  ],
+  [
+   "step",
+   10.298,
+   0.3
+  ],
+  [
+   "whoosh",
+   10.4
+  ],
+  [
+   "whoosh",
+   12.112
+  ],
+  [
+   "whoosh",
+   12.4
+  ],
+  [
+   "megaphone",
+   12.45,
+   1
+  ],
+  [
+   "whoosh",
+   14.95
+  ],
+  [
+   "stepw",
+   17.4,
+   0.5
+  ],
+  [
+   "stepw",
+   17.9,
+   0.5
+  ],
+  [
+   "stepw",
+   18.4,
+   0.55
+  ],
+  [
+   "stepw",
+   18.9,
+   0.55
+  ],
+  [
+   "stepw",
+   19.4,
+   0.6
+  ],
+  [
+   "whoosh",
+   20
+  ],
+  [
+   "whoosh",
+   20.65
+  ],
+  [
+   "whoosh",
+   21.475
+  ],
+  [
+   "stepw",
+   22.1,
+   0.5
+  ],
+  [
+   "stepw",
+   22.5,
+   0.5
+  ],
+  [
+   "stepw",
+   22.9,
+   0.5
+  ],
+  [
+   "doorshut",
+   24.15,
+   1
+  ],
+  [
+   "zoom",
+   24.6
+  ],
+  [
+   "pant_soft",
+   24.6,
+   0.9
+  ],
+  [
+   "heart",
+   25.3,
+   0.8
+  ],
+  [
+   "zoom",
+   26.1
+  ],
+  [
+   "zoom",
+   27.445
+  ],
+  [
+   "sting",
+   27.845,
+   0.7
+  ],
+  [
+   "zoom",
+   29.6
+  ]
+ ]
+}

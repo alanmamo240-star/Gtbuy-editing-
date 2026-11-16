@@ -1,0 +1,27 @@
+{
+ "lena": {
+  "lines": [
+   0
+  ],
+  "chars": 36,
+  "file": "audio/vo_lena.mp3",
+  "script": "script_lena.txt"
+ },
+ "paul": {
+  "lines": [
+   1,
+   3
+  ],
+  "chars": 37,
+  "file": "audio/vo_paul.mp3",
+  "script": "script_paul.txt"
+ },
+ "emil": {
+  "lines": [
+   2
+  ],
+  "chars": 11,
+  "file": "audio/vo_emil.mp3",
+  "script": "script_emil.txt"
+ }
+}

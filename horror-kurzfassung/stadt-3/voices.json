@@ -1,0 +1,35 @@
+{
+ "max": {
+  "lines": [
+   0,
+   3
+  ],
+  "chars": 29,
+  "file": "audio/vo_max.mp3",
+  "script": "script_max.txt"
+ },
+ "nina": {
+  "lines": [
+   1
+  ],
+  "chars": 24,
+  "file": "audio/vo_nina.mp3",
+  "script": "script_nina.txt"
+ },
+ "ben": {
+  "lines": [
+   2
+  ],
+  "chars": 8,
+  "file": "audio/vo_ben.mp3",
+  "script": "script_ben.txt"
+ },
+ "ben2": {
+  "lines": [
+   4
+  ],
+  "chars": 20,
+  "file": "audio/vo_ben2.mp3",
+  "script": "script_ben2.txt"
+ }
+}

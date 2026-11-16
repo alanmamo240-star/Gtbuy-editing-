@@ -118,6 +118,94 @@ def stumble(t0):
     n = int(0.5 * SR); put((np.sin(2 * np.pi * 95 * tt(0.5)) * env(n, 0.002, 0.07) + filt(rs.randn(n).astype(np.float32), 120, 900) * env(n, 0.001, 0.03)).astype(np.float32), t0 + 0.4, 0.5)
 def lightsout(t0):
     n = int(0.8 * SR); a = (np.sin(2 * np.pi * 70 * tt(0.8)) * env(n, 0.001, 0.06) + filt(rs.randn(n).astype(np.float32), 1500, 8000) * env(n, 0.0005, 0.01) * 0.6).astype(np.float32); put(verb(a, 0.9, 0.35), t0, 0.5)
+def alarmhum(t0, t1):     # emergency light: a low electric hum with a slow throb
+    d = max(0.5, t1 - t0); t = tt(d); a = (np.sin(2 * np.pi * 100 * t) * 0.5 + np.sin(2 * np.pi * 200 * t) * 0.2) * (0.6 + 0.4 * np.sin(2 * np.pi * t / 1.6) ** 2) * 0.018
+    put(a.astype(np.float32), t0, 1.0)
+def lever(t0):
+    n = int(0.7 * SR); a = (np.sin(2 * np.pi * 180 * tt(0.7)) * env(n, 0.001, 0.12) * 0.5 + np.sin(2 * np.pi * 267 * tt(0.7)) * env(n, 0.001, 0.08) * 0.3 + filt(rs.randn(n).astype(np.float32), 600, 4000) * env(n, 0.0005, 0.02)).astype(np.float32)
+    put(verb(a, 0.8, 0.3), t0, 0.5)
+def jolt(t0):             # the whole carriage bangs into the brake
+    d = 1.6; n = int(d * SR); a = (np.sin(2 * np.pi * (60 - 25 * tt(d)) * tt(d)) * env(n, 0.002, 0.35) + filt(rs.randn(n).astype(np.float32), 80, 2500) * env(n, 0.001, 0.12) * 0.9).astype(np.float32)
+    for o in (0.05, 0.11, 0.2, 0.31): i = int(o * SR); m = int(0.08 * SR); a[i:i + m] += (filt(rs.randn(m).astype(np.float32), 1500, 6000) * env(m, 0.0005, 0.015) * 0.5).astype(np.float32)
+    put(verb(a, 1.0, 0.3), t0, 0.8)
+def brake(t0):            # metal squeal dying away
+    d = 1.8; t = tt(d); f = 2400 - 600 * t / d; a = np.sin(2 * np.pi * np.cumsum(f) / SR) * (1 - t / d) ** 1.5 * (0.7 + 0.3 * np.sin(2 * np.pi * 23 * t)); a = filt(a.astype(np.float32), 1200, 5000) * 0.25
+    put(verb(a, 1.2, 0.35, 800, 6000), t0, 0.35)
+def windout(t0, d=6.0):
+    t = tt(d); a = filt(noise(d), 200, 1300, 2.0) * np.minimum(1, t / 0.8) * (0.7 + 0.3 * np.sin(2 * np.pi * 0.4 * t)) * np.clip((d - t) / 1.5, 0, 1); put((a * 0.05).astype(np.float32), t0, 1.0)
+def spring(t0, g):        # the lever pushing back: a strained metal creak
+    d = 1.2; t = tt(d); f = 140 + 40 * np.sin(2 * np.pi * 1.3 * t); a = np.sin(2 * np.pi * np.cumsum(f) / SR) * (0.5 + 0.5 * np.sign(np.sin(2 * np.pi * 29 * t))) * np.sin(np.pi * t / d) ** 2
+    put(filt(a.astype(np.float32), 120, 1800) * 0.1, t0, g)
+def land(t0):
+    n = int(0.4 * SR); put(verb((np.sin(2 * np.pi * 80 * tt(0.4)) * env(n, 0.002, 0.05) + filt(rs.randn(n).astype(np.float32), 100, 1500) * env(n, 0.001, 0.03)).astype(np.float32), 0.6, 0.3), t0, 0.5)
+def birds(t0, g, d=8.0):  # a few early birds far away
+    for k in range(int(d * 1.6)):
+        o = rs.rand() * d; f0 = 2600 + 1600 * rs.rand(); m = int(0.12 * SR); tt_ = np.arange(m) / SR
+        a = np.sin(2 * np.pi * (f0 + 900 * np.sin(2 * np.pi * 18 * tt_)) * tt_) * np.sin(np.pi * tt_ / 0.12) ** 2; put(verb(a.astype(np.float32), 0.8, 0.5, 1500, 8000), t0 + o, 0.012 * g)
+def crack(t0):            # wood splitting
+    n = int(0.6 * SR); a = np.zeros(n, np.float32)
+    for o, q in ((0, 1.0), (0.04, 0.7), (0.09, 0.9), (0.2, 0.5)): i = int(o * SR); m = int(0.06 * SR); a[i:i + m] += (filt(rs.randn(m).astype(np.float32), 400, 5000) * env(m, 0.0005, 0.012) * q).astype(np.float32)
+    a += (np.sin(2 * np.pi * 150 * tt(0.6)) * env(n, 0.001, 0.04) * 0.4).astype(np.float32); put(verb(a, 0.6, 0.3), t0, 0.6)
+def wood(t0):
+    n = int(0.4 * SR); put(verb((np.sin(2 * np.pi * 210 * tt(0.4)) * env(n, 0.001, 0.05) + filt(rs.randn(n).astype(np.float32), 300, 3000) * env(n, 0.0005, 0.02)).astype(np.float32), 0.5, 0.3), t0, 0.5)
+def whistle_long(t0):     # a steam whistle from a train with no engine: long, low, two notes
+    d = 2.6; t = tt(d); a = np.zeros(len(t), np.float32)
+    for f in (311, 370, 466): a += (np.sin(2 * np.pi * f * t + 0.3 * np.sin(2 * np.pi * 5 * t)) * 0.33).astype(np.float32)
+    e = np.minimum(1, t / 0.15) * np.clip((d - t) / 0.5, 0, 1); a = (a * e + filt(noise(d), 800, 4000) * e * 0.12).astype(np.float32)
+    put(verb(filt(a, 200, 3000), 2.2, 0.5, 200, 4000), t0, 0.12)
+def alert(t0):            # emergency phone alert: harsh two-tone blasts from three phones at once
+    d = 3.2; t = tt(d); a = np.zeros(len(t), np.float32)
+    for k in range(4):
+        i = int(k * 0.8 * SR); m = int(0.55 * SR); tm = np.arange(m) / SR; f = np.where((tm * 8).astype(int) % 2 == 0, 853, 960)
+        x = np.sign(np.sin(2 * np.pi * np.cumsum(f) / SR)) * 0.5 + np.sin(2 * np.pi * np.cumsum(f * 1.003) / SR) * 0.4; x *= np.minimum(1, tm / 0.01) * np.clip((0.55 - tm) / 0.02, 0, 1)
+        a[i:i + m] += filt(x.astype(np.float32), 500, 4000) * 0.11
+    put(a, t0, 1.0)
+def doorbell(t0):
+    a = np.zeros(int(2.0 * SR), np.float32)
+    for o, f in ((0, 784), (0.55, 622)):
+        i = int(o * SR); m = int(1.4 * SR); tm = np.arange(m) / SR; a[i:i + m] += ((np.sin(2 * np.pi * f * tm) + 0.3 * np.sin(2 * np.pi * f * 2.76 * tm)) * env(m, 0.002, 0.6) * 0.3).astype(np.float32)
+    put(verb(a, 0.6, 0.25), t0, 0.6)
+def handle(t0):           # a door handle pressed down slowly from outside, metal latch scraping
+    d = 1.4; t = tt(d); a = filt(noise(d), 1500, 6000) * np.sin(np.pi * t / d) ** 2 * (rs.rand(len(t)) > 0.93) * 0.3
+    n = int(0.3 * SR); a[:n] += (filt(rs.randn(n).astype(np.float32), 800, 5000) * env(n, 0.0005, 0.01) * 0.6).astype(np.float32)
+    put(verb(a.astype(np.float32), 0.5, 0.3), t0, 0.6)
+def chairscrape(t0):
+    d = 0.7; t = tt(d); a = filt(noise(d), 300, 1500) * (0.6 + 0.4 * np.sin(2 * np.pi * 31 * t)) * np.sin(np.pi * t / d) ** 2 * 0.12; put(a.astype(np.float32), t0, 1.0)
+def roomtone(t0, t1):
+    d = max(0.5, t1 - t0); t = tt(d); a = filt(noise(d), 60, 300, 2.0) * 0.012 + np.sin(2 * np.pi * 50 * t) * 0.003; put(a.astype(np.float32), t0, 1.0)
+def doorbang(t0):
+    n = int(0.6 * SR); put(verb((np.sin(2 * np.pi * 95 * tt(0.6)) * env(n, 0.001, 0.08) + filt(rs.randn(n).astype(np.float32), 200, 3000) * env(n, 0.0005, 0.03) * 0.8).astype(np.float32), 0.7, 0.35), t0, 0.7)
+def scrape(t0, d=2.0):    # a heavy metal container dragged over asphalt
+    t = tt(d); a = filt(noise(d), 150, 2200, 2.0) * (0.6 + 0.4 * np.abs(np.sin(2 * np.pi * 7 * t))) * np.sin(np.pi * t / d) ** 0.5 * 0.16
+    a += (np.sin(2 * np.pi * 70 * t) * 0.03 * np.sin(np.pi * t / d)).astype(np.float32); put(a.astype(np.float32), t0, 1.0)
+def megaphone(t0):        # a crackle and a short feedback whine before the announcement
+    d = 0.5; t = tt(d); a = filt(noise(d), 1500, 5000) * (rs.rand(len(t)) > 0.8) * 0.15 + np.sin(2 * np.pi * 2100 * t) * np.sin(np.pi * t / d) ** 2 * 0.05; put(a.astype(np.float32), t0, 1.0)
+def doorshut(t0):
+    n = int(1.0 * SR); a = (np.sin(2 * np.pi * 80 * tt(1.0)) * env(n, 0.001, 0.1) + filt(rs.randn(n).astype(np.float32), 100, 2500) * env(n, 0.0005, 0.04)).astype(np.float32); put(verb(a, 1.4, 0.5, 80, 2000), t0, 0.8)
+def nightamb(t0, d=None):
+    d = (TL['duration'] - t0) if d is None else d; t = tt(d); a = filt(noise(d), 120, 900, 2.0) * 0.012 * (0.8 + 0.2 * np.sin(2 * np.pi * 0.11 * t)); put(a.astype(np.float32), t0, 1.0)
+def drips(t0, d=None):    # a damp cellar: slow water drops and a low hum
+    d = (TL['duration'] - t0) if d is None else d; k = 0.0
+    while k < d:
+        m = int(0.25 * SR); f = 1200 + 900 * rs.rand(); x = np.sin(2 * np.pi * (f + 600 * np.exp(-np.arange(m) / SR * 40)) * np.arange(m) / SR) * env(m, 0.001, 0.03); put(verb(x.astype(np.float32), 1.0, 0.5, 500, 5000), t0 + k, 0.035)
+        k += 0.9 + 1.6 * rs.rand()
+    t = tt(d); put((np.sin(2 * np.pi * 60 * t) * 0.006 + filt(noise(d), 40, 200) * 0.01).astype(np.float32), t0, 1.0)
+def click(t0):
+    m = int(0.08 * SR); put((filt(rs.randn(m).astype(np.float32), 2000, 8000) * env(m, 0.0003, 0.006)).astype(np.float32), t0, 0.35)
+def ventoff(t0):
+    n = int(0.9 * SR); a = (np.sin(2 * np.pi * 420 * tt(0.9)) * env(n, 0.001, 0.15) * 0.3 + np.sin(2 * np.pi * 633 * tt(0.9)) * env(n, 0.001, 0.1) * 0.2 + filt(rs.randn(n).astype(np.float32), 500, 5000) * env(n, 0.0005, 0.03)).astype(np.float32); put(verb(a, 0.8, 0.35), t0, 0.5)
+def shuffle(t0, d=2.0):
+    t = tt(d); a = filt(noise(d), 300, 2500) * (0.5 + 0.5 * np.abs(np.sin(2 * np.pi * 2.2 * t))) * 0.05; put(a.astype(np.float32), t0, 1.0)
+def crawl(t0, d=3.6):     # knees and hands on a sheet-metal duct: hollow thumps
+    k = 0.0
+    while k < d:
+        m = int(0.2 * SR); x = (np.sin(2 * np.pi * (140 + 60 * rs.rand()) * np.arange(m) / SR) * env(m, 0.001, 0.05) + filt(rs.randn(m).astype(np.float32), 300, 3000) * env(m, 0.0005, 0.02) * 0.6).astype(np.float32)
+        put(verb(x, 0.5, 0.4, 200, 3000), t0 + k, 0.28); k += 0.17 + 0.12 * rs.rand()
+def grate(t0):
+    n = int(1.0 * SR); a = (np.sin(2 * np.pi * 310 * tt(1.0)) * env(n, 0.001, 0.2) * 0.4 + np.sin(2 * np.pi * 523 * tt(1.0)) * env(n, 0.001, 0.12) * 0.3 + filt(rs.randn(n).astype(np.float32), 400, 4000) * env(n, 0.0005, 0.03)).astype(np.float32); put(verb(a, 0.9, 0.4), t0, 0.6)
+def river(t0, d=None):    # a slow river: broadband wash with gentle swells
+    d = (TL['duration'] - t0) if d is None else d; t = tt(d); a = filt(noise(d), 200, 2500, 2.0) * (0.75 + 0.25 * np.sin(2 * np.pi * 0.21 * t) * np.sin(2 * np.pi * 0.07 * t + 1)) * 0.035
+    put(a.astype(np.float32), t0, 1.0)
 # ---- ambience: cold wind in the fog for the whole scene
 t = np.arange(N) / SR
 amb = filt(rs.randn(N).astype(np.float32), 90, 650, 2.0) * (0.7 + 0.3 * np.sin(2 * np.pi * 0.09 * t) * np.sin(2 * np.pi * 0.037 * t + 1))
@@ -128,7 +216,7 @@ B = {'step': lambda t0, g: put(verb(step(4.0), 0.5, 0.3), t0, 0.55 * g), 'stepw'
      'warm': lambda t0, g: warm(t0, slam_t + 0.02), 'pant': lambda t0, g: pant(t0, 2.5, 0.62, [(0, 1.0), (0.21, 1.12), (0.4, 1.25)], 0.9 * g),
      'pant_soft': lambda t0, g: pant(t0, 1.4, 0.9, [(0.1, 1.25)], 0.7 * g), 'pant_fast': lambda t0, g: pant(t0, 29.62 - t0, 0.46, [(0, 1.05)], 1.1 * g),
      'wind': lambda t0, g: wind(t0), 'chain': lambda t0, g: chain(t0), 'paper': lambda t0, g: paper(t0), 'whistle': lambda t0, g: whistle(t0),
-     'slam_far': lambda t0, g: slam_far(t0, g), 'clank': lambda t0, g: clank(t0), 'gasp': lambda t0, g: gasp(t0), 'train': lambda t0, g: train(t0, next((e[1] for e in events if e[0] in ('trainstop', 'lightsout') and e[1] > t0), TL['duration'])), 'knips': lambda t0, g: knips(t0, g), 'rattle': lambda t0, g: rattle(t0), 'chime': lambda t0, g: chime(t0), 'stumble': lambda t0, g: stumble(t0), 'lightsout': lambda t0, g: lightsout(t0), 'heart': lambda t0, g: heart(t0, g)}
+     'slam_far': lambda t0, g: slam_far(t0, g), 'clank': lambda t0, g: clank(t0), 'gasp': lambda t0, g: gasp(t0), 'train': lambda t0, g: train(t0, next((e[1] for e in events if e[0] in ('trainstop', 'lightsout') and e[1] > t0), TL['duration'])), 'knips': lambda t0, g: knips(t0, g), 'rattle': lambda t0, g: rattle(t0), 'chime': lambda t0, g: chime(t0), 'stumble': lambda t0, g: stumble(t0), 'lightsout': lambda t0, g: lightsout(t0), 'alarmhum': lambda t0, g: alarmhum(t0, TL['duration'] - 0.4), 'lever': lambda t0, g: lever(t0), 'jolt': lambda t0, g: jolt(t0), 'brake': lambda t0, g: brake(t0), 'windout': lambda t0, g: windout(t0), 'spring': lambda t0, g: spring(t0, g), 'land': lambda t0, g: land(t0), 'birds': lambda t0, g: birds(t0, g), 'crack': lambda t0, g: crack(t0), 'wood': lambda t0, g: wood(t0), 'whistle_long': lambda t0, g: whistle_long(t0), 'alert': lambda t0, g: alert(t0), 'doorbell': lambda t0, g: doorbell(t0), 'handle': lambda t0, g: handle(t0), 'chairscrape': lambda t0, g: chairscrape(t0), 'doorbang': lambda t0, g: doorbang(t0), 'drips': lambda t0, g: drips(t0, next((e[1] for e in events if e[0] == 'cut' and e[1] > t0), TL['duration']) - t0), 'click': lambda t0, g: click(t0), 'river': lambda t0, g: river(t0), 'ventoff': lambda t0, g: ventoff(t0), 'shuffle': lambda t0, g: shuffle(t0), 'crawl': lambda t0, g: crawl(t0), 'grate': lambda t0, g: grate(t0), 'scrape': lambda t0, g: scrape(t0), 'megaphone': lambda t0, g: megaphone(t0), 'doorshut': lambda t0, g: doorshut(t0), 'nightamb': lambda t0, g: nightamb(t0, next((e[1] for e in events if e[0] == 'doorshut'), TL['duration']) - t0), 'roomtone': lambda t0, g: roomtone(t0, next((e[1] for e in events if e[0] == 'cut' and e[1] > t0), TL['duration'])), 'heart': lambda t0, g: heart(t0, g)}
 used = []
 for e in events:
     name, at = e[0], e[1]; g = e[2] if len(e) > 2 else 1.0

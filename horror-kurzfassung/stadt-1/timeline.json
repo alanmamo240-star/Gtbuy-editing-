@@ -1,0 +1,323 @@
+{
+ "duration": 30,
+ "frames": 900,
+ "target": null,
+ "pace": 1,
+ "voiced": true,
+ "unvoiced": [],
+ "mood": "tension",
+ "beats": [
+  {
+   "i": 0,
+   "type": "hold",
+   "t0": 0,
+   "t1": 2.6,
+   "cam": -1,
+   "look": "table",
+   "zoom": 54,
+   "moved": true
+  },
+  {
+   "i": 1,
+   "type": "say",
+   "who": "handy",
+   "text": "Bleiben Sie drinnen. | Öffnen Sie niemandem.",
+   "t0": 2.6,
+   "t1": 5.597,
+   "cam": 2.25,
+   "look": "maxPhone",
+   "zoom": 24,
+   "moved": true
+  },
+  {
+   "i": 2,
+   "type": "hold",
+   "t0": 5.597,
+   "t1": 8,
+   "cam": 5.597,
+   "look": "table",
+   "zoom": 50,
+   "moved": true
+  },
+  {
+   "i": 3,
+   "type": "hold",
+   "t0": 8,
+   "t1": 9.5,
+   "cam": 8,
+   "look": "door",
+   "zoom": 34,
+   "moved": true
+  },
+  {
+   "i": 4,
+   "type": "say",
+   "who": "aussen",
+   "text": "Ben? | Ich habe den Schlüssel | vergessen.",
+   "t0": 9.5,
+   "t1": 11.964,
+   "cam": 9.4,
+   "look": "door",
+   "zoom": 33.048,
+   "moved": true
+  },
+  {
+   "i": 5,
+   "type": "hold",
+   "t0": 11.964,
+   "t1": 12.4,
+   "cam": 11.964,
+   "look": "door",
+   "zoom": 31.353298560000002,
+   "moved": true
+  },
+  {
+   "i": 6,
+   "type": "say",
+   "who": "max",
+   "text": "Das ist | deine Stimme.",
+   "t0": 12.4,
+   "t1": 13.487,
+   "cam": 12.2,
+   "look": "max",
+   "zoom": 30,
+   "moved": true
+  },
+  {
+   "i": 7,
+   "type": "hold",
+   "t0": 13.487,
+   "t1": 20,
+   "cam": 13.487,
+   "look": "two",
+   "zoom": 70,
+   "moved": true
+  },
+  {
+   "i": 8,
+   "type": "hold",
+   "t0": 20,
+   "t1": 22.3,
+   "cam": 20,
+   "look": "H_dop",
+   "zoom": 92,
+   "moved": true
+  },
+  {
+   "i": 9,
+   "type": "say",
+   "who": "doppel",
+   "text": "Ich weiß, | dass du mich siehst.",
+   "t0": 22.3,
+   "t1": 24.152,
+   "cam": 22.2,
+   "look": "H_dop",
+   "zoom": 89.5712,
+   "moved": true
+  },
+  {
+   "i": 10,
+   "type": "hold",
+   "t0": 24.152,
+   "t1": 27,
+   "cam": 24.152,
+   "look": "H_dop",
+   "zoom": 87.4730842112,
+   "moved": true
+  },
+  {
+   "i": 11,
+   "type": "hold",
+   "t0": 27,
+   "t1": 29.6,
+   "cam": 27,
+   "look": "handle",
+   "zoom": 34,
+   "moved": true
+  },
+  {
+   "i": 12,
+   "type": "hold",
+   "t0": 29.6,
+   "t1": 30,
+   "cam": 29.6,
+   "look": "handle",
+   "zoom": 31.348,
+   "moved": true
+  }
+ ],
+ "lines": [
+  {
+   "n": 0,
+   "who": "handy",
+   "voice": "durchsage",
+   "fx": "phone",
+   "text": "Bleiben Sie drinnen. Öffnen Sie niemandem.",
+   "t0": 2.6,
+   "dur": 2.997,
+   "stretch": false
+  },
+  {
+   "n": 1,
+   "who": "aussen",
+   "voice": "ben",
+   "fx": "door",
+   "text": "Ben? Ich habe den Schlüssel vergessen.",
+   "t0": 9.5,
+   "dur": 2.464,
+   "stretch": false
+  },
+  {
+   "n": 2,
+   "who": "max",
+   "voice": "max",
+   "fx": null,
+   "text": "Das ist deine Stimme.",
+   "t0": 12.4,
+   "dur": 1.087,
+   "stretch": false
+  },
+  {
+   "n": 3,
+   "who": "doppel",
+   "voice": "ben2",
+   "fx": "door",
+   "text": "Ich weiß, dass du mich siehst.",
+   "t0": 22.3,
+   "dur": 1.852,
+   "stretch": false
+  }
+ ],
+ "speakers": {
+  "handy": {
+   "voice": "durchsage",
+   "fx": "phone",
+   "color": "#ff8a7a"
+  },
+  "aussen": {
+   "voice": "ben",
+   "fx": "door",
+   "color": "#d0d4ee"
+  },
+  "max": {
+   "voice": "max",
+   "fx": null,
+   "color": "#9cf09c"
+  },
+  "doppel": {
+   "voice": "ben2",
+   "fx": "door",
+   "color": "#ff9ad0"
+  }
+ },
+ "events": [
+  [
+   "roomtone",
+   0,
+   1
+  ],
+  [
+   "alert",
+   0.9,
+   1
+  ],
+  [
+   "whoosh",
+   2.25
+  ],
+  [
+   "whoosh",
+   5.597
+  ],
+  [
+   "whoosh",
+   8
+  ],
+  [
+   "doorbell",
+   8.25,
+   1
+  ],
+  [
+   "zoom",
+   9.4
+  ],
+  [
+   "whoosh",
+   11.964
+  ],
+  [
+   "whoosh",
+   12.2
+  ],
+  [
+   "whoosh",
+   13.487
+  ],
+  [
+   "chairscrape",
+   14.1,
+   1
+  ],
+  [
+   "heart",
+   16,
+   0.7
+  ],
+  [
+   "heart",
+   17,
+   0.8
+  ],
+  [
+   "whoosh_long",
+   20
+  ],
+  [
+   "cut",
+   20,
+   1
+  ],
+  [
+   "sting",
+   20.1,
+   0.6
+  ],
+  [
+   "zoom",
+   22.2
+  ],
+  [
+   "zoom",
+   24.152
+  ],
+  [
+   "whoosh_long",
+   27
+  ],
+  [
+   "cut",
+   27,
+   1
+  ],
+  [
+   "heart",
+   27.3,
+   0.9
+  ],
+  [
+   "handle",
+   27.5,
+   1
+  ],
+  [
+   "heart",
+   28.2,
+   1
+  ],
+  [
+   "zoom",
+   29.6
+  ]
+ ]
+}

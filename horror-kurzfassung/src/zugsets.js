@@ -102,27 +102,28 @@ export function carriage(o = {}) {
   const pl2 = new THREE.PointLight('#ffbe73', 0, 8, 1.6); pl2.position.set(5.0, 2.6, ZW + 2.6); platform.add(pl2);
   const plg = fogOff(glow(1.6, 1.6, '#ffc27a', 0.6, [5.0, 3.0, ZW + 2.6])); platform.add(plg); platform.add(cyl(0.06, 0.08, 3.4, toon('#22263c'), [5.5, 1.45, ZW + 2.9]));
   const dawnGlow = fogOff(glow(14, 6, '#ffb070', 0, [5.0, 1.6, ZW + 7.5], [0, Math.PI, 0])); platform.add(dawnGlow);
+  const coldFog = fogOff(glow(7, 4, '#7f90c8', 0.45, [5.0, 1.2, ZW + 3.2], [0, Math.PI, 0])); platform.add(coldFog);
   const shadow = noOutline(new THREE.Mesh(new THREE.PlaneGeometry(1.0, 2.3), new THREE.MeshBasicMaterial({ map: canvasTex(128, 256, x => { x.fillStyle = 'rgba(0,0,0,0)'; x.fillRect(0, 0, 128, 256); x.fillStyle = 'rgba(4,2,8,0.85)';
     x.beginPath(); x.ellipse(64, 40, 22, 26, 0, 0, 7); x.fill(); x.fillRect(24, 22, 80, 10); x.fillRect(36, 62, 56, 110); x.fillRect(22, 70, 18, 80); x.fillRect(88, 70, 18, 80); x.fillRect(40, 168, 20, 88); x.fillRect(68, 168, 20, 88); }), transparent: true, opacity: 0, depthWrite: false })));
   g.add(shadow);
 
   const set = makeSet(g, {
-    mood: 'warm', moodOverride: { bg: '#0b0a14', amb: ['#8a6a58', 0.9], hemi: ['#ffd9a8', '#3a2620', 0.6], key: ['#ffd9a0', 0.35, [2, 5, 3]], pulse: ['#ff2a1a', 0], spill: ['#9fb0ff', 0] },
-    pov: o.pov || [0, 1.5, 0], look: o.look || [5, 1.1, 0], pulseAt: [5.6, 2.1, 0.2], spillAt: [5.0, 1.4, ZW + 0.4],
+    mood: 'warm', moodOverride: { bg: '#0b0a14', amb: ['#8a6a58', 0.9], hemi: ['#ffd9a8', '#3a2620', 0.6], key: ['#ffd9a0', 0.35, [2, 5, 3]], pulse: o.pulse || ['#ff2a1a', 0], spill: o.spill || ['#9fb0ff', 0] },
+    pov: o.pov || [0, 1.5, 0], look: o.look || [5, 1.1, 0], pulseAt: [5.6, 2.1, 0.2], spillAt: o.spillAt || [5.0, 1.4, ZW + 0.4],
     targets: { sideDoor: [5.03, 1.15, ZW], endDoor: [X1, 1.2, 0], lever: [4.7, 1.5, -ZW], note: [5.08, 1.62, -ZW], speaker: [X1, 2.22, -0.7], aisleFar: [X0, 1.0, 0], ...(o.targets || {}) },
     onUpdate(v, t, S) {
       const L = v.lights ?? 1, flick = v.flicker ? (Math.sin(t * 37) + Math.sin(t * 91.3) > 1.15 * (2 - v.flicker) ? 0.25 : 1) : 1, k = clamp(L * flick);
       for (const l of lamps) { l.pl.intensity = 2.2 * k; l.gl.material.opacity = 0.5 * k; l.bulb.material = k > 0.4 ? flat('#ffe6b0') : flat('#3a3226'); }
       S.parts.amb ||= S.scene.children.find(c => c.isAmbientLight); S.parts.hemi ||= S.scene.children.find(c => c.isHemisphereLight);
-      const red = v.red ?? 0; S.parts.amb.intensity = (0.25 + 0.65 * k) * (1 - 0.3 * red); S.parts.hemi.intensity = 0.15 + 0.45 * k;
+      const red = v.red ?? 0; S.parts.amb.intensity = (0.25 + 0.65 * k) * (1 - 0.3 * red) + 1.0 * red * (1 - k); S.parts.hemi.intensity = 0.15 + 0.45 * k + 0.35 * red * (1 - k);
       redGl.material.opacity = 0.75 * red * (0.75 + 0.25 * Math.sin(t * 5)); S.parts.amb.color.set('#8a6a58').lerp(new THREE.Color('#7a1a18'), red * (1 - k));
       const mv = v.moving ?? 1; for (const [tx, sp] of streaks) tx.offset.x = (tx.offset.x * 0) + t * 0.35 * sp * mv + (v.jolt ?? 0) * 0.0;
       passing.forEach((gl, i) => { const ph = ((t * 0.55 * mv + i * 0.37) % 1.4) / 1.4; gl.position.x = lerp(12, -12, ph); gl.material.opacity = mv * 0.55 * Math.sin(Math.PI * ph); });
-      hinge.rotation.y = (v.door ?? 0) * rad(100);
+      hinge.rotation.y = -(v.door ?? 0) * rad(100);
       const lv = v.lever ?? 0; arm.rotation.z = lv * rad(80);
       platform.visible = (v.platform ?? (o.platform ? 1 : 0)) > 0.5; outside.visible = !platform.visible || mv > 0.05;
       pl2.intensity = 2.0 * (v.platLight ?? 1); const dawn = v.dawn ?? 0; dawnGlow.material.opacity = 0.7 * dawn;
-      shadow.material.opacity = 0.85 * (v.shadow ?? 0); if (o.shadowAt) { shadow.position.set(...o.shadowAt); shadow.rotation.y = o.shadowRy ?? 0; shadow.scale.setScalar(1 + 0.25 * (v.shadow ?? 0)); }
+      shadow.material.opacity = 0.85 * (v.shadow ?? 0); if (o.shadowAt) { shadow.position.set(...o.shadowAt); shadow.rotation.y = o.shadowRy ?? 0; shadow.scale.setScalar(0.8 + 0.15 * (v.shadow ?? 0)); }
       o.onUpdate?.(v, t, S);
     },
   });

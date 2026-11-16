@@ -1,0 +1,459 @@
+{
+ "duration": 30,
+ "frames": 900,
+ "target": null,
+ "pace": 1,
+ "voiced": true,
+ "unvoiced": [],
+ "mood": "tension",
+ "beats": [
+  {
+   "i": 0,
+   "type": "hold",
+   "t0": 0,
+   "t1": 2.2,
+   "cam": -1,
+   "look": "maxBack",
+   "zoom": 60,
+   "moved": true
+  },
+  {
+   "i": 1,
+   "type": "hold",
+   "t0": 2.2,
+   "t1": 4,
+   "cam": 2.2,
+   "look": "ninaFace",
+   "zoom": 56,
+   "moved": true
+  },
+  {
+   "i": 2,
+   "type": "say",
+   "who": "nina",
+   "text": "Nicht zu ihm. | Hier lang!",
+   "t0": 4,
+   "t1": 5.611,
+   "cam": 3.9,
+   "look": "ninaFace",
+   "zoom": 54.857600000000005,
+   "moved": true
+  },
+  {
+   "i": 3,
+   "type": "hold",
+   "t0": 5.611,
+   "t1": 8,
+   "cam": 5.611,
+   "look": "ninaFace",
+   "zoom": 53.731263756800004,
+   "moved": true
+  },
+  {
+   "i": 4,
+   "type": "hold",
+   "t0": 8,
+   "t1": 10.9,
+   "cam": 8,
+   "look": "pipeOut",
+   "zoom": 50,
+   "moved": true
+  },
+  {
+   "i": 5,
+   "type": "hold",
+   "t0": 10.9,
+   "t1": 14.5,
+   "cam": 10.9,
+   "look": "outside",
+   "zoom": 50,
+   "moved": true
+  },
+  {
+   "i": 6,
+   "type": "say",
+   "who": "max_r",
+   "text": "Sind wir | jetzt draußen?",
+   "t0": 14.5,
+   "t1": 15.721,
+   "cam": 14.35,
+   "look": "max_r",
+   "zoom": 34,
+   "moved": true
+  },
+  {
+   "i": 7,
+   "type": "hold",
+   "t0": 15.721,
+   "t1": 16.55,
+   "cam": 15.721,
+   "look": "max_r",
+   "zoom": 33.440632,
+   "moved": true
+  },
+  {
+   "i": 8,
+   "type": "say",
+   "who": "ben_r",
+   "text": "Lauf weiter!",
+   "t0": 16.55,
+   "t1": 17.766,
+   "cam": 16.4,
+   "look": "ben_r",
+   "zoom": 34,
+   "moved": true
+  },
+  {
+   "i": 9,
+   "type": "hold",
+   "t0": 17.766,
+   "t1": 20,
+   "cam": 17.766,
+   "look": "runners",
+   "zoom": 56,
+   "moved": true
+  },
+  {
+   "i": 10,
+   "type": "hold",
+   "t0": 20,
+   "t1": 21.3,
+   "cam": 20,
+   "look": "group",
+   "zoom": 58,
+   "moved": true
+  },
+  {
+   "i": 11,
+   "type": "hold",
+   "t0": 21.3,
+   "t1": 24.4,
+   "cam": 21.3,
+   "look": "phone",
+   "zoom": 26,
+   "moved": true
+  },
+  {
+   "i": 12,
+   "type": "hold",
+   "t0": 24.4,
+   "t1": 26,
+   "cam": 24.4,
+   "look": "far",
+   "zoom": 30,
+   "moved": true
+  },
+  {
+   "i": 13,
+   "type": "hold",
+   "t0": 26,
+   "t1": 29.6,
+   "cam": 26,
+   "look": "farW",
+   "zoom": 17,
+   "moved": true
+  },
+  {
+   "i": 14,
+   "type": "hold",
+   "t0": 29.6,
+   "t1": 30,
+   "cam": 29.6,
+   "look": "farW",
+   "zoom": 16.387999999999998,
+   "moved": true
+  }
+ ],
+ "lines": [
+  {
+   "n": 0,
+   "who": "nina",
+   "voice": "nina",
+   "fx": null,
+   "text": "Nicht zu ihm. Hier lang!",
+   "t0": 4,
+   "dur": 1.611,
+   "stretch": false
+  },
+  {
+   "n": 1,
+   "who": "max_r",
+   "voice": "max",
+   "fx": null,
+   "text": "Sind wir jetzt draußen?",
+   "t0": 14.5,
+   "dur": 1.221,
+   "stretch": false
+  },
+  {
+   "n": 2,
+   "who": "ben_r",
+   "voice": "ben",
+   "fx": null,
+   "text": "Lauf weiter!",
+   "t0": 16.55,
+   "dur": 1.216,
+   "stretch": false
+  }
+ ],
+ "speakers": {
+  "nina": {
+   "voice": "nina",
+   "fx": null,
+   "color": "#ffb0a8"
+  },
+  "max_r": {
+   "voice": "max",
+   "fx": null,
+   "color": "#9cf09c"
+  },
+  "ben_r": {
+   "voice": "ben",
+   "fx": null,
+   "color": "#7fb4ff"
+  }
+ },
+ "events": [
+  [
+   "drips",
+   0,
+   1
+  ],
+  [
+   "grate",
+   0.2,
+   0.6
+  ],
+  [
+   "shuffle",
+   0.6,
+   1
+  ],
+  [
+   "whoosh",
+   2.2
+  ],
+  [
+   "ventoff",
+   2.85,
+   0.7
+  ],
+  [
+   "zoom",
+   3.9
+  ],
+  [
+   "zoom",
+   5.611
+  ],
+  [
+   "crawl",
+   6,
+   1
+  ],
+  [
+   "whoosh_long",
+   8
+  ],
+  [
+   "river",
+   8,
+   0.8
+  ],
+  [
+   "cut",
+   8,
+   1
+  ],
+  [
+   "crawl",
+   8.1,
+   1
+  ],
+  [
+   "birds",
+   8.5,
+   0.7
+  ],
+  [
+   "whoosh",
+   10.9
+  ],
+  [
+   "grate",
+   13.2,
+   1
+  ],
+  [
+   "click",
+   13.5,
+   1
+  ],
+  [
+   "rattle",
+   13.8,
+   1
+  ],
+  [
+   "rattle",
+   14.2,
+   1
+  ],
+  [
+   "zoom",
+   14.35
+  ],
+  [
+   "zoom",
+   15.721
+  ],
+  [
+   "whoosh",
+   16.4
+  ],
+  [
+   "whoosh",
+   17.766
+  ],
+  [
+   "step",
+   18.392,
+   0.43
+  ],
+  [
+   "step",
+   18.444,
+   0.45
+  ],
+  [
+   "step",
+   18.594,
+   0.43
+  ],
+  [
+   "step",
+   18.69,
+   0.52
+  ],
+  [
+   "step",
+   18.742,
+   0.55
+  ],
+  [
+   "step",
+   18.892,
+   0.54
+  ],
+  [
+   "step",
+   18.988,
+   0.64
+  ],
+  [
+   "step",
+   19.04,
+   0.71
+  ],
+  [
+   "step",
+   19.19,
+   0.73
+  ],
+  [
+   "step",
+   19.286,
+   0.8
+  ],
+  [
+   "step",
+   19.338,
+   0.97
+  ],
+  [
+   "step",
+   19.488,
+   1.1
+  ],
+  [
+   "step",
+   19.584,
+   0.93
+  ],
+  [
+   "step",
+   19.636,
+   1.15
+  ],
+  [
+   "step",
+   19.786,
+   1.15
+  ],
+  [
+   "step",
+   19.882,
+   0.58
+  ],
+  [
+   "step",
+   19.934,
+   0.63
+  ],
+  [
+   "whoosh",
+   20
+  ],
+  [
+   "step",
+   20.084,
+   0.63
+  ],
+  [
+   "pant",
+   20.1,
+   1
+  ],
+  [
+   "step",
+   20.18,
+   0.31
+  ],
+  [
+   "step",
+   20.232,
+   0.39
+  ],
+  [
+   "step",
+   20.382,
+   0.39
+  ],
+  [
+   "notify",
+   20.9,
+   1
+  ],
+  [
+   "whoosh",
+   21.3
+  ],
+  [
+   "whoosh",
+   24.4
+  ],
+  [
+   "zoom",
+   26
+  ],
+  [
+   "silence",
+   26.6,
+   1
+  ],
+  [
+   "zoom",
+   29.6
+  ]
+ ]
+}

@@ -1,0 +1,434 @@
+{
+ "duration": 30,
+ "frames": 900,
+ "target": null,
+ "pace": 1,
+ "voiced": true,
+ "unvoiced": [],
+ "mood": "tension",
+ "beats": [
+  {
+   "i": 0,
+   "type": "hold",
+   "t0": 0,
+   "t1": 3.3,
+   "cam": -1,
+   "look": "endArea",
+   "zoom": 46,
+   "moved": true
+  },
+  {
+   "i": 1,
+   "type": "say",
+   "who": "lena",
+   "text": "„Bei rotem Signal | bleibt er stehen.“",
+   "t0": 3.3,
+   "t1": 5.41,
+   "cam": 2.7,
+   "look": "note",
+   "zoom": 22,
+   "moved": true
+  },
+  {
+   "i": 2,
+   "type": "hold",
+   "t0": 5.41,
+   "t1": 7,
+   "cam": 5.41,
+   "look": "note",
+   "zoom": 20.211399999999998,
+   "moved": true
+  },
+  {
+   "i": 3,
+   "type": "hold",
+   "t0": 7,
+   "t1": 8.3,
+   "cam": 7,
+   "look": "paul",
+   "zoom": 26,
+   "moved": true
+  },
+  {
+   "i": 4,
+   "type": "hold",
+   "t0": 8.3,
+   "t1": 9.1,
+   "cam": 8.3,
+   "look": "paulLever",
+   "zoom": 36,
+   "moved": true
+  },
+  {
+   "i": 5,
+   "type": "hold",
+   "t0": 9.1,
+   "t1": 9.28,
+   "cam": 9.1,
+   "look": "paulLever",
+   "zoom": 40,
+   "moved": true
+  },
+  {
+   "i": 6,
+   "type": "hold",
+   "t0": 9.28,
+   "t1": 10.4,
+   "cam": 9.28,
+   "look": "H_emil",
+   "zoom": 36,
+   "moved": true
+  },
+  {
+   "i": 7,
+   "type": "hold",
+   "t0": 10.4,
+   "t1": 11.4,
+   "cam": 10.4,
+   "look": "sideDoor",
+   "zoom": 52,
+   "moved": true
+  },
+  {
+   "i": 8,
+   "type": "say",
+   "who": "paul",
+   "text": "Raus! | Sofort!",
+   "t0": 11.4,
+   "t1": 12.776,
+   "cam": 11.2,
+   "look": "paul",
+   "zoom": 32,
+   "moved": true
+  },
+  {
+   "i": 9,
+   "type": "hold",
+   "t0": 12.776,
+   "t1": 16.2,
+   "cam": 12.776,
+   "look": "endArea",
+   "zoom": 50,
+   "moved": true
+  },
+  {
+   "i": 10,
+   "type": "hold",
+   "t0": 16.2,
+   "t1": 20,
+   "cam": 16.2,
+   "look": "paul",
+   "zoom": 34,
+   "moved": true
+  },
+  {
+   "i": 11,
+   "type": "hold",
+   "t0": 20,
+   "t1": 21.75,
+   "cam": 20,
+   "look": "sideDoor",
+   "zoom": 54,
+   "moved": true
+  },
+  {
+   "i": 12,
+   "type": "say",
+   "who": "emil",
+   "text": "Paul! | Komm!",
+   "t0": 21.75,
+   "t1": 22.644,
+   "cam": 21.6,
+   "look": "H_emilOut",
+   "zoom": 30,
+   "moved": true
+  },
+  {
+   "i": 13,
+   "type": "hold",
+   "t0": 22.644,
+   "t1": 23.25,
+   "cam": 22.644,
+   "look": "H_emilOut",
+   "zoom": 29.62416,
+   "moved": true
+  },
+  {
+   "i": 14,
+   "type": "say",
+   "who": "paul",
+   "text": "Einer muss | ihn halten.",
+   "t0": 23.25,
+   "t1": 24.298,
+   "cam": 23.05,
+   "look": "paul",
+   "zoom": 30,
+   "moved": true
+  },
+  {
+   "i": 15,
+   "type": "hold",
+   "t0": 24.298,
+   "t1": 29.6,
+   "cam": 24.298,
+   "look": "wallShadow",
+   "zoom": 40,
+   "moved": true
+  },
+  {
+   "i": 16,
+   "type": "hold",
+   "t0": 29.6,
+   "t1": 30,
+   "cam": 29.6,
+   "look": "wallShadow",
+   "zoom": 33.6376,
+   "moved": true
+  }
+ ],
+ "lines": [
+  {
+   "n": 0,
+   "who": "lena",
+   "voice": "lena",
+   "fx": null,
+   "text": "„Bei rotem Signal bleibt er stehen.“",
+   "t0": 3.3,
+   "dur": 2.11,
+   "stretch": false
+  },
+  {
+   "n": 1,
+   "who": "paul",
+   "voice": "paul",
+   "fx": null,
+   "text": "Raus! Sofort!",
+   "t0": 11.4,
+   "dur": 1.376,
+   "stretch": false
+  },
+  {
+   "n": 2,
+   "who": "emil",
+   "voice": "emil",
+   "fx": null,
+   "text": "Paul! Komm!",
+   "t0": 21.75,
+   "dur": 0.894,
+   "stretch": false
+  },
+  {
+   "n": 3,
+   "who": "paul",
+   "voice": "paul",
+   "fx": null,
+   "text": "Einer muss ihn halten.",
+   "t0": 23.25,
+   "dur": 1.048,
+   "stretch": false
+  }
+ ],
+ "speakers": {
+  "paul": {
+   "voice": "paul",
+   "fx": null,
+   "color": "#ffffff"
+  },
+  "emil": {
+   "voice": "emil",
+   "fx": null,
+   "color": "#ffd84a"
+  },
+  "lena": {
+   "voice": "lena",
+   "fx": null,
+   "color": "#7fe3ff"
+  }
+ },
+ "events": [
+  [
+   "train",
+   0,
+   1
+  ],
+  [
+   "alarmhum",
+   0,
+   1
+  ],
+  [
+   "knips",
+   0.5,
+   1.2
+  ],
+  [
+   "knips",
+   1.75,
+   1.2
+  ],
+  [
+   "whoosh",
+   2.7
+  ],
+  [
+   "knips",
+   3,
+   1.2
+  ],
+  [
+   "knips",
+   4.25,
+   1.2
+  ],
+  [
+   "zoom",
+   5.41
+  ],
+  [
+   "knips",
+   5.5,
+   1.2
+  ],
+  [
+   "knips",
+   6.75,
+   1.2
+  ],
+  [
+   "whoosh",
+   7
+  ],
+  [
+   "knips",
+   8,
+   1.2
+  ],
+  [
+   "whoosh",
+   8.3
+  ],
+  [
+   "lever",
+   8.9,
+   1
+  ],
+  [
+   "whoosh",
+   9.1
+  ],
+  [
+   "jolt",
+   9.1,
+   1
+  ],
+  [
+   "trainstop",
+   9.1,
+   1
+  ],
+  [
+   "brake",
+   9.15,
+   1
+  ],
+  [
+   "knips",
+   9.25,
+   1.2
+  ],
+  [
+   "whoosh",
+   9.28
+  ],
+  [
+   "whoosh",
+   10.4
+  ],
+  [
+   "creak",
+   10.4,
+   0.9
+  ],
+  [
+   "windout",
+   10.7,
+   1
+  ],
+  [
+   "whoosh",
+   11.2
+  ],
+  [
+   "whoosh",
+   12.776
+  ],
+  [
+   "whoosh",
+   16.2
+  ],
+  [
+   "spring",
+   16.6,
+   1
+  ],
+  [
+   "spring",
+   18.2,
+   0.8
+  ],
+  [
+   "whoosh",
+   20
+  ],
+  [
+   "land",
+   20.95,
+   1
+  ],
+  [
+   "zoom",
+   21.6
+  ],
+  [
+   "land",
+   21.6,
+   1
+  ],
+  [
+   "whoosh",
+   22.644
+  ],
+  [
+   "whoosh",
+   23.05
+  ],
+  [
+   "whoosh",
+   24.298
+  ],
+  [
+   "stepw",
+   26.6,
+   0.6
+  ],
+  [
+   "stepw",
+   27.1,
+   0.7
+  ],
+  [
+   "sting",
+   27.3,
+   0.8
+  ],
+  [
+   "knips",
+   28.6,
+   1.4
+  ],
+  [
+   "zoom",
+   29.6
+  ]
+ ]
+}

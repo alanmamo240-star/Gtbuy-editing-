@@ -33,6 +33,8 @@ win = np.zeros(n, bool)
 for l in TL['lines']: win[int(l['t0'] * SR):int((l['t0'] + l['dur']) * SR)] = True
 k = np.sqrt((kit[win] ** 2).mean()) / 0.12 if win.any() and os.path.exists('audio/lines/L000.wav') else 2.0
 full = kit + fol * k; full = np.tanh(full * 1.25) / 1.25
+for e in TL['events']:      # 'silence': everything fades out at that time and stays silent (the script asks for seconds of silence)
+    if e[0] == 'silence': i = int(e[1] * SR); f = int(0.25 * SR); full[i:i + f] *= np.linspace(1, 0, len(full[i:i + f])); full[i + f:] = 0
 st = np.stack([full, full], 1); w = wave.open('audio/_mix.wav', 'w'); w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes((np.clip(st, -1, 1) * 32767).astype(np.int16).tobytes()); w.close()
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', 'audio/_mix.wav', '-af', 'loudnorm=I=-14:TP=-1.2:LRA=9', '-ar', str(SR), 'audio/mix.wav'], check=True); os.remove('audio/_mix.wav')
 print(f'audio/mix.wav  {n / SR:.1f}s  foley x{k:.2f}')
