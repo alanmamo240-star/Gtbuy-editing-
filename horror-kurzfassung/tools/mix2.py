@@ -59,10 +59,15 @@ SILENCE = [e[1] for e in TL['events'] if e[0] == 'silence']
 R = 0.94 if EP.startswith('zug') else 0.90; PEAK_AT = 30.6                       # music second that lands on 29.6 s
 off = PEAK_AT / R - 29.6
 if DUR > 40: R, off = 0.815, 0.3                                                  # long episodes: the whole track, a little darker still, its drop near the end
+OWN = EP.startswith('flucht') and os.path.exists(os.path.join(HERE, '..', 'nixly', 'flucht', 'music.mp3'))
+if OWN: MUSIC, R, off = os.path.join(HERE, '..', 'nixly', 'flucht', 'music.mp3'), 0.935, 0.0   # Flucht: its own war score, a touch slower so its climax lands on the end
 raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', MUSIC, '-af', f'asetrate={int(44100 * R)},aresample={SR},atrim=start={off:.3f}', '-ac', '2', '-f', 'f32le', '-'], capture_output=True, check=True).stdout
-mus = np.frombuffer(raw, np.float32).reshape(-1, 2)[:N].copy(); mus = np.pad(mus, ((0, N - len(mus)), (0, 0)))
+mus = np.frombuffer(raw, np.float32).reshape(-1, 2).copy()
+while len(mus) < N:                                                                 # shorter than the episode: loop it with a 4 s crossfade
+    xf = int(4 * SR); a, b = mus[:-xf], mus[-xf:]; w = np.linspace(0, 1, xf)[:, None]; mus = np.concatenate([a, b * (1 - w) + mus[:xf] * w, mus[xf:]])
+mus = mus[:N]
 fi = int(1.2 * SR); mus[:fi] *= np.linspace(0, 1, fi)[:, None] ** 2
-mus *= (0.05 if DUR < 40 else 0.036) / (np.sqrt((mus[:int((DUR - 0.7) * SR)] ** 2).mean()) + 1e-6)   # average level ~ -26 dBFS (long episodes -29), its own build kept
+mus *= (0.05 if DUR < 40 else 0.066 if OWN else 0.036) / (np.sqrt((mus[:int((DUR - 0.7) * SR)] ** 2).mean()) + 1e-6)   # average level ~ -26 dBFS (long episodes -29), its own build kept
 t = np.arange(N) / SR; T = DUR
 rise = 0.75 + 0.25 * np.clip(t / max(1, T - 3), 0, 1) ** 1.5
 sub = (np.sin(2 * np.pi * 36 * t) + 0.7 * np.sin(2 * np.pi * 36.35 * t) + 0.4 * np.sin(2 * np.pi * 54.2 * t)) * (0.7 + 0.3 * np.sin(2 * np.pi * 0.07 * t))
@@ -72,13 +77,14 @@ while k < T - 2:                                                                
     d = 2.6; tt_ = np.arange(int(d * SR)) / SR; f = 70 + 25 * np.sin(np.pi * tt_ / d); x = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.sin(np.pi * tt_ / d) ** 2
     x = filt(x.astype(np.float32) + filt(rs.randn(len(tt_)).astype(np.float32), 200, 700) * 0.05, None, 900); put(groans, verb(x, 1.6, 0.6, 60, 1200), k, 1.0); k += 7.5 + 3 * rs.rand()
 dread = ((sub * 0.03 + glass * 0.0012 + groans * 0.025) * rise).astype(np.float32)
+if OWN: dread *= 0                                                                   # the war score carries the dread alone
 mus_lo = filt(mus, None, 250, 2.0); mus_hi = mus - mus_lo
 # ---- 4. ducking and the final mix
 ve = np.sqrt(np.convolve(voice ** 2, np.ones(1440) / 1440, 'same')); dk = np.clip(ve / 0.04, 0, 1)
 rel = np.zeros(N, np.float32); r = 0.0; a_ = np.exp(-1 / (0.04 * SR)); b_ = np.exp(-1 / (0.4 * SR))
 for i in range(0, N, 48):                                                          # fast attack, slow release, at 1 ms steps
     x = dk[i]; r = (a_ ** 48) * r + (1 - a_ ** 48) * x if x > r else (b_ ** 48) * r + (1 - b_ ** 48) * x; rel[i:i + 48] = r
-bg_mono = fx * 0.8 * (1 - 0.55 * rel) + dread * (1 - 0.5 * rel)
+bg_mono = fx * (0.6 if OWN else 0.8) * (1 - 0.55 * rel) + dread * (1 - 0.5 * rel)
 music = mus_hi * (1 - 0.82 * rel)[:, None] + mus_lo * (1 - 0.37 * rel)[:, None]
 full = (voice + bg_mono)[:, None] + music
 if os.environ.get('STEMS'):
