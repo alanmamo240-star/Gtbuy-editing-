@@ -50,7 +50,9 @@ for l in TL['lines']:
     a *= 0.13 / (np.sqrt((a[np.abs(a) > 0.01] ** 2).mean()) + 1e-6)   # every line equally loud while it sounds
     put(voice, a, l['t0'], g)
 # ---- 2. story effects only: every camera whoosh, zoom, punch and riser is gone
-ev = [e for e in TL['events'] if e[0] not in ('whoosh', 'whoosh_long', 'zoom', 'punch', 'riser')]   # punch = the camera's punch-in
+NOBG = EP.startswith('flucht') and os.environ.get('BG', 'none') == 'none'      # Flucht: no background at all (BG=score brings the war score back)
+BEDS = ('cityamb', 'heli_far', 'crowd', 'water', 'drip', 'roomtone', 'nightamb', 'alarmhum')
+ev = [e for e in TL['events'] if e[0] not in ('whoosh', 'whoosh_long', 'zoom', 'punch', 'riser') and not (NOBG and e[0] in BEDS)]   # punch = the camera's punch-in
 tl2 = dict(TL); tl2['events'] = sorted(ev, key=lambda e: e[1]); json.dump(tl2, open('audio/_tl.json', 'w'))
 subprocess.run([sys.executable, os.path.join(HERE, 'foley.py')], check=True, env={**os.environ, 'TIMELINE': 'audio/_tl.json', 'FOLEY_OUT': 'audio/fx.wav', 'WITH_KIT': '1'}, stdout=subprocess.DEVNULL)
 fx = rd('audio/fx.wav')[:N]; fx = np.pad(fx, (0, N - len(fx))); os.remove('audio/_tl.json')
@@ -78,6 +80,7 @@ while k < T - 2:                                                                
     x = filt(x.astype(np.float32) + filt(rs.randn(len(tt_)).astype(np.float32), 200, 700) * 0.05, None, 900); put(groans, verb(x, 1.6, 0.6, 60, 1200), k, 1.0); k += 7.5 + 3 * rs.rand()
 dread = ((sub * 0.03 + glass * 0.0012 + groans * 0.025) * rise).astype(np.float32)
 if OWN: dread *= 0                                                                   # the war score carries the dread alone
+if NOBG: dread *= 0; mus *= 0
 mus_lo = filt(mus, None, 250, 2.0); mus_hi = mus - mus_lo
 # ---- 4. ducking and the final mix
 ve = np.sqrt(np.convolve(voice ** 2, np.ones(1440) / 1440, 'same')); dk = np.clip(ve / 0.04, 0, 1)
