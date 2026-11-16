@@ -20,7 +20,7 @@ const camPt = t => run1(t) || run2(t) || (t < 33 ? C0 : t < 63 ? C1 : C2);
 // people
 const mira = CAST.mira(), elias = CAST.elias({ hood: true, hair: 'short' }), soldiers = [0, 1, 2].map(i => CAST.soldat({ seed: 37 + i, skin: ['light', 'tan', 'fair'][i], height: [1.0, 1.04, 0.97][i] }));
 const CIVC = [['#6a5a4a', '#3a3a44'], ['#4a5a7a', '#2a2a30'], ['#8a6a5a', '#3a3030'], ['#5a6a5a', '#2a2a2a'], ['#7a4a4a', '#30303a'], ['#5a5a6a', '#2a2a34'], ['#8a7a5a', '#3a3a3a'], ['#4a6a7a', '#2a3030']];
-const civs = CIVC.map(([top, bot], i) => { const av = makeToon({ skin: ['light', 'tan', 'fair', 'brown', 'light', 'deep', 'pale', 'tan'][i], height: i === 1 ? 0.72 : i === 5 ? 0.78 : 0.95 + (i % 3) * 0.04, hair: ['short', 'bob', 'bun', 'buzz', 'long', 'curly', 'beanie', 'ponytail'][i], hairColor: ['#3a2a20', '#6a4024', '#2a1a14', '#1a1210', '#8a5a2a', '#1a1210', '#4a4a50', '#5a3a22'][i], top, topStyle: i % 3 === 0 ? 'coat' : 'jacket', bottom: bot, shoe: '#2a2020', seed: 50 + i }); av.handR.add(at3(suitcase(['#6a4a3a', '#3a4a6a', '#8a3a3a', '#4a4a4a', '#5a6a3a', '#7a5a2a', '#3a3a5a', '#6a3a5a'][i], i % 2 ? 'bag' : 'case'), [0, -0.05, 0])); return av; });
+const civs = CIVC.map(([top, bot], i) => { const av = makeToon({ real: true, skin: ['light', 'tan', 'fair', 'brown', 'light', 'deep', 'pale', 'tan'][i], height: i === 1 ? 0.72 : i === 5 ? 0.78 : 0.95 + (i % 3) * 0.04, hair: ['short', 'bob', 'bun', 'buzz', 'long', 'curly', 'beanie', 'ponytail'][i], hairColor: ['#3a2a20', '#6a4024', '#2a1a14', '#1a1210', '#8a5a2a', '#1a1210', '#4a4a50', '#5a3a22'][i], top, topStyle: i % 3 === 0 ? 'coat' : 'jacket', bottom: bot, shoe: '#2a2020', seed: 50 + i }); av.handR.add(at3(suitcase(['#6a4a3a', '#3a4a6a', '#8a3a3a', '#4a4a4a', '#5a6a3a', '#7a5a2a', '#3a3a5a', '#6a3a5a'][i], i % 2 ? 'bag' : 'case'), [0, -0.05, 0])); return av; });
 function at3(o, p) { o.position.set(...p); return o; }
 const CIVP = [[[-5.3, -30], [-5.5, 12], 0, 14, 'walk'], [[-5.9, -28.6], [-6.0, 12], 0.4, 14.4, 'walk'], [[5.4, -40], [5.2, 13], 0, 16, 'walk'], [[6.0, -36], [6.0, 14], 2.5, 17.5, 'walk'],
   [[-6.1, -52], [-6.0, 10], 7.5, 26, 'walk'], [[4.8, -48], [5.0, 14], 11.5, 24.5, 'run'], [[-0.8, -46], [-1.2, 12], 17.5, 31, 'run'], [[1.2, -54], [0.8, 14], 19.0, 34, 'run']];
@@ -62,6 +62,7 @@ const S = story({
   badge: { title: 'FOLGE 1', label: 'Flucht aus Aschental –', value: 'DIE KOLONNE', until: 3.6 },
   speakers: { luca: { color: '#ffffff', voice: 'liam' }, mira: { color: '#ffd84a', voice: 'elli' }, elias: { color: '#ff9ad0', voice: 'harry' }, soldat: { color: '#ff8a7a', voice: 'callum', fx: 'radio' } },
   pov: { phone: true, name: 'Luca', skin: 'light', top: '#3d6a8a' },
+  paint: 1,
   infobar: t => `ASCHENTAL · ${t < 33 ? 'HAUPTSTRASSE' : 'LINDENGASSE'} · MO ${clock(7, 42, t)}`,
   phone: { name: 'Elias', color: '#8a2a2e', clock: '07:42', history: [{ me: false, text: 'Pass auf Mama auf.' }, { me: true, text: 'Wo bist du??' }, { me: true, text: 'Elias???' }] },
   povPath: t => run1(t) || run2(t),

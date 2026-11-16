@@ -60,12 +60,13 @@ function hairMesh(style, color, seed) {
 }
 
 export function makeToon(o = {}) {
-  const P = { skin: 'light', height: 1, head: 1, hair: 'short', hairColor: '#3a2a22', top: '#d7a31f', topStyle: 'sweater', bottom: '#27306b', shoe: '#1c1f3d', collar: null, glasses: false, eye: 0.064, brows: false, seed: 1, ...o };
+  const P = { skin: 'light', height: 1, head: 1, hair: 'short', hairColor: '#3a2a22', top: '#d7a31f', topStyle: 'sweater', bottom: '#27306b', shoe: '#1c1f3d', collar: null, glasses: false, eye: 0.064, brows: false, seed: 1, ...(o.real ? { head: 0.88, eye: 0.046, brows: true } : {}), ...o };
+  const L = P.real ? { tw: 0.37, sh: 0.074, ua: 0.06, fa: 0.052, hd: 0.058, th: 0.075, sn: 0.062 } : { tw: 0.41, sh: 0.098, ua: 0.078, fa: 0.07, hd: 0.084, th: 0.09, sn: 0.08 };   // real: slimmer, closer to drawn people
   const skinHex = SKIN[P.skin] || P.skin, sk = toon(skinHex), topM = toon(P.top), botM = toon(P.bottom), dark = flat('#15101c');
   const skinDark = toon(new THREE.Color(skinHex).multiplyScalar(0.8).getHex());
   const root = new THREE.Group(), body = new THREE.Group(), torsoG = new THREE.Group(); root.add(body); body.add(torsoG);
   body.add(at(rbox(0.36, 0.2, 0.24, 0.09, botM), [0, 0.03, 0]));
-  const torso = at(rbox(0.41, 0.52, 0.26, 0.115, topM), [0, 0.285, 0]); torsoG.add(torso);
+  const torso = at(rbox(L.tw, 0.52, 0.25, P.real ? 0.08 : 0.115, topM), [0, 0.285, 0]); torsoG.add(torso);
   if (P.topStyle === 'hoodie') { torsoG.add(sph(0.11, topM, [0, 0.5, -0.1], [1.25, 0.8, 0.9])); torsoG.add(noOutline(at(rbox(0.2, 0.1, 0.02, 0.02, toon(new THREE.Color(P.top).multiplyScalar(0.82).getHex())), [0, 0.16, 0.131]))); }
   if (P.topStyle === 'jacket') torsoG.add(noOutline(box(0.09, 0.46, 0.012, toon(P.inner || '#f1f1f6'), [0, 0.29, 0.128])));
   if (P.topStyle === 'stripe') torsoG.add(noOutline(box(0.415, 0.09, 0.265, toon(P.inner || '#f1f1f6'), [0, 0.33, 0])));
@@ -78,15 +79,15 @@ export function makeToon(o = {}) {
   const short = P.topStyle === 'tee' || P.sleeves === 'short';
   const mkArm = s => {
     const a = new THREE.Group(); a.position.set(0.225 * s, 0.455, 0);
-    a.add(sph(0.098, topM)); a.add(limb(0.078, 0.29, topM));
+    a.add(sph(L.sh, topM)); a.add(limb(L.ua, 0.29, topM));
     const e = new THREE.Group(); e.position.y = -0.25; a.add(e);
-    e.add(limb(0.07, 0.27, short ? sk : topM)); const h = sph(0.084, sk, [0, -0.27, 0]); e.add(h);
+    e.add(limb(L.fa, 0.27, short ? sk : topM)); const h = sph(L.hd, sk, [0, -0.27, 0], P.real ? [0.8, 1.15, 0.6] : null); e.add(h);
     torsoG.add(a); return { a, e, h };
   };
   const armL = mkArm(1), armR = mkArm(-1);
   const mkLeg = s => {
-    const l = new THREE.Group(); l.position.set(0.1 * s, 0, 0); l.add(limb(0.09, 0.42, P.topStyle === 'dress' && P.bare ? sk : botM));
-    const k = new THREE.Group(); k.position.y = -0.38; l.add(k); k.add(limb(0.08, 0.42, botM));
+    const l = new THREE.Group(); l.position.set(0.1 * s, 0, 0); l.add(limb(L.th, 0.42, P.topStyle === 'dress' && P.bare ? sk : botM));
+    const k = new THREE.Group(); k.position.y = -0.38; l.add(k); k.add(limb(L.sn, 0.42, botM));
     k.add(at(rbox(0.14, 0.11, 0.27, 0.035, toon(P.shoe)), [0, -0.395, 0.05]));
     body.add(l); return { l, k };
   };

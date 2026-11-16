@@ -48,6 +48,7 @@ const S = story({
   badge: { title: 'FOLGE 2', label: 'Flucht aus Aschental –', value: 'DER HOF', until: 3.6 },
   speakers: { luca: { color: '#ffffff', voice: 'liam' }, mira: { color: '#ffd84a', voice: 'elli' }, elias: { color: '#ff9ad0', voice: 'harry', fx: 'door' }, offizier: { color: '#ff8a7a', voice: 'callum', fx: 'far' } },
   pov: { phone: true, name: 'Luca', skin: 'light', top: '#3d6a8a' },
+  paint: 1,
   infobar: t => `ASCHENTAL · ${t < 7.6 ? 'HINTERHOF' : t < 55.2 ? 'WOHNUNG 4. OG' : 'DACH'} · MO ${clock(19, 12, t)}`,
   phone: { name: 'Elias', color: '#8a2a2e', clock: '19:12', history: [{ me: false, text: 'Bin raus. Alte Brücke.' }, { me: false, text: 'Komm allein.' }, { me: true, text: 'Mira kommt mit.' }, { me: false, text: 'Ich bin schon über der Brücke.' }, { me: false, text: 'Wer steht da bei dir?' }] },
   povPath: t => runH(t) || runW(t),

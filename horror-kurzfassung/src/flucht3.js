@@ -23,7 +23,7 @@ const MIRA0 = [-6.4, 4.4];
 
 const mira = CAST.mira(), off = CAST.offizier(), elias = CAST.elias({ hood: true, hair: 'short' }), bruder = CAST.elias({ hood: true, hair: 'short' });
 const sol = [0, 1, 2].map(i => { const s = CAST.soldat({ seed: 40 + i, skin: ['tan', 'light', 'fair'][i] }); s.handR.add(flashlight()); return s; });
-const civ = (o, i) => { const av = makeToon({ skin: ['light', 'tan', 'fair', 'brown', 'pale', 'light', 'tan'][i % 7], hair: ['short', 'bob', 'bun', 'buzz', 'long', 'curly', 'ponytail'][i % 7], hairColor: ['#3a2a20', '#6a4024', '#2a1a14', '#1a1210', '#8a5a2a', '#1a1210', '#5a3a22'][i % 7], top: ['#6a5a4a', '#4a5a7a', '#8a6a5a', '#5a6a5a', '#7a4a4a', '#5a5a6a', '#4a6a7a'][i % 7], topStyle: i % 2 ? 'coat' : 'jacket', bottom: '#2a2a32', shoe: '#2a2020', seed: 60 + i, ...o }); return av; };
+const civ = (o, i) => { const av = makeToon({ real: true, skin: ['light', 'tan', 'fair', 'brown', 'pale', 'light', 'tan'][i % 7], hair: ['short', 'bob', 'bun', 'buzz', 'long', 'curly', 'ponytail'][i % 7], hairColor: ['#3a2a20', '#6a4024', '#2a1a14', '#1a1210', '#8a5a2a', '#1a1210', '#5a3a22'][i % 7], top: ['#6a5a4a', '#4a5a7a', '#8a6a5a', '#5a6a5a', '#7a4a4a', '#5a5a6a', '#4a6a7a'][i % 7], topStyle: i % 2 ? 'coat' : 'jacket', bottom: '#2a2a32', shoe: '#2a2020', seed: 60 + i, ...o }); return av; };
 const boy = civ({ hood: true, hoodColor: '#4a4a52', top: '#4a4a52', topStyle: 'hoodie', height: 0.9 }, 0), mom = civ({ height: 0.98 }, 1), kid1 = civ({ height: 0.7, hair: 'pigtails' }, 2), kid2 = civ({ height: 0.74 }, 3), papa = civ({ height: 1.02, top: '#5a5a62', topStyle: 'coat' }, 4);
 const queue = [5, 6, 7, 8].map(i => civ({ height: 0.94 + (i % 3) * 0.04 }, i));
 [mom, ...queue.slice(1)].forEach((q, i) => q.handR.add(suitcase(['#6a4a3a', '#3a4a6a', '#8a3a3a', '#5a6a3a'][i], i % 2 ? 'bag' : 'case')));
@@ -60,6 +60,7 @@ const S = story({
   badge: { title: 'FOLGE 3', label: 'Flucht aus Aschental –', value: 'DIE BRÜCKE', until: 3.6 },
   speakers: { luca: { color: '#ffffff', voice: 'liam' }, mira: { color: '#ffd84a', voice: 'elli' }, elias: { color: '#ff9ad0', voice: 'harry', fx: 'far' }, off: { color: '#ff8a7a', voice: 'callum' } },
   pov: { phone: true, name: 'Luca', skin: 'light', top: '#3d6a8a' },
+  paint: 1,
   infobar: t => `ASCHENTAL · ${t < 44 ? 'ALTE BRÜCKE' : 'FLUSSUFER'} · MO ${clock(23, 51, t)}`,
   phone: { name: 'Elias', color: '#8a2a2e', clock: '23:51', history: [{ me: false, text: 'Spatz. Sie hat dich Spatz genannt.' }, { me: true, text: 'Er liest mit.' }, { me: false, text: 'Dann schreib ich nicht, wo.' }, { me: false, text: 'Da, wo Papa uns Schwimmen beigebracht hat.' }] },
   povPath: t => run1(t) || run2(t),

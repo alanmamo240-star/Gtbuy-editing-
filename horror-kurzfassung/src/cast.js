@@ -12,8 +12,8 @@ export const CAST = {
   nina:      o => makeToon({ skin: 'tan', height: 0.9, hair: 'long', hairColor: '#2a1a14', top: '#c23a3a', topStyle: 'sweater', bottom: '#2c3550', shoe: '#f0f0f2', seed: 13, ...o }),
   max:       o => makeToon({ skin: 'brown', height: 0.9, hair: 'curly', hairColor: '#1a1210', top: '#3f8f4f', topStyle: 'hoodie', bottom: '#33333f', shoe: '#2a2a33', seed: 17, ...o }),
   // FLUCHT AUS ASCHENTAL (a city at war, today). Luca is you (first person).
-  mira:      o => makeToon({ skin: 'fair', height: 0.88, hair: 'ponytail', hairColor: '#2a1a14', top: '#e0a526', topStyle: 'jacket', inner: '#f2ead8', bottom: '#2c3550', shoe: '#e8e8ec', backpack: '#3a4a6a', brows: true, seed: 31, ...o }),
-  elias:     o => makeToon({ skin: 'light', height: 0.98, hair: 'swoop', hairColor: '#5a3a22', top: '#8a2a2e', topStyle: 'hoodie', bottom: '#2a2f45', shoe: '#d8d8dc', brows: true, seed: 33, ...o }),
-  offizier:  o => makeToon({ skin: '#e8d8cc', height: 1.08, hair: 'short', hairColor: '#2a2a2e', top: '#3a3f36', topStyle: 'coat', bottom: '#2a2d26', shoe: '#101010', hat: '#2e332a', brows: true, eye: 0.056, seed: 35, ...o }),
-  soldat:    o => makeToon({ skin: 'light', height: 1.0, hair: 'buzz', hairColor: '#3a2a20', top: '#56603f', topStyle: 'jacket', inner: '#45503a', bottom: '#4a5236', shoe: '#1e1e1a', helmet: '#4a5536', seed: 37, ...o }),
+  mira:      o => makeToon({ real: true, skin: 'fair', height: 0.88, hair: 'ponytail', hairColor: '#2a1a14', top: '#e0a526', topStyle: 'jacket', inner: '#f2ead8', bottom: '#2c3550', shoe: '#e8e8ec', backpack: '#3a4a6a', brows: true, seed: 31, ...o }),
+  elias:     o => makeToon({ real: true, skin: 'light', height: 0.98, hair: 'swoop', hairColor: '#5a3a22', top: '#8a2a2e', topStyle: 'hoodie', bottom: '#2a2f45', shoe: '#d8d8dc', brows: true, seed: 33, ...o }),
+  offizier:  o => makeToon({ real: true, skin: '#e8d8cc', height: 1.08, hair: 'short', hairColor: '#2a2a2e', top: '#3a3f36', topStyle: 'coat', bottom: '#2a2d26', shoe: '#101010', hat: '#2e332a', brows: true, eye: 0.056, seed: 35, ...o }),
+  soldat:    o => makeToon({ real: true, skin: 'light', height: 1.0, hair: 'buzz', hairColor: '#3a2a20', top: '#56603f', topStyle: 'jacket', inner: '#45503a', bottom: '#4a5236', shoe: '#1e1e1a', helmet: '#4a5536', seed: 37, ...o }),
 };

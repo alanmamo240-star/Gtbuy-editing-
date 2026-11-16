@@ -51,6 +51,7 @@ const S = story({
   badge: { title: 'FOLGE 4', label: 'Flucht aus Aschental –', value: 'DER STEG', until: 3.6 },
   speakers: { luca: { color: '#ffffff', voice: 'liam' }, mira: { color: '#ffd84a', voice: 'elli' }, bruder: { color: '#ff9a6a', voice: 'harry' }, elias: { color: '#ff9ad0', voice: 'harry', fx: 'far' }, off: { color: '#ff8a7a', voice: 'callum', fx: 'radio' } },
   pov: { phone: true, name: 'Luca', skin: 'light', top: '#3d6a8a' },
+  paint: 1,
   infobar: t => `ASCHENTAL · ${t < 25.6 ? 'ALTER STEG' : 'AUF DEM FLUSS'} · DI ${clock(5, 58, t)}`,
   phone: { name: 'Elias', color: '#8a2a2e', clock: '05:58', history: [{ me: false, text: 'Da, wo Papa uns Schwimmen beigebracht hat.' }, { me: false, text: 'Weil du vor zwei Wochen weg warst.' }, { me: false, text: 'Weißt du das nicht mehr?' }] },
   povPath: t => { const [bx, bz] = boatAt(t); S.targets.down = [bx, SEAT - 0.05, bz + CAMZ - 0.62]; S.targets.H_bruderB = [bx - 0.08, SEAT + 0.95, bz + BRZ]; S.targets.H_miraB = [bx + MIX, SEAT + 0.92, bz + MIZ]; return walk(t) || board(t) || inBoat(t); },

@@ -28,12 +28,30 @@ const inkBase = new THREE.ShaderMaterial({
   fragmentShader: 'uniform float uId, uFlat; varying vec3 vN; varying float vD; void main(){ vec3 n = normalize(vN); if(!gl_FrontFacing) n = -n; if(uFlat > .5) n = vec3(0., 0., 1.); gl_FragColor = vec4(n.xy * .5 + .5, clamp(vD / 24., 0., 1.), uId); }',
 });
 const edgeMat = new THREE.ShaderMaterial({
-  uniforms: { tC: { value: null }, tI: { value: null }, px: { value: new THREE.Vector2(1 / RW, 1 / RH) }, uW: { value: 2.3 * SS * SCALE }, uInk: { value: new THREE.Color('#0a0c26') } }, vertexShader: VS, depthTest: false,
-  fragmentShader: `uniform sampler2D tC, tI; uniform vec2 px; uniform float uW; uniform vec3 uInk; varying vec2 vUv;
-    float edge(vec4 c, float r){ float e = 0.; for(int i = 0; i < 8; i++){ float a = float(i) * 0.7853982; vec4 s = texture2D(tI, vUv + vec2(cos(a), sin(a)) * r * px);
+  uniforms: { tC: { value: null }, tI: { value: null }, px: { value: new THREE.Vector2(1 / RW, 1 / RH) }, uW: { value: 2.3 * SS * SCALE }, uInk: { value: new THREE.Color('#0a0c26') }, uPaint: { value: 0 }, uRes: { value: new THREE.Vector2(RW, RH) }, uSeed: { value: 0 } }, vertexShader: VS, depthTest: false,
+  fragmentShader: `uniform sampler2D tC, tI; uniform vec2 px, uRes; uniform float uW, uPaint, uSeed; uniform vec3 uInk; varying vec2 vUv;
+    float h21(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+    float vn(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3. - 2. * f); return mix(mix(h21(i), h21(i + vec2(1., 0.)), f.x), mix(h21(i + vec2(0., 1.)), h21(i + vec2(1., 1.)), f.x), f.y); }
+    float fbm(vec2 p){ return 0.5 * vn(p) + 0.25 * vn(p * 2.03 + 7.1) + 0.125 * vn(p * 4.01 + 3.7) + 0.125 * vn(p * 8.1 + 1.3); }
+    float edge(vec2 uv, vec4 c, float r){ float e = 0.; for(int i = 0; i < 8; i++){ float a = float(i) * 0.7853982; vec4 s = texture2D(tI, uv + vec2(cos(a), sin(a)) * r * px);
       e = max(e, max(step(0.0015, abs(s.a - c.a)), step(0.5, length(s.rg - c.rg)))); } return e; }
-    void main(){ vec4 c = texture2D(tI, vUv); float d = c.b * 24.; float r = uW * clamp(2.4 / max(d, 0.3), 0.42, 1.25);
-      float e = 0.62 * edge(c, r) + 0.38 * edge(c, r * 0.5); vec3 col = texture2D(tC, vUv).rgb; gl_FragColor = vec4(mix(col, uInk, e * 0.93), 1.); }`,
+    void main(){
+      vec2 sp = vUv * uRes / (uRes.y / 1920.);                                   // pixel position on a 1920-high page
+      vec2 wob = (vec2(vn(sp / 38. + uSeed), vn(sp / 38. + 17.3 + uSeed)) - .5) * 2.6 * uPaint;   // hand-drawn lines: a slow wobble
+      vec2 uv = vUv + wob * px * (uRes.y / 1920.) * 1.6;
+      vec4 c = texture2D(tI, uv); float d = c.b * 24.; float press = 1. + uPaint * (0.55 * vn(sp / 22. + 3.1) - 0.2);   // pen pressure
+      float r = uW * press * clamp(2.4 / max(d, 0.3), 0.42, 1.25);
+      float e = 0.62 * edge(uv, c, r) + 0.38 * edge(uv, c, r * 0.5); vec3 col = texture2D(tC, vUv).rgb;
+      if(uPaint > 0.){
+        float lum = dot(col, vec3(0.299, 0.587, 0.114));
+        col = mix(col, vec3(lum), 0.14 * uPaint);                               // a little less saturated, like gouache
+        col *= mix(vec3(1.), vec3(1.04, 1.0, 0.93), uPaint);                    // warm paper tone
+        float blot = fbm(sp / 140.) - .5, fib = vn(sp * vec2(0.55, 0.09)) - .5, grain = h21(floor(sp * 0.7)) - .5;
+        col *= 1. + uPaint * (0.16 * blot + 0.05 * fib + 0.045 * grain);        // watercolour blotches, paper fibres, grain
+        col = mix(col, col * col * (3. - 2. * col), 0.18 * uPaint);              // soft contrast
+        col += uPaint * 0.025 * vec3(0.9, 0.85, 0.75) * (1. - lum);             // lifted shadows on warm paper
+      }
+      gl_FragColor = vec4(mix(col, uInk, e * (0.93 - 0.12 * uPaint * vn(sp / 9.))), 1.); }`,
 });
 const finalMat = new THREE.ShaderMaterial({
   uniforms: { tA: { value: null }, tB: { value: null }, uMix: { value: 0 }, uK: { value: 0.2 }, uAsp: { value: W / H }, uVig: { value: 0.75 }, uBlack: { value: 0 }, uBlur: { value: new THREE.Vector2() }, uZoomBlur: { value: 0 } }, vertexShader: VS, depthTest: false,
@@ -76,7 +94,7 @@ function makePhoneRig(pov = {}) {
 export function story(cfg = {}) {
   const S = { cfg, beats: [], chars: {}, targets: {}, vars: {}, sets: [], speakers: cfg.speakers || {} };
   const phone = makePhoneRig(cfg.pov); camera.add(phone.g);
-  const povBody = makeToon({ top: cfg.pov?.top || '#2b356f', bottom: cfg.pov?.bottom || '#232a5c', skin: cfg.pov?.skin || 'light', shoe: cfg.pov?.shoe || '#14162c' }); povBody.head.visible = false; povBody.handL.parent.parent.visible = false; povBody.handR.parent.parent.visible = false;
+  const povBody = makeToon({ real: !!cfg.paint, top: cfg.pov?.top || '#2b356f', bottom: cfg.pov?.bottom || '#232a5c', skin: cfg.pov?.skin || 'light', shoe: cfg.pov?.shoe || '#14162c' }); povBody.head.visible = false; povBody.handL.parent.parent.visible = false; povBody.handR.parent.parent.visible = false;
   let startSet = cfg.set;
 
   // a character and its "home" state
@@ -232,6 +250,7 @@ async function boot(S, phone, povBody) {
     qa.setFromEuler(ea.set(...PL.r)); qb.setFromEuler(ea.set(...P_UP.r)); phone.g.quaternion.slerpQuaternions(qa, qb, r);
     povBody.root.visible = st.phone > 0.02 || lk > 0.02 || st.pitch < rad(-28); if (povBody.root.visible) { set.scene.add(povBody.root); const sit = pos[1] < 1.1; povBody.reset().pose(sit ? { hipY: 0.12, lean: -4, lL: [100, 9], kL: 62, lR: [96, 9], kR: 50 } : 'stand');
       const fx = -Math.sin(st.yaw), fz = -Math.cos(st.yaw); povBody.place(pos[0] - fx * 0.1, pos[2] - fz * 0.1, st.yaw * 180 / Math.PI + 180, sit ? 0 : pos[1] - 1.58); }
+    const pt = cfg.paint ?? 0; edgeMat.uniforms.uPaint.value = pt; edgeMat.uniforms.uW.value = 2.3 * SS * SCALE * (1 + 0.3 * pt);   // cfg.paint: hand-painted look 0..1
     renderSet(set, target); return k;
   }
   let frozen = null, frozenT = -1;
