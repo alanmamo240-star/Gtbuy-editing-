@@ -33,7 +33,7 @@
    "who": "nina",
    "text": "Nicht zu ihm. | Hier lang!",
    "t0": 4,
-   "t1": 5.96,
+   "t1": 5.41,
    "cam": 3.9,
    "look": "ninaFace",
    "zoom": 54.857600000000005,
@@ -42,11 +42,11 @@
   {
    "i": 3,
    "type": "hold",
-   "t0": 5.96,
+   "t0": 5.41,
    "t1": 8,
-   "cam": 5.96,
+   "cam": 5.41,
    "look": "ninaFace",
-   "zoom": 53.50152012800001,
+   "zoom": 53.863580288,
    "moved": true
   },
   {
@@ -75,7 +75,7 @@
    "who": "max_r",
    "text": "Sind wir | jetzt draußen?",
    "t0": 14.5,
-   "t1": 15.98,
+   "t1": 15.69,
    "cam": 14.35,
    "look": "max_r",
    "zoom": 34,
@@ -84,11 +84,11 @@
   {
    "i": 7,
    "type": "hold",
-   "t0": 15.98,
+   "t0": 15.69,
    "t1": 16.55,
-   "cam": 15.98,
+   "cam": 15.69,
    "look": "max_r",
-   "zoom": 33.33496,
+   "zoom": 33.45328,
    "moved": true
   },
   {
@@ -97,7 +97,7 @@
    "who": "ben_r",
    "text": "Lauf weiter!",
    "t0": 16.55,
-   "t1": 17.37,
+   "t1": 17.3,
    "cam": 16.4,
    "look": "ben_r",
    "zoom": 34,
@@ -106,9 +106,9 @@
   {
    "i": 9,
    "type": "hold",
-   "t0": 17.37,
+   "t0": 17.3,
    "t1": 20,
-   "cam": 17.37,
+   "cam": 17.3,
    "look": "runners",
    "zoom": 56,
    "moved": true
@@ -172,7 +172,7 @@
    "fx": null,
    "text": "Nicht zu ihm. Hier lang!",
    "t0": 4,
-   "dur": 1.96,
+   "dur": 1.41,
    "stretch": false
   },
   {
@@ -182,7 +182,7 @@
    "fx": null,
    "text": "Sind wir jetzt draußen?",
    "t0": 14.5,
-   "dur": 1.48,
+   "dur": 1.19,
    "stretch": false
   },
   {
@@ -192,7 +192,7 @@
    "fx": null,
    "text": "Lauf weiter!",
    "t0": 16.55,
-   "dur": 0.82,
+   "dur": 0.75,
    "stretch": false
   }
  ],
@@ -244,7 +244,7 @@
   ],
   [
    "zoom",
-   5.96
+   5.41
   ],
   [
    "crawl",
@@ -305,7 +305,7 @@
   ],
   [
    "zoom",
-   15.98
+   15.69
   ],
   [
    "whoosh",
@@ -313,7 +313,7 @@
   ],
   [
    "whoosh",
-   17.37
+   17.3
   ],
   [
    "step",

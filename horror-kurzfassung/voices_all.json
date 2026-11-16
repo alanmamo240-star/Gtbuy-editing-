@@ -1,51 +1,11 @@
 {
- "paul": [
+ "liam": [
   {
-   "ep": "zug-2",
+   "ep": "zug-1",
    "n": 0,
-   "who": "paul",
-   "text": "Die geht nicht mehr auf!"
+   "who": "emil",
+   "text": "Da! Wir müssen rein!"
   },
-  {
-   "ep": "zug-3",
-   "n": 1,
-   "who": "paul",
-   "text": "Raus! Sofort!"
-  },
-  {
-   "ep": "zug-3",
-   "n": 3,
-   "who": "paul",
-   "text": "Einer muss ihn halten."
-  },
-  {
-   "ep": "zug-4",
-   "n": 2,
-   "who": "paul_x",
-   "text": "Alle da?"
-  }
- ],
- "lena": [
-  {
-   "ep": "zug-2",
-   "n": 1,
-   "who": "lena",
-   "text": "Hier stehen unsere Namen."
-  },
-  {
-   "ep": "zug-3",
-   "n": 0,
-   "who": "lena",
-   "text": "„Bei rotem Signal bleibt er stehen.“"
-  },
-  {
-   "ep": "zug-4",
-   "n": 1,
-   "who": "lena_x",
-   "text": "Nicht umdrehen!"
-  }
- ],
- "emil": [
   {
    "ep": "zug-2",
    "n": 2,
@@ -63,31 +23,7 @@
    "n": 0,
    "who": "emil",
    "text": "Keiner bleibt hier!"
-  }
- ],
- "schaffner": [
-  {
-   "ep": "zug-2",
-   "n": 3,
-   "who": "schaffner",
-   "text": "Bitte sitzen bleiben. Die Toten steigen zuerst aus."
-  }
- ],
- "durchsage": [
-  {
-   "ep": "stadt-1",
-   "n": 0,
-   "who": "handy",
-   "text": "Bleiben Sie drinnen. Öffnen Sie niemandem."
   },
-  {
-   "ep": "stadt-2",
-   "n": 2,
-   "who": "lautsprecher",
-   "text": "Bitte begrüßen Sie Ihre Nachfolger."
-  }
- ],
- "ben": [
   {
    "ep": "stadt-1",
    "n": 1,
@@ -125,7 +61,37 @@
    "text": "Lauf weiter!"
   }
  ],
- "max": [
+ "harry": [
+  {
+   "ep": "zug-1",
+   "n": 4,
+   "who": "paul",
+   "text": "Woher kennt der mich?"
+  },
+  {
+   "ep": "zug-2",
+   "n": 0,
+   "who": "paul",
+   "text": "Die geht nicht mehr auf!"
+  },
+  {
+   "ep": "zug-3",
+   "n": 1,
+   "who": "paul",
+   "text": "Raus! Sofort!"
+  },
+  {
+   "ep": "zug-3",
+   "n": 3,
+   "who": "paul",
+   "text": "Einer muss ihn halten."
+  },
+  {
+   "ep": "zug-4",
+   "n": 2,
+   "who": "paul_x",
+   "text": "Alle da?"
+  },
   {
    "ep": "stadt-1",
    "n": 2,
@@ -157,7 +123,53 @@
    "text": "Sind wir jetzt draußen?"
   }
  ],
- "nina": [
+ "elli": [
+  {
+   "ep": "zug-1",
+   "n": 1,
+   "who": "lena",
+   "text": "Wartet."
+  },
+  {
+   "ep": "zug-1",
+   "n": 2,
+   "who": "lena",
+   "text": "Der hat keine Lok."
+  },
+  {
+   "ep": "zug-2",
+   "n": 1,
+   "who": "lena",
+   "text": "Hier stehen unsere Namen."
+  },
+  {
+   "ep": "zug-3",
+   "n": 0,
+   "who": "lena",
+   "text": "„Bei rotem Signal bleibt er stehen.“"
+  },
+  {
+   "ep": "zug-4",
+   "n": 1,
+   "who": "lena_x",
+   "text": "Nicht umdrehen!"
+  }
+ ],
+ "callum": [
+  {
+   "ep": "zug-1",
+   "n": 3,
+   "who": "schaffner",
+   "text": "Heute braucht er keine."
+  },
+  {
+   "ep": "zug-2",
+   "n": 3,
+   "who": "schaffner",
+   "text": "Bitte sitzen bleiben. Die Toten steigen zuerst aus."
+  }
+ ],
+ "freya": [
   {
    "ep": "stadt-2",
    "n": 3,
@@ -181,6 +193,20 @@
    "n": 0,
    "who": "nina",
    "text": "Nicht zu ihm. Hier lang!"
+  }
+ ],
+ "durchsage": [
+  {
+   "ep": "stadt-1",
+   "n": 0,
+   "who": "handy",
+   "text": "Bleiben Sie drinnen. Öffnen Sie niemandem."
+  },
+  {
+   "ep": "stadt-2",
+   "n": 2,
+   "who": "lautsprecher",
+   "text": "Bitte begrüßen Sie Ihre Nachfolger."
   }
  ]
 }

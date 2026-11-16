@@ -83,6 +83,22 @@ for voice, lines in G.items():
                 if words[k - 1][-1:] not in '.!?,…:': continue
                 c = int(edges[k] * 100); lo = max(0, c - 20); seg = quiet[lo:c + 20]
                 if seg.any(): idx = np.where(seg)[0]; edges[k] = (lo + idx[np.argmin(np.abs(idx - (c - lo)))]) / 100
+        # long pauses inside a line ("Raus! ... Sofort!") shrink to 0.32 s so the line keeps its pace
+        ed = envelope(clip); q = ed < thr; vv = np.where(~q)[0]; cuts_ = []
+        if len(vv):
+            i = vv[0]
+            while i < vv[-1]:
+                if q[i]:
+                    j = i
+                    while j < vv[-1] and q[j]: j += 1
+                    if j - i > 50: cuts_.append((i + 16, j - 16))
+                    i = j
+                else: i += 1
+        for c0, c1 in reversed(cuts_):
+            a0, a1 = int(c0 / 100 * SR), int(c1 / 100 * SR); f2 = int(0.01 * SR)
+            clip = np.concatenate([clip[:a0], clip[a1:]]); clip[a0 - f2:a0 + f2] *= np.concatenate([np.linspace(1, 0.3, f2), np.linspace(0.3, 1, f2)])[:len(clip[a0 - f2:a0 + f2])]
+            edges = np.where(edges >= c1 / 100, edges - (c1 - c0) / 100, np.minimum(edges, c0 / 100))
+        if cuts_: print(f"      shortened {len(cuts_)} pause(s) by {sum(b - a for a, b in cuts_) / 100:.2f}s")
         rms = np.sqrt((clip ** 2).mean()) + 1e-6; clip *= min(4.0, 0.12 / rms)
         os.makedirs(f"{l['ep']}/audio/lines", exist_ok=True); save(f"{l['ep']}/audio/lines/L{l['n']:03d}.wav", clip)
         hop = SR // 30; env = np.array([np.sqrt((clip[i:i + hop] ** 2).mean()) for i in range(0, len(clip), hop)]); env = np.clip(env / (np.percentile(env, 92) + 1e-6), 0, 1)

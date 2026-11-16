@@ -70,6 +70,9 @@ export function makeToon(o = {}) {
   if (P.topStyle === 'jacket') torsoG.add(noOutline(box(0.09, 0.46, 0.012, toon(P.inner || '#f1f1f6'), [0, 0.29, 0.128])));
   if (P.topStyle === 'stripe') torsoG.add(noOutline(box(0.415, 0.09, 0.265, toon(P.inner || '#f1f1f6'), [0, 0.33, 0])));
   if (P.topStyle === 'dress') body.add(at(cyl(0.2, 0.3, 0.34, topM), [0, -0.1, 0]));
+  if (P.topStyle === 'coat') { body.add(at(cyl(0.215, 0.255, 0.36, topM), [0, -0.1, 0])); torsoG.add(noOutline(box(0.012, 0.46, 0.012, toon(new THREE.Color(P.top).multiplyScalar(1.18).getHex()), [0, 0.29, 0.13]))); for (const y of [0.44, 0.32, 0.2]) torsoG.add(noOutline(sph(0.017, dark, [0.045, y, 0.128], [1, 1, 0.4]))); }
+  if (P.topStyle === 'uniform') { torsoG.add(noOutline(box(0.09, 0.46, 0.012, toon(P.inner || '#b8b4a4'), [0, 0.29, 0.128]))); for (const y of [0.44, 0.32, 0.2]) torsoG.add(noOutline(sph(0.018, flat('#d9b65a'), [0.07, y, 0.129], [1, 1, 0.4]))); body.add(at(cyl(0.2, 0.22, 0.2, topM), [0, -0.04, 0])); }
+  if (P.scarf) { torsoG.add(at(torus(0.085, 0.034, toon(P.scarf)), [0, 0.535, 0.01], [Math.PI / 2, 0, 0])); torsoG.add(at(rbox(0.07, 0.2, 0.03, 0.015, toon(P.scarf)), [0.06, 0.43, 0.12], [0.1, 0, 0.12])); }
   if (P.collar) torsoG.add(at(rbox(0.13, 0.05, 0.1, 0.02, toon(P.collar)), [0, 0.545, 0.03]));
   if (P.backpack) torsoG.add(at(rbox(0.32, 0.38, 0.14, 0.06, toon(P.backpack)), [0, 0.3, -0.19]));
   const short = P.topStyle === 'tee' || P.sleeves === 'short';
@@ -94,7 +97,9 @@ export function makeToon(o = {}) {
   head.add(sph(R, sk, null, [1, 1.05, 1]));
   head.add(sph(0.036, sk, [R * 0.98, -0.01, -0.01], [0.6, 1, 1])); head.add(sph(0.036, sk, [-R * 0.98, -0.01, -0.01], [0.6, 1, 1]));
   head.add(hairMesh(P.hair, P.hairColor, P.seed));
-  if (P.cap) { head.add(sameId(grp(new THREE.Mesh(new THREE.SphereGeometry(R * 1.1, 24, 12, 0, Math.PI * 2, 0, Math.PI * 0.42), toon(P.cap)), at(rbox(0.2, 0.02, 0.16, 0.01, toon(P.cap)), [0, R * 0.36, R * 1.2], [0.12, 0, 0])))); }
+  if (P.cap) { const cp = new THREE.Mesh(new THREE.SphereGeometry(R * 1.1, 24, 12, 0, Math.PI * 2, 0, Math.PI * 0.34), toon(P.cap)); cp.rotation.x = -0.12; head.add(sameId(grp(cp, at(rbox(0.2, 0.02, 0.12, 0.01, toon(P.cap)), [0, R * 0.74, R * 1.0], [0.18, 0, 0])))); }
+  if (P.hat) { const c = toon(P.hat); head.add(sameId(grp(at(cyl(R * 1.1, R * 1.04, 0.13, c), [0, R * 1.0, -0.01]), at(cyl(R * 1.14, R * 1.14, 0.016, c), [0, R * 1.0 + 0.07, -0.01]), at(rbox(0.21, 0.016, 0.1, 0.008, flat('#101018')), [0, R * 0.66, R * 0.97], [0.3, 0, 0]))));
+    head.add(noOutline(rbox(0.05, 0.035, 0.012, 0.006, flat('#d9b65a'), [0, R * 0.98, R * 1.08]))); }
   const ex = P.glasses ? 0.07 : P.eye * 0.97, ey = 0.022, ez = Math.sqrt(R * R - ex * ex - ey * ey) * 0.9;
   const eyes = [], pupils = [], white = toon('#ffffff');
   for (const s of [1, -1]) {
@@ -115,7 +120,7 @@ export function makeToon(o = {}) {
   // contact shadow
   const shadow = noOutline(new THREE.Mesh(new THREE.CircleGeometry(0.34, 24), new THREE.MeshBasicMaterial({ color: '#05061a', transparent: true, opacity: 0.32, depthWrite: false }))); shadow.rotation.x = -Math.PI / 2; shadow.position.y = 0.012; root.add(shadow);
 
-  const A = { root, head, handL: armL.h, handR: armR.h, torso: torsoG, P, height: P.height };
+  const A = { root, head, handL: armL.h, handR: armR.h, torso: torsoG, P, height: P.height, legs: [[legL.l, legL.k], [legR.l, legR.k]], arms: [[armL.a, armL.e], [armR.a, armR.e]] };
   let cur = { ...BASE }, faceName = 'neutral', mouthOpen = 0, gaze = [0, 0], lid = 1;
   A.reset = () => { root.visible = true; root.position.set(0, 0, 0); root.rotation.set(0, 0, 0); root.scale.setScalar(P.height); cur = { ...BASE }; faceName = 'neutral'; mouthOpen = 0; gaze = [0, 0]; lid = 1; A._apply(); return A; };
   A.hide = () => { root.visible = false; return A; };
@@ -142,20 +147,20 @@ export function makeToon(o = {}) {
   };
   A.gaze = (x, y = 0) => { gaze = [x, y]; A._eyes(); return A; };   // -1..1, +x = character's left
   A._eyes = () => { pupils.forEach((p, i) => { p.position.x = gaze[0] * P.eye * 0.42; p.position.y = gaze[1] * P.eye * 0.4; }); };
-  // faces: neutral scared shock worried angry sad smile grin sus dead
+  // faces: neutral scared shock worried angry sad smile grin sus dead creepy
   A.face = name => { faceName = name; A._face(); return A; };
   A.mouth = k => { mouthOpen = clamp(k); A._face(); return A; };   // 0 closed .. 1 wide (speech)
   A.blink = k => { lid = clamp(k); A._face(); return A; };          // 1 open .. 0 shut
   A._face = () => {
-    const F = { neutral: [1, 0.34, 0.12, 0.85], scared: [1.1, 0.26, 0.2, 0.7], shock: [1.16, 0.22, 0.9, 0.62], worried: [1.04, 0.32, 0.14, 0.8], angry: [0.92, 0.32, 0.12, 0.9], sad: [0.95, 0.36, 0.1, 0.8], smile: [1, 0.36, 0, 1], grin: [1.02, 0.36, 0.5, 1.15], sus: [0.62, 0.34, 0.1, 0.8], dead: [1.1, 0.14, 0.12, 0.8] }[faceName] || [1, 0.34, 0.12, 0.85];
+    const F = { neutral: [1, 0.34, 0.12, 0.85], scared: [1.1, 0.26, 0.2, 0.7], shock: [1.16, 0.22, 0.9, 0.62], worried: [1.04, 0.32, 0.14, 0.8], angry: [0.92, 0.32, 0.12, 0.9], sad: [0.95, 0.36, 0.1, 0.8], smile: [1, 0.36, 0, 1], grin: [1.02, 0.36, 0.5, 1.15], sus: [0.62, 0.34, 0.1, 0.8], dead: [1.1, 0.14, 0.12, 0.8], creepy: [1.18, 0.15, 0, 1.6] }[faceName] || [1, 0.34, 0.12, 0.85];
     const [eyeS, pupS, mH, mW] = F;
     eyes.forEach(e => e.children[0].scale.set(eyeS, eyeS * Math.max(0.07, lid) * (faceName === 'sus' ? 0.6 : 1), 0.42));
     pupils.forEach(p => { p.scale.set(pupS / 0.34, pupS / 0.34 / Math.max(0.3, lid), 0.3); p.visible = lid > 0.3; });
     const open = Math.max(mH, mouthOpen * 0.95);
-    smileArc.visible = (faceName === 'smile') && mouthOpen < 0.08; frownArc.visible = (faceName === 'sad') && mouthOpen < 0.08;
+    smileArc.visible = (faceName === 'smile' || faceName === 'creepy') && mouthOpen < 0.08; smileArc.scale.set(faceName === 'creepy' ? 1.7 : 1, faceName === 'creepy' ? 0.75 : 1, 1); frownArc.visible = (faceName === 'sad') && mouthOpen < 0.08;
     mouth.visible = !smileArc.visible && !frownArc.visible; mouth.scale.set(mW * (1 - 0.25 * mouthOpen), Math.max(0.1, open), 1);
     tongue.visible = mouth.visible && open > 0.55;
-    const tilt = { angry: -0.42, worried: 0.34, sad: 0.4, scared: 0.3, shock: 0.2 }[faceName];
+    const tilt = { angry: -0.42, worried: 0.34, sad: 0.4, scared: 0.3, shock: 0.2, creepy: -0.18 }[faceName];
     brows.forEach((b, i) => { b.visible = !!P.brows || tilt != null && !P.glasses; b.rotation.z = (tilt || 0) * (i ? -1 : 1); b.position.y = ey + P.eye * (faceName === 'angry' ? 1.02 : 1.22); });
   };
   // idle life: breathing, sway, automatic blinks. tremble 0..1 adds a scared shiver.

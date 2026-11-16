@@ -232,7 +232,7 @@ const S = story({
   speakers: {
     emil:      { color: '#ffd84a', voice: 'Liam' },
     lena:      { color: '#7fe3ff', voice: 'Elli' },
-    schaffner: { color: '#ff9ad0', voice: 'Clyde' },
+    schaffner: { color: '#ff9ad0', voice: 'Callum' },
     paul:      { color: '#ffffff', voice: 'Harry' },
   },
   pov: { phone: false },

@@ -16,13 +16,13 @@
   "file": "audio/vo_Elli.mp3",
   "script": "script_Elli.txt"
  },
- "Clyde": {
+ "Callum": {
   "lines": [
    3
   ],
   "chars": 23,
-  "file": "audio/vo_Clyde.mp3",
-  "script": "script_Clyde.txt"
+  "file": "audio/vo_Callum.mp3",
+  "script": "script_Callum.txt"
  },
  "Harry": {
   "lines": [

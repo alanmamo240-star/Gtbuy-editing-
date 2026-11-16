@@ -43,7 +43,7 @@
    "who": "emil",
    "text": "Keiner | bleibt hier!",
    "t0": 4.8,
-   "t1": 5.8,
+   "t1": 5.72,
    "cam": 4.6,
    "look": "H_emilC",
    "zoom": 38,
@@ -52,9 +52,9 @@
   {
    "i": 4,
    "type": "hold",
-   "t0": 5.8,
+   "t0": 5.72,
    "t1": 8,
-   "cam": 5.8,
+   "cam": 5.72,
    "look": "sideDoor",
    "zoom": 54,
    "moved": true
@@ -66,7 +66,7 @@
    "t1": 9.2,
    "cam": 8,
    "look": "sideDoor",
-   "zoom": 52.574400000000004,
+   "zoom": 52.52256,
    "moved": true
   },
   {
@@ -85,7 +85,7 @@
    "who": "lena_x",
    "text": "Nicht | umdrehen!",
    "t0": 11.2,
-   "t1": 12.29,
+   "t1": 12.3,
    "cam": 10.6,
    "look": "lenaRun",
    "zoom": 40,
@@ -94,11 +94,11 @@
   {
    "i": 8,
    "type": "hold",
-   "t0": 12.29,
+   "t0": 12.3,
    "t1": 13.6,
-   "cam": 12.29,
+   "cam": 12.3,
    "look": "lenaRun",
-   "zoom": 39.1888,
+   "zoom": 39.184,
    "moved": true
   },
   {
@@ -137,7 +137,7 @@
    "who": "paul_x",
    "text": "Alle da?",
    "t0": 20.6,
-   "t1": 21.28,
+   "t1": 21.27,
    "cam": 20.45,
    "look": "paul_x",
    "zoom": 32,
@@ -146,9 +146,9 @@
   {
    "i": 13,
    "type": "hold",
-   "t0": 21.28,
+   "t0": 21.27,
    "t1": 23.4,
-   "cam": 21.28,
+   "cam": 21.27,
    "look": "three",
    "zoom": 62,
    "moved": true
@@ -182,7 +182,7 @@
    "fx": null,
    "text": "Keiner bleibt hier!",
    "t0": 4.8,
-   "dur": 1,
+   "dur": 0.92,
    "stretch": false
   },
   {
@@ -192,7 +192,7 @@
    "fx": null,
    "text": "Nicht umdrehen!",
    "t0": 11.2,
-   "dur": 1.09,
+   "dur": 1.1,
    "stretch": false
   },
   {
@@ -202,7 +202,7 @@
    "fx": null,
    "text": "Alle da?",
    "t0": 20.6,
-   "dur": 0.68,
+   "dur": 0.67,
    "stretch": false
   }
  ],
@@ -278,7 +278,7 @@
   ],
   [
    "whoosh",
-   5.8
+   5.72
   ],
   [
    "zoom",
@@ -449,7 +449,7 @@
   ],
   [
    "zoom",
-   12.29
+   12.3
   ],
   [
    "step",
@@ -869,11 +869,11 @@
   ],
   [
    "zoom",
-   21.28
+   21.27
   ],
   [
    "pant_soft",
-   21.48,
+   21.47,
    1
   ],
   [

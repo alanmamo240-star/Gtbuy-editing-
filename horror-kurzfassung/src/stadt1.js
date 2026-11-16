@@ -22,7 +22,7 @@ const PH = { ben: [0.6, 0.8, 0.02, 0.4], nina: [0.08, 0.8, -0.32, 2.9], max: [-0
 const v1 = new THREE.Vector3();
 const room = kitchen({
   pov: K1, look: [0, 0.85, 0],
-  targets: { maxPhone: [0.02, 1.08, 0.36], H_door: [-3.5, 1.4, 1.25], H_ben: [1.05, 1.1, 0], H_benUp: [1.05, 1.5, 0], H_max: [0, 1.15, 0.78], H_nina: [0, 1.15, -0.78], two: [0.5, 1.15, -0.4], H_phone: [0, 0.8, 0], benDoor: [-3.0, 1.3, 1.2] },
+  targets: { maxPhone: [0.02, 1.08, 0.36], H_door: [-3.5, 1.4, 1.25], H_ben: [1.05, 1.1, 0], H_benCam: [0.55, 1.2, -0.7], H_benUp: [1.05, 1.5, 0], H_max: [0, 1.15, 0.78], H_nina: [0, 1.15, -0.78], two: [0.5, 1.15, -0.4], H_phone: [0, 0.8, 0], benDoor: [-3.0, 1.3, 1.2] },
   onUpdate(v, t, S) {
     MV.update(t);
     const on = t > T_ALERT; for (const n in phones) { const p = phones[n]; p.userData.screen.material.map = on ? alert : darkTex; }
@@ -67,7 +67,7 @@ hold(9.5, { look: 'door', zoom: 34, pov: K3, povDur: 0.5, camDur: 0.35, push: 0.
   do: { ben: { look: 'H_door', face: 'scared', t: T_BELL - 8.0 + 0.2 }, nina: { look: 'H_door', face: 'scared', t: T_BELL - 8.0 + 0.3 }, max: { look: 'H_door', face: 'scared', t: T_BELL - 8.0 + 0.25 } } });
 say('aussen', 'Ben? | Ich habe den Schlüssel | vergessen.', { tag: 'DRAUSSEN' });
 hold(12.4, {});
-say('max', 'Das ist | deine Stimme.', { look: 'max', zoom: 30, pov: K4, povDur: 0.5, camDur: 0.35, headroom: 0.08, camAt: -0.2, do: { max: { look: 'H_ben', face: 'shock', t: -0.1 } } });
+say('max', 'Das ist | deine Stimme.', { look: 'max', zoom: 30, pov: K4, povDur: 0.5, camDur: 0.35, headroom: 0.08, camAt: -0.2, do: { max: { look: 'H_benCam', face: 'shock', t: -0.1 } } });
 hold(20.0, { look: 'two', zoom: 70, pov: K5, povDur: 0.6, camDur: 0.4,
   do: { ben: [{ look: 'H_door', face: 'worried', t: 0 }, { pose: 'stand', t: abs(14.0), dur: 1.2 }, { look: 'H_door', t: abs(16.6) }, { pose: PEEP, t: abs(19.6), dur: 0.4 }],
         nina: [{ look: 'H_benUp', face: 'scared', t: abs(14.6) }, { pose: GRAB, t: abs(15.6), dur: 0.45 }, { pose: SIT, t: abs(17.2), dur: 0.5 }, { look: 'benDoor', t: abs(18.0) }],

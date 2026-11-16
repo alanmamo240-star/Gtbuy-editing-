@@ -23,7 +23,7 @@
    "who": "lena",
    "text": "„Bei rotem Signal | bleibt er stehen.“",
    "t0": 3.3,
-   "t1": 5.36,
+   "t1": 5.56,
    "cam": 2.7,
    "look": "note",
    "zoom": 22,
@@ -32,11 +32,11 @@
   {
    "i": 2,
    "type": "hold",
-   "t0": 5.36,
+   "t0": 5.56,
    "t1": 7,
-   "cam": 5.36,
+   "cam": 5.56,
    "look": "note",
-   "zoom": 20.2444,
+   "zoom": 20.1124,
    "moved": true
   },
   {
@@ -95,7 +95,7 @@
    "who": "paul",
    "text": "Raus! | Sofort!",
    "t0": 11.4,
-   "t1": 12.93,
+   "t1": 13,
    "cam": 11.2,
    "look": "paul",
    "zoom": 32,
@@ -104,9 +104,9 @@
   {
    "i": 9,
    "type": "hold",
-   "t0": 12.93,
+   "t0": 13,
    "t1": 16.2,
-   "cam": 12.93,
+   "cam": 13,
    "look": "endArea",
    "zoom": 50,
    "moved": true
@@ -137,7 +137,7 @@
    "who": "emil",
    "text": "Paul! | Komm!",
    "t0": 21.75,
-   "t1": 22.78,
+   "t1": 22.79,
    "cam": 21.6,
    "look": "H_emilOut",
    "zoom": 30,
@@ -146,11 +146,11 @@
   {
    "i": 13,
    "type": "hold",
-   "t0": 22.78,
+   "t0": 22.79,
    "t1": 23.25,
-   "cam": 22.78,
+   "cam": 22.79,
    "look": "H_emilOut",
-   "zoom": 29.575200000000002,
+   "zoom": 29.5716,
    "moved": true
   },
   {
@@ -159,7 +159,7 @@
    "who": "paul",
    "text": "Einer muss | ihn halten.",
    "t0": 23.25,
-   "t1": 24.45,
+   "t1": 24.4,
    "cam": 23.05,
    "look": "paul",
    "zoom": 30,
@@ -168,9 +168,9 @@
   {
    "i": 15,
    "type": "hold",
-   "t0": 24.45,
+   "t0": 24.4,
    "t1": 29.6,
-   "cam": 24.45,
+   "cam": 24.4,
    "look": "wallShadow",
    "zoom": 48,
    "moved": true
@@ -182,7 +182,7 @@
    "t1": 30,
    "cam": 29.6,
    "look": "wallShadow",
-   "zoom": 40.583999999999996,
+   "zoom": 40.51199999999999,
    "moved": true
   }
  ],
@@ -194,7 +194,7 @@
    "fx": null,
    "text": "„Bei rotem Signal bleibt er stehen.“",
    "t0": 3.3,
-   "dur": 2.06,
+   "dur": 2.26,
    "stretch": false
   },
   {
@@ -204,7 +204,7 @@
    "fx": null,
    "text": "Raus! Sofort!",
    "t0": 11.4,
-   "dur": 1.53,
+   "dur": 1.6,
    "stretch": false
   },
   {
@@ -214,7 +214,7 @@
    "fx": null,
    "text": "Paul! Komm!",
    "t0": 21.75,
-   "dur": 1.03,
+   "dur": 1.04,
    "stretch": false
   },
   {
@@ -224,7 +224,7 @@
    "fx": null,
    "text": "Einer muss ihn halten.",
    "t0": 23.25,
-   "dur": 1.2,
+   "dur": 1.15,
    "stretch": false
   }
  ],
@@ -281,13 +281,13 @@
    1.2
   ],
   [
-   "zoom",
-   5.36
-  ],
-  [
    "knips",
    5.5,
    1.2
+  ],
+  [
+   "zoom",
+   5.56
   ],
   [
    "knips",
@@ -360,7 +360,7 @@
   ],
   [
    "whoosh",
-   12.93
+   13
   ],
   [
    "whoosh",
@@ -396,7 +396,7 @@
   ],
   [
    "whoosh",
-   22.78
+   22.79
   ],
   [
    "whoosh",
@@ -404,7 +404,7 @@
   ],
   [
    "whoosh",
-   24.45
+   24.4
   ],
   [
    "stepw",
