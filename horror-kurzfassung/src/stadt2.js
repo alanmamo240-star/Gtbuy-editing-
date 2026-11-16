@@ -8,7 +8,7 @@ import { THREE, clamp, lerp, smooth, rad } from './util.js';
 const TM = await loadTimings();
 await Promise.all([700, 800, 900].map(w => document.fonts.load(`${w} 40px Rubik`)));
 
-const A1 = [-3.2, 1.45, 1.2], A2 = [-0.6, 1.5, 1.6], A3 = [-1.2, 1.4, 0.9], A4 = [-6.8, 1.4, 1.0], R1 = [-8.0, 1.75, 0.35], M1 = [-13.0, 1.35, 0.6], L1 = [-10.5, 1.5, -1.2], N1 = [-11.8, 1.4, 0.9], D1 = [-9.5, -1.0, 7.4];
+const A1 = [-3.2, 1.45, 1.2], A2 = [-0.6, 1.5, 1.6], A3 = [-1.2, 1.4, 0.9], A4 = [-6.8, 1.4, 1.0], R1 = [-8.0, 1.75, 0.35], M1 = [-13.0, 1.35, 0.6], L1 = [-10.0, 1.55, -1.95], N1 = [-11.8, 1.4, 0.9], D1 = [-9.5, -1.0, 7.4];
 const ben = CAST.ben(), nina = CAST.nina(), max = CAST.max(), dBen = CAST.ben(), dNina = CAST.nina(), dMax = CAST.max(), nina2 = CAST.nina();
 const STOP = { max: [-11.3, -0.3], nina: [-11.0, 1.15], ben: [-10.7, -1.15] }, BACK = { max: [-10.75, -0.25], nina: [-10.45, 1.2], ben: [-10.15, -1.1] };
 const DUP = { ben: [-17.5, -0.8], nina: [-17.8, 0.4], max: [-17.4, 1.4] };

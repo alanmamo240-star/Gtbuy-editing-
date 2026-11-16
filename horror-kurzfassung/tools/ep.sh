@@ -21,9 +21,10 @@ case $cmd in
   snap)   node tools/snap.mjs "$@" 2>&1 | grep -v 'status of 404'; true ;;
   tts)    python3 tools/tts.py ;;
   voice)  python3 tools/voice.py ;;
-  mix)    python3 tools/mix.py 2>&1 | grep -v 'unknown sfx' ;;
+  mix)    python3 tools/mix2.py ;;
+  remux)  T=$(mktemp --suffix=.mp4 -p .) && ffmpeg -v error -y -i "../$OUT" -i audio/mix.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 256k -shortest -movflags +faststart "$T" && mv "$T" "../$OUT" && ffprobe -v error -show_entries format=duration -of csv=p=0 "../$OUT" ;;
   render) W=${1:-2}; for i in $(seq 0 $((W - 1))); do node tools/render.mjs "$i" "$W" > "r$i.log" 2>&1 & done; wait; tail -n 1 r*.log ;;
   encode) ffmpeg -v error -y -framerate 30 -i frames/f%05d.jpg -i audio/mix.wav -c:v libx264 -preset slow -crf 17 -pix_fmt yuv420p -tune animation -movflags +faststart -c:a aac -b:a 256k -shortest "../$OUT" && ffprobe -v error -show_entries stream=codec_type,width,height,r_frame_rate,duration -of csv=p=0 "../$OUT" ;;
-  all)    node tools/snap.mjs info > /dev/null 2>&1; python3 tools/tts.py && node tools/snap.mjs info 2>&1 | head -2 && python3 tools/mix.py 2>&1 | grep -v 'unknown sfx' | tail -2 && "$0" "$EP" render "${1:-2}" && "$0" "$EP" encode ;;
+  all)    node tools/snap.mjs info > /dev/null 2>&1; python3 tools/tts.py && node tools/snap.mjs info 2>&1 | head -2 && python3 tools/mix2.py && "$0" "$EP" render "${1:-2}" && "$0" "$EP" encode ;;
   *)      "$cmd" "$@" ;;
 esac

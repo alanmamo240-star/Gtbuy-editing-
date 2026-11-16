@@ -18,7 +18,7 @@ const shaft = cellar({ pov: W1, targets: { grilleS: [9.0, 0.5, 1.5], maxBack: [8
   onUpdate(v, t) { MVs.update(t); } });
 
 // ---- outside: the drain pipe, the riverbank, the far bank
-const P1 = [0, 0.62, 13.8], O1 = [2.2, 1.3, 2.6], R1 = [2.5, 1.35, -2.6], R2 = [0.45, 1.3, -6.2], PH = [-0.3, 1.2, -3.95], B1 = [0.6, 1.6, -1.2], T1 = [0.5, 1.5, -4.3];
+const P1 = [0, 0.62, 13.8], O1 = [2.2, 1.3, 2.6], R1 = [2.5, 1.35, -2.6], R2 = [0.45, 1.3, -6.2], PH = [-0.3, 1.2, -3.95], B1 = [2.3, 2.0, -0.9], T1 = [0.5, 1.5, -4.3];
 const rb = { ben: CAST.ben(), nina: CAST.nina(), max: CAST.max() }, fb = { ben: CAST.ben(), nina: CAST.nina(), max: CAST.max() };
 const BANK = { nina: [-0.4, -3.0], max: [0.5, -2.9], ben: [1.3, -3.2] }, FAR = { nina: [-0.4, -21.6], max: [0.5, -21.5], ben: [1.3, -21.8] };
 const OUT = { nina: [-0.3, 4.6], max: [0.45, 4.4], ben: [0.9, 5.0] };

@@ -5,7 +5,7 @@
 # Writes audio/foley.wav (48 kHz mono) at the same level scale audio.py uses for voices (one line ~ RMS 0.12).
 import json, wave, os
 import numpy as np
-SR = 48000; TL = json.load(open('timeline.json')); DUR = TL['duration'] + 0.3; N = int(DUR * SR); rs = np.random.RandomState(31)
+SR = 48000; TL = json.load(open(os.environ.get('TIMELINE', 'timeline.json'))); DUR = TL['duration'] + 0.3; N = int(DUR * SR); rs = np.random.RandomState(31)
 tt = lambda d: np.arange(int(d * SR)) / SR
 def noise(d): return rs.randn(int(d * SR)).astype(np.float32)
 def filt(a, lo=None, hi=None, slope=3.0):
@@ -206,10 +206,31 @@ def grate(t0):
 def river(t0, d=None):    # a slow river: broadband wash with gentle swells
     d = (TL['duration'] - t0) if d is None else d; t = tt(d); a = filt(noise(d), 200, 2500, 2.0) * (0.75 + 0.25 * np.sin(2 * np.pi * 0.21 * t) * np.sin(2 * np.pi * 0.07 * t + 1)) * 0.035
     put(a.astype(np.float32), t0, 1.0)
+def bandnoise(d, f0, f1, q=0.5):
+    n = int(d * SR); x = noise(d); out_ = np.zeros(n, np.float32); K = 12
+    for k in range(K):
+        fc = f0 * (f1 / f0) ** ((k + 0.5) / K); seg = filt(x, fc * (1 - q), fc * (1 + q)); w_ = np.exp(-0.5 * ((np.arange(n) / n - (k + 0.5) / K) / (0.9 / K)) ** 2); out_ += seg * w_
+    return out_
+def sweep(d, f0, f1): t = tt(d); return np.sin(2 * np.pi * (f0 * t + (f1 - f0) * t * t / (2 * d))).astype(np.float32)
+KIT = {
+    'whoosh': lambda: bandnoise(0.34, 300, 3200) * np.sin(np.pi * np.arange(int(0.34 * SR)) / int(0.34 * SR)) ** 1.5 * 0.5,
+    'whoosh_long': lambda: bandnoise(0.6, 180, 2600) * np.sin(np.pi * np.arange(int(0.6 * SR)) / int(0.6 * SR)) ** 1.3 * 0.55,
+    'zoom': lambda: bandnoise(0.3, 220, 900) * np.sin(np.pi * np.arange(int(0.3 * SR)) / int(0.3 * SR)) ** 2 * 0.3,
+    'punch': lambda: (np.sin(2 * np.pi * 62 * tt(0.4)) * env(int(0.4 * SR), 0.003, 0.11) * 0.8 + filt(noise(0.4), 900, 5000) * env(int(0.4 * SR), 0.001, 0.02) * 0.2),
+    'notify': lambda: sum(np.pad(np.sin(2 * np.pi * f * tt(0.5)) * env(int(0.5 * SR), 0.002, 0.12) * 0.32, (int(o * SR), int(0.2 * SR) - int(o * SR))) for f, o in ((1046.5, 0), (1396.9, 0.11))),
+    'knock': lambda: (np.sin(2 * np.pi * 150 * tt(0.3)) * env(int(0.3 * SR), 0.001, 0.045) + filt(noise(0.3), 300, 1500) * env(int(0.3 * SR), 0.001, 0.02) * 0.6) * 0.75,
+    'sting': lambda: (sweep(1.4, 70, 38) * env(int(1.4 * SR), 0.004, 0.45) * 0.9 + sum(np.sin(2 * np.pi * f * tt(1.4)) for f in (622, 659, 932, 988)) * env(int(1.4 * SR), 0.01, 0.5) * 0.06 + filt(noise(1.4), 2000, 9000) * env(int(1.4 * SR), 0.002, 0.08) * 0.2),
+    'steps': lambda: sum(np.pad(filt(noise(0.2), 80, 500) * env(int(0.2 * SR), 0.002, 0.05) * (0.5 - 0.09 * i), (int(i * 0.42 * SR), int(4 * 0.42 * SR) - int(i * 0.42 * SR))) for i in range(5)),
+    'boom': lambda: (sweep(2.2, 62, 30) * env(int(2.2 * SR), 0.003, 0.7) * 1.25 + filt(noise(2.2), 60, 700) * env(int(2.2 * SR), 0.002, 0.25) * 0.5),
+    'buzz': lambda: np.sign(np.sin(2 * np.pi * 150 * tt(0.45))) * (np.sin(2 * np.pi * 3.2 * tt(0.45)) > -0.3) * 0.07,
+    'creak': lambda: np.sin(2 * np.pi * (180 + 60 * np.sin(2 * np.pi * 2.2 * tt(0.9))) * tt(0.9)) * np.sin(np.pi * np.arange(int(0.9 * SR)) / int(0.9 * SR)) ** 2 * (0.5 + 0.5 * np.sign(np.sin(2 * np.pi * 37 * tt(0.9)))) * 0.14,
+    'slam': lambda: (np.sin(2 * np.pi * 85 * tt(0.6)) * env(int(0.6 * SR), 0.001, 0.09) + filt(noise(0.6), 200, 3000) * env(int(0.6 * SR), 0.001, 0.04)) * 0.9,
+}
+KITG = {'whoosh': 0.22, 'whoosh_long': 0.3, 'zoom': 0.15, 'punch': 0.55, 'notify': 0.8, 'boom': 0.95, 'sting': 0.7}
 # ---- ambience: cold wind in the fog for the whole scene
 t = np.arange(N) / SR
 amb = filt(rs.randn(N).astype(np.float32), 90, 650, 2.0) * (0.7 + 0.3 * np.sin(2 * np.pi * 0.09 * t) * np.sin(2 * np.pi * 0.037 * t + 1))
-put(amb * 0.018, 0)
+put(amb * (0.0 if os.environ.get('WITH_KIT') == '1' else 0.018), 0)
 
 events = TL['events']; slam_t = next((e[1] for e in events if e[0] == 'slam'), TL['duration'])
 B = {'step': lambda t0, g: put(verb(step(4.0), 0.5, 0.3), t0, 0.55 * g), 'stepw': lambda t0, g: put(verb(filt(step(4.0), None, 1800), 0.6, 0.35), t0, 0.45 * g), 'siren': lambda t0, g: siren(t0), 'explosion': lambda t0, g: explosion(t0), 'latch': lambda t0, g: latch(t0),
@@ -218,9 +239,11 @@ B = {'step': lambda t0, g: put(verb(step(4.0), 0.5, 0.3), t0, 0.55 * g), 'stepw'
      'wind': lambda t0, g: wind(t0), 'chain': lambda t0, g: chain(t0), 'paper': lambda t0, g: paper(t0), 'whistle': lambda t0, g: whistle(t0),
      'slam_far': lambda t0, g: slam_far(t0, g), 'clank': lambda t0, g: clank(t0), 'gasp': lambda t0, g: gasp(t0), 'train': lambda t0, g: train(t0, next((e[1] for e in events if e[0] in ('trainstop', 'lightsout') and e[1] > t0), TL['duration'])), 'knips': lambda t0, g: knips(t0, g), 'rattle': lambda t0, g: rattle(t0), 'chime': lambda t0, g: chime(t0), 'stumble': lambda t0, g: stumble(t0), 'lightsout': lambda t0, g: lightsout(t0), 'alarmhum': lambda t0, g: alarmhum(t0, TL['duration'] - 0.4), 'lever': lambda t0, g: lever(t0), 'jolt': lambda t0, g: jolt(t0), 'brake': lambda t0, g: brake(t0), 'windout': lambda t0, g: windout(t0), 'spring': lambda t0, g: spring(t0, g), 'land': lambda t0, g: land(t0), 'birds': lambda t0, g: birds(t0, g), 'crack': lambda t0, g: crack(t0), 'wood': lambda t0, g: wood(t0), 'whistle_long': lambda t0, g: whistle_long(t0), 'alert': lambda t0, g: alert(t0), 'doorbell': lambda t0, g: doorbell(t0), 'handle': lambda t0, g: handle(t0), 'chairscrape': lambda t0, g: chairscrape(t0), 'doorbang': lambda t0, g: doorbang(t0), 'drips': lambda t0, g: drips(t0, next((e[1] for e in events if e[0] == 'cut' and e[1] > t0), TL['duration']) - t0), 'click': lambda t0, g: click(t0), 'river': lambda t0, g: river(t0), 'ventoff': lambda t0, g: ventoff(t0), 'shuffle': lambda t0, g: shuffle(t0), 'crawl': lambda t0, g: crawl(t0), 'grate': lambda t0, g: grate(t0), 'scrape': lambda t0, g: scrape(t0), 'megaphone': lambda t0, g: megaphone(t0), 'doorshut': lambda t0, g: doorshut(t0), 'nightamb': lambda t0, g: nightamb(t0, next((e[1] for e in events if e[0] == 'doorshut'), TL['duration']) - t0), 'roomtone': lambda t0, g: roomtone(t0, next((e[1] for e in events if e[0] == 'cut' and e[1] > t0), TL['duration'])), 'heart': lambda t0, g: heart(t0, g)}
 used = []
+WITH_KIT = os.environ.get('WITH_KIT') == '1'
 for e in events:
     name, at = e[0], e[1]; g = e[2] if len(e) > 2 else 1.0
     if name in B: B[name](at, g); used.append(name)
+    elif WITH_KIT and name in KIT: put(KIT[name]().astype(np.float32), at - (0.1 if name.startswith('whoosh') else 0), g * KITG.get(name, 0.8)); used.append(name)
 a = out[:N]
-w = wave.open('audio/foley.wav', 'w'); w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR); w.writeframes((np.clip(a, -1, 1) * 32767).astype(np.int16).tobytes()); w.close()
+w = wave.open(os.environ.get('FOLEY_OUT', 'audio/foley.wav'), 'w'); w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR); w.writeframes((np.clip(a, -1, 1) * 32767).astype(np.int16).tobytes()); w.close()
 print('audio/foley.wav', round(DUR, 1), 's  cues:', ' '.join(used))
