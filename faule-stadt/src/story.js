@@ -1,4 +1,4 @@
-// "In dieser Stadt ist jeder faul – außer mir."  Ich-Erzähler, deutsch, Cliffhanger-Ende "2?".
+// "In dieser Stadt ist jeder faul – außer Ronaldo."  Erzähler in der dritten Person, deutsch, Cliffhanger-Ende "2?".
 // Keywords marked with * show as yellow captions. // = 0.6 s silent hold, /// = 1.0 s.
 import * as THREE from 'three';
 import { start, shot, frame, W, H } from './core.js';
@@ -144,44 +144,44 @@ async function build() {
     act(lt, c) { teacher.reset().place(9, -3.6, 0).sit(1.4).pose({ head: [38, 0, 10], aL: [80, -10], aR: [80, -10] }).setFace('sleepy'); teacher.hip.position.y += Math.sin(c.t * 2) * 0.05; zzzT.at(lt, teacher); classroom.desks.visible = true; } });
   shot({ line: 'schneller ein als seine Schüler.', set: classroom, cam: { pos: [0, 7, 2.5], look: [0, 4.6, 11], fov: 70, blur: 0.15 },
     act(lt, c) { classroom.desks.visible = true; kids.forEach((a, i) => { const [x, z] = classroom.seats[i]; const sl = lt > c.w('schüler') - 0.3 + i * 0.12; a.reset().place(x, z, Math.PI).sit(1.5).setFace(sl ? 'sleepy' : (i % 2 ? 'neutral' : 'sus')).pose({ head: [sl ? 28 : 0, 0, sl ? 12 : 0] }).idle(c.t, 0.4); }); } });
-  shot({ line: 'Und mein *Vater bestellt Pizza,', set: living, cam: frame(-4, -3.4, { size: 'close', side: -14, low: 0.05 }),
+  shot({ line: 'Und *Ronaldos *Vater bestellt Pizza,', set: living, cam: frame(-4, -3.4, { size: 'close', side: -14, low: 0.05 }),
     act(lt, c) { dad.reset().place(-4, -3.4, 0).sit(1.6).pose({ aR: [70, -10], head: [12, 0, 0] }).setFace(lt > c.w('pizza') ? 'smug' : 'sleepy').idle(c.t, 0.4); } });
   shot({ line: 'weil ihm der Kühlschrank zu weit weg ist.', set: living, sfx: [['pop', 'weit', 0.7]], cam: { pos: [0, 7, 15], look: [0, 3.5, -3], fov: 64, blur: 0.1, push: 0.05 },
     act(lt, c) { dad.reset().place(-4, -3.4, 0.4).sit(1.6).pose({ aL: [80, 30], aR: [70, -10] }).setFace(lt > c.w('weit') ? 'sad' : 'sleepy').idle(c.t, 0.4); pizza.visible = true; pizza.position.set(-4, 2.6, -1.6); } });
   // THE EXCEPTION: ME
-  shot({ line: 'Nur *ich bin anders.', set: street, sfx: [['whoosh', 0, 0.5], ['pop', 'ich', 0.6]], cam: frame(0, 3, { size: 'full', low: 0.45, side: 10, push: 0.09 }),
-    act(lt, c) { meStreet.reset().place(0, 3, 0).pose(lt > c.w('anders') ? 'hips' : 'open').setFace(lt > c.w('ich') ? 'grin' : 'smile').idle(c.t); } });
-  shot({ line: 'Ich stehe jeden Morgen um *sechs Uhr auf,', set: bedroomDay, sfx: [['alarm', 'sechs', 0.9]], cam: { pos: [-1.6, 3.6, 3.2], look: [-2.5, 3.3, -3.4], fov: 55, blur: 0.6, push: 0.1 },
+  shot({ line: 'Nur *Ronaldo ist anders.', set: street, sfx: [['whoosh', 0, 0.5], ['pop', 'ronaldo', 0.6]], cam: frame(0, 3, { size: 'full', low: 0.45, side: 10, push: 0.09 }),
+    act(lt, c) { meStreet.reset().place(0, 3, 0).pose(lt > c.w('anders') ? 'hips' : 'open').setFace(lt > c.w('ronaldo') ? 'grin' : 'smile').idle(c.t); } });
+  shot({ line: 'Er steht jeden Morgen um *sechs Uhr auf,', set: bedroomDay, sfx: [['alarm', 'sechs', 0.9]], cam: { pos: [-1.6, 3.6, 3.2], look: [-2.5, 3.3, -3.4], fov: 55, blur: 0.6, push: 0.1 },
     act(lt, c) { const ring = lt > c.w('sechs'); clock6.rotation.z = ring ? Math.sin(c.t * 70) * 0.09 : 0; } });
-  shot({ line: 'gehe *joggen', set: street, light: 'sunset', sfx: [['steps', 0, 0.7]],
+  shot({ line: 'geht *joggen', set: street, light: 'sunset', sfx: [['steps', 0, 0.7]],
     cam: follow(lt => [-14 + lt * 9, 0, 5], [4, 2.2, 11], { lookY: 3.4 }), act(lt, c) { meStreet.reset().place(-14 + lt * 9, 5, Math.PI / 2).run(c.t).setFace('grin'); } });
-  shot({ line: 'und mache sogar meine *Hausaufgaben.', set: bedroomDay, sfx: [['tick', 'hausaufgaben', 0.8]], cam: { pos: [9, 5.6, 9.5], look: [9, 3.8, 1.4], fov: 55, blur: 0.4 },
+  shot({ line: 'und macht sogar seine *Hausaufgaben.', set: bedroomDay, sfx: [['tick', 'hausaufgaben', 0.8]], cam: { pos: [9, 5.6, 9.5], look: [9, 3.8, 1.4], fov: 55, blur: 0.4 },
     act(lt, c) { meBedDay.reset().place(9, 1.2, 0).sit(1.5).pose({ aL: [70, -5], aR: [60 + Math.sin(c.t * 9) * 8, -8], head: [16, 0, 0] }).setFace(lt > c.w('hausaufgaben') ? 'grin' : 'serious'); } });
-  shot({ line: 'Deshalb halten mich alle', set: street, cam: { pos: [0, 4.6, 16], look: [0, 3.8, 4], fov: 60, blur: 0.2 },
+  shot({ line: 'Deshalb halten ihn alle', set: street, cam: { pos: [0, 4.6, 16], look: [0, 3.8, 4], fov: 60, blur: 0.2 },
     act(lt, c) { neighbors.forEach((a, i) => a.reset().place(-5 + i * 5, 4.2 - (i % 2) * 0.6, 0.15 - i * 0.15).pose(i === 1 ? 'hips' : 'idle').setFace('sus').idle(c.t, 0.5)); meStreet.reset().place(-10 + lt * 8, 8.5, Math.PI / 2).run(c.t); } });
   shot({ line: 'für *verrückt.', set: street, sfx: [['pop', 'verrückt', 0.7]], cam: frame(5, 3.6, { size: 'close', side: -12, push: 0.12 }),
     act(lt, c) { const a = neighbors[2]; a.reset().place(5, 3.6, -0.15).pose('point').setFace('sus').idle(c.t, 0.4); qNB.at(lt - c.w('verrückt'), a); } });
   // THE NIGHT
   shot({ line: 'Doch letzte Nacht, um *drei Uhr,', set: bedNight, sfx: [['tick', 'drei', 0.9]], cam: { pos: [-2.4, 4.2, 2.4], look: [-3.2, 3.3, -3.6], fov: 52, blur: 0.7, push: 0.12 } });
-  shot({ line: 'roch ich plötzlich *Rauch.', set: bedNight, sfx: [['hit', 'rauch', 0.8]], cam: frame(-8, -0.6, { size: 'close', y: 0.0, side: 14 }),
+  shot({ line: 'roch *Ronaldo plötzlich *Rauch.', set: bedNight, sfx: [['hit', 'rauch', 0.8]], cam: frame(-8, -0.6, { size: 'close', y: 0.0, side: 14 }),
     act(lt, c) { const k = remap(lt, c.w('rauch') - 0.3, c.w('rauch') + 0.4); glowWin.material.opacity = 0.9 * k; fireL.intensity = 180 * k; meBedNight.reset().place(-8, -0.6, 0.2).sit(2.3).pose({ head: [-8, 25 * k, 0] }).setFace(lt > c.w('rauch') ? 'shock' : 'uneasy').idle(c.t, 0.3); exMe.at(lt - c.w('rauch'), meBedNight); } });
   shot({ line: 'Die *Bäckerei am Marktplatz', set: cityNight, sfx: [['fire', 0, 0.9]], cam: { pos: [0, 7, 22], look: [0, 8, -16], fov: 55, blur: 0.05, push: 0.08 }, act(lt, c) { fireOn(c); } });
   shot({ line: 'stand in *Flammen. //', set: cityNight, sfx: [['boom', 'flammen', 1]], cam: handheld({ pos: [-4, 9.5, -3], look: [0, 9, -15], fov: 50, blur: 0.1, push: 0.1 }, 1.2, 4), act(lt, c) { fireOn(c, 1.15); } });
-  shot({ line: 'Ich rannte zur *Feuerwache.', set: cityNight, sfx: [['steps', 0, 0.9]],
+  shot({ line: 'Er rannte zur *Feuerwache.', set: cityNight, sfx: [['steps', 0, 0.9]],
     cam: follow(lt => [10 + lt * 12, 0, 1], [-5, 2.6, 10], { lookY: 3.6 }), act(lt, c) { fireOn(c, 0.9); meNight.reset().place(10 + lt * 12, 1, Math.PI / 2).run(c.t, 1.2).setFace('worried'); } });
   shot({ line: 'Aber die Feuerwehrmänner lagen in ihren *Hängematten', set: fstation, sfx: [['snore', 'hängematten', 0.9]], cam: { pos: [14, 10, 8], look: [-3, 2.8, 0], fov: 58, blur: 0.1, push: 0.05 },
     act(lt, c) { firemen.forEach((a, i) => { const [x, z] = hammocks[i]; lie(a, x, 2.3 + Math.sin(c.t * 2 + i) * 0.04, z + 2.6).setFace('sleepy'); }); zzzF.at(lt % 1.4, firemen[1]); } });
   shot({ line: 'und sagten nur: „Morgen *vielleicht.“ //', set: fstation, cam: { pos: [-1.4, 8.6, 1.4], look: [-2, 3.2, -1.9], fov: 50, blur: 0.6, push: 0.08 },
     act(lt, c) { const a = firemen[1]; lie(a, -2, 2.3, 2.6); a.head.rotation.y = 0.35; a.setFace(lt > c.w('morgen') && lt < c.w('vielleicht') + 0.5 ? 'talk' : 'sleepy'); } });
   // I DO IT MYSELF
-  shot({ line: 'Also schnappte ich mir selbst den *Schlauch', set: cityNight, sfx: [['whoosh', 'schlauch', 0.7]], cam: frame(7, -2, { size: 'close', side: -16, low: 0.3 }),
+  shot({ line: 'Also schnappte sich *Ronaldo selbst den *Schlauch', set: cityNight, sfx: [['whoosh', 'schlauch', 0.7]], cam: frame(7, -2, { size: 'close', side: -16, low: 0.3 }),
     act(lt, c) { fireOn(c); meNight.reset().place(7, -2, -0.4).pose(lt > c.w('schlauch') ? 'carry' : 'idle').setFace(lt > c.w('schnappte') ? 'angry' : 'serious').idle(c.t); hose.visible = lt > c.w('schlauch'); } });
   shot({ line: 'und kämpfte ganz *allein gegen das Feuer.', set: cityNight, sfx: [['water', 0, 1], ['fire', 0, 0.6]], cam: handheld({ pos: [18, 5.5, 6], look: [4, 6, -10], fov: 58, blur: 0.08, push: 0.05 }, 1.4, 7),
     act(lt, c) { fireOn(c, 1 - 0.35 * c.k); meNight.reset().place(8, -6, -2.3).pose('carry').setFace('angry'); hose.visible = true; spray.at(c.t, [6.4, 3.4, -7], [1, 9, -14], 3); } });
   shot({ line: 'Nach zwanzig Minuten war es endlich *aus.', set: cityNight, sfx: [['water', 0, 0.6], ['hiss', 'aus', 1]], cam: { pos: [0, 12, 26], look: [0, 6, -12], fov: 55, blur: 0, push: 0.05 },
     act(lt, c) { const k = remap(lt, 0, c.w('aus') + 0.2); fireOn(c, 0.65 * (1 - k), 0.7); meNight.reset().place(6, -6, -2.3).pose('carry').setFace('serious'); hose.visible = true; if (k < 1) spray.at(c.t, [4.4, 3.4, -7], [1, 7, -14], 3); } });
   // THE CLUE
-  shot({ line: 'Aber dann fand ich in der Asche etwas,', set: cityNight, cam: frame(3, -6, { size: 'medium', side: 25, low: -0.2 }),
+  shot({ line: 'Aber dann fand er in der Asche etwas,', set: cityNight, cam: frame(3, -6, { size: 'medium', side: 25, low: -0.2 }),
     act(lt, c) { fireOn(c, 0, 0.5); cityNight.ash.visible = true; meNight.reset().place(3, -6, -0.6).pose({ head: [30, 0, 0], aL: [20, 10], aR: [20, 10] }).setFace('uneasy').idle(c.t, 0.3); } });
   shot({ line: 'das dort nicht sein durfte.', set: cityNight, sfx: [['hit', 'durfte', 0.6]], cam: { pos: [2.4, 4, -3.4], look: [0.6, 0.6, -7.6], fov: 50, blur: 0.5, push: 0.1 }, act(lt, c) { fireOn(c, 0, 0.4); cityNight.ash.visible = true; } });
   shot({ line: 'Einen *Wecker.', set: cityNight, sfx: [['tick', 'wecker', 1]], cam: { pos: [1.0, 1.9, -5.6], look: [0.6, 0.8, -7.6], fov: 45, blur: 0.8, push: 0.12 }, act(lt, c) { cityNight.ash.visible = true; } });
@@ -194,7 +194,7 @@ async function build() {
     act(lt, c) { shadow.reset().place(-40, 3, 0.7).setFace('blank').idle(c.t, 0.2); } });
   shot({ line: 'Und er *weiß,', set: cityNight, cam: frame(4, 2, { size: 'close', side: -14 }),
     act(lt, c) { meNight.reset().place(4, 2, -0.5).pose({ head: [0, -30, 0] }).setFace('worried').idle(c.t, 0.3); } });
-  shot({ line: 'dass ich es *weiß.', set: cityNight, sfx: [['hit', 'weiß', 1]], cam: frame(-40, 3, { size: 'face', side: 18, push: 0.12, blur: 0.9 }),
+  shot({ line: 'dass *Ronaldo es *weiß.', set: cityNight, sfx: [['hit', 'weiß', 1]], cam: frame(-40, 3, { size: 'face', side: 18, push: 0.12, blur: 0.9 }),
     act(lt, c) { shadow.reset().place(-40, 3, 0.7).setFace('blank'); } });
 }
 start(build);
