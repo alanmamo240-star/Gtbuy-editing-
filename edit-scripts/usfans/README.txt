@@ -13,3 +13,7 @@ splice_words.py mutes the old word and drops a take in its place (time-fitted wi
 v4 now uses take6 at 9.74-10.44 (stretch x1.10). PayPal in v8/v9 stays muted (no Klarna recording).
 Planned splice windows for the remaining videos: v8 1.42-1.88, 5.15-5.55, 15.70-16.14 | v9 3.24-3.70 | v10 18.47-19.04 |
 v12 7.02-7.50 | v13 0.00-0.75.
+
+Update: creator recorded "Klarna" (voice/klarna_a.wav, klarna_b.wav = cleanest takes 3+4, ~0.5 s).
+PayPal spots in v8 (17.32-17.92) and v9 (1.84-2.26, 6.12-6.46, 11.70-11.94 -> widen to ~11.66-12.02)
+will be spliced with these instead of muted.
