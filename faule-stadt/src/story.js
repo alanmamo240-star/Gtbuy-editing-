@@ -122,7 +122,7 @@ const fireOn = (c, lv = 1, sm) => cityNight.fire.set(lv, c.t, sm === undefined ?
 // ───────────── shots
 async function build() {
   // HOOK: the burning town from above
-  shot({ line: 'In dieser Stadt ist jeder so *faul,', set: cityNight, sfx: [['whoosh', 0, 0.9], ['fire', 0, 0.8]],
+  shot({ line: 'In dieser Stadt ist jeder so *faul,', set: cityNight, sfx: [['whoosh', 0, 0.9]],
     cam: drone([0, 4, -14], { h: 46, back: 62, drift: [-6, -6, -10], fov: 52 }), act(lt, c) { fireOn(c); } });
   shot({ line: 'dass letzte Nacht beinahe alles *abgebrannt wäre.', set: cityNight, sfx: [['boom', 'abgebrannt', 0.9]],
     cam: { pos: [6, 5, 14], look: [0, 8, -16], fov: 55, blur: 0.15, push: 0.1 }, act(lt, c) { fireOn(c); } });
