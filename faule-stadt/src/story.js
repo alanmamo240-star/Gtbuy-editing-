@@ -142,7 +142,7 @@ async function build() {
     } });
   shot({ line: 'Der *Lehrer schläft im Unterricht', set: classroom, sfx: [['snore', 'schläft', 0.8]], cam: frame(9, -3.6, { size: 'medium', side: -15, low: 0.2 }),
     act(lt, c) { teacher.reset().place(9, -3.6, 0).sit(1.4).pose({ head: [38, 0, 10], aL: [80, -10], aR: [80, -10] }).setFace('sleepy'); teacher.hip.position.y += Math.sin(c.t * 2) * 0.05; zzzT.at(lt, teacher); classroom.desks.visible = true; } });
-  shot({ line: 'schneller ein als seine Schüler.', set: classroom, cam: { pos: [0, 7, 2.5], look: [0, 4.6, 11], fov: 70, blur: 0.15 },
+  shot({ line: 'schneller ein als seine Schüler.', set: classroom, cam: { pos: [0, 8, -2], look: [0, 4.8, 10], fov: 66, blur: 0.15 },
     act(lt, c) { classroom.desks.visible = true; kids.forEach((a, i) => { const [x, z] = classroom.seats[i]; const sl = lt > c.w('schüler') - 0.3 + i * 0.12; a.reset().place(x, z, Math.PI).sit(1.5).setFace(sl ? 'sleepy' : (i % 2 ? 'neutral' : 'sus')).pose({ head: [sl ? 28 : 0, 0, sl ? 12 : 0] }).idle(c.t, 0.4); }); } });
   shot({ line: 'Und *Ronaldos *Vater bestellt Pizza,', set: living, cam: frame(-4, -3.4, { size: 'close', side: -14, low: 0.05 }),
     act(lt, c) { dad.reset().place(-4, -3.4, 0).sit(1.6).pose({ aR: [70, -10], head: [12, 0, 0] }).setFace(lt > c.w('pizza') ? 'smug' : 'sleepy').idle(c.t, 0.4); } });
@@ -151,9 +151,9 @@ async function build() {
   // THE EXCEPTION: ME
   shot({ line: 'Nur *Ronaldo ist anders.', set: street, sfx: [['whoosh', 0, 0.5], ['pop', 'ronaldo', 0.6]], cam: frame(0, 3, { size: 'full', low: 0.45, side: 10, push: 0.09 }),
     act(lt, c) { meStreet.reset().place(0, 3, 0).pose(lt > c.w('anders') ? 'hips' : 'open').setFace(lt > c.w('ronaldo') ? 'grin' : 'smile').idle(c.t); } });
-  shot({ line: 'Er steht jeden Morgen um *sechs Uhr auf,', set: bedroomDay, sfx: [['alarm', 'sechs', 0.9]], cam: { pos: [-1.6, 3.6, 3.2], look: [-2.5, 3.3, -3.4], fov: 55, blur: 0.6, push: 0.1 },
+  shot({ line: 'Er steht jeden Morgen um *sechs Uhr', set: bedroomDay, sfx: [['alarm', 'sechs', 0.9]], cam: { pos: [-1.6, 3.6, 3.2], look: [-2.5, 3.3, -3.4], fov: 55, blur: 0.6, push: 0.1 },
     act(lt, c) { const ring = lt > c.w('sechs'); clock6.rotation.z = ring ? Math.sin(c.t * 70) * 0.09 : 0; } });
-  shot({ line: 'geht *joggen', set: street, light: 'sunset', sfx: [['steps', 0, 0.7]],
+  shot({ line: 'auf, geht *joggen', set: street, light: 'sunset', sfx: [['steps', 0, 0.7]],
     cam: follow(lt => [-14 + lt * 9, 0, 5], [4, 2.2, 11], { lookY: 3.4 }), act(lt, c) { meStreet.reset().place(-14 + lt * 9, 5, Math.PI / 2).run(c.t).setFace('grin'); } });
   shot({ line: 'und macht sogar seine *Hausaufgaben.', set: bedroomDay, sfx: [['tick', 'hausaufgaben', 0.8]], cam: { pos: [9, 5.6, 9.5], look: [9, 3.8, 1.4], fov: 55, blur: 0.4 },
     act(lt, c) { meBedDay.reset().place(9, 1.2, 0).sit(1.5).pose({ aL: [70, -5], aR: [60 + Math.sin(c.t * 9) * 8, -8], head: [16, 0, 0] }).setFace(lt > c.w('hausaufgaben') ? 'grin' : 'serious'); } });

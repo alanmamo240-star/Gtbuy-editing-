@@ -16,6 +16,8 @@ def env(d, a=0.005, r=None): t = t_(d); r = r or d; return np.minimum(1, t / a) 
 def tone(f, d, a=0.004, harm=(1, 0.3, 0.1)): t = t_(d); return sum(h * np.sin(2 * np.pi * f * (i + 1) * t) for i, h in enumerate(harm)) * env(d, a)
 def noise(d): return rs.randn(int(d * SR))
 def smooth(x, n): return np.convolve(x, np.ones(n) / n, 'same')
+def place(x, at, d):
+    o = np.zeros(int(d * SR)); i = int(at * SR); n = max(0, min(len(x), len(o) - i)); o[i:i + n] = x[:n]; return o
 SFX = {
     'whoosh': lambda: smooth(noise(0.34), 60) * np.sin(np.pi * t_(0.34) / 0.34) ** 2 * 5.0,                       # big camera moves, entrances
     'pop': lambda: np.sin(2 * np.pi * (520 * t_(0.09) + 2600 * t_(0.09) ** 2)) * env(0.09, 0.002),                # things appearing, face snaps
@@ -27,7 +29,23 @@ SFX = {
     'rise': lambda: np.sin(2 * np.pi * np.cumsum(300 + 900 * (t_(0.5) / 0.5) ** 2) / SR) * np.sin(np.pi * t_(0.5) / 0.5) * 0.6,   # floating up, growing
     'fall': lambda: np.sin(2 * np.pi * np.cumsum(1100 - 800 * (t_(0.5) / 0.5)) / SR) * np.sin(np.pi * t_(0.5) / 0.5) * 0.6,
     'tick': lambda: tone(2400, 0.04, 0.001, (1,)) * 0.5,
+    # added for the fire story
+    'boom': lambda: np.sin(2 * np.pi * np.cumsum(70 * np.exp(-t_(1.2) * 3) + 32) / SR) * env(1.2, 0.003) * 1.6 + smooth(noise(1.2), 40) * env(1.2, 0.002, 0.5) * 2,
+    'hit': lambda: np.sin(2 * np.pi * np.cumsum(90 * np.exp(-t_(0.9) * 6) + 38) / SR) * env(0.9, 0.002) * 1.5 + smooth(noise(0.9), 12) * env(0.9, 0.001, 0.25) * 0.8,
+    'fire': lambda: smooth(noise(2.2), 18) * (0.6 + 0.4 * np.abs(np.sin(2 * np.pi * 3 * t_(2.2)))) * np.minimum(1, t_(2.2) / 0.2) * np.minimum(1, (2.2 - t_(2.2)) / 0.4) * 1.2 + sum(place(smooth(noise(0.02), 2) * 3, k, 2.2) for k in np.random.RandomState(3).rand(14) * 2.1),
+    'alarm': lambda: np.concatenate([np.sign(np.sin(2 * np.pi * 2300 * t_(0.09))) * 0.25 * env(0.09, 0.001, 0.4), np.zeros(int(0.05 * SR))] * 6),
+    'snore': lambda: smooth(noise(1.1), 70) * np.sin(np.pi * t_(1.1) / 1.1) ** 2 * (1 + 0.6 * np.sin(2 * np.pi * 38 * t_(1.1))) * 3,
+    'steps': lambda: sum(place(np.sin(2 * np.pi * np.cumsum(140 * np.exp(-t_(0.08) * 30) + 60) / SR) * env(0.08, 0.001), k * 0.27, 1.5) for k in range(5)),
+    'water': lambda: smooth(noise(2.0), 4) * np.minimum(1, t_(2.0) / 0.1) * np.minimum(1, (2.0 - t_(2.0)) / 0.3) * 0.5,
+    'hiss': lambda: smooth(noise(1.4), 3) * np.exp(-t_(1.4) * 2.2) * 0.7,
+    'drone': lambda: (np.sin(2 * np.pi * 55 * t_(3.5)) + 0.5 * np.sin(2 * np.pi * 58.3 * t_(3.5)) + 0.3 * np.sin(2 * np.pi * 110 * t_(3.5))) * np.minimum(1, t_(3.5) / 0.4) * np.minimum(1, (3.5 - t_(3.5)) / 0.8) * 0.8,
 }
+def tense(d):  # quiet dark pulse bed: low pad + heartbeat-like pulse, 92 bpm
+    t = t_(d); pad = (np.sin(2 * np.pi * 55 * t) + 0.6 * np.sin(2 * np.pi * 82.4 * t) + 0.4 * np.sin(2 * np.pi * 65.4 * t + np.sin(t * 0.7))) * 0.3
+    out = pad.copy(); beat = 60 / 92; b = 0
+    while b * beat < d:
+        i = int(b * beat * SR); x = SFX['thud']() * 0.5; n = min(len(x), len(out) - i); out[i:i + n] += x[:n]; b += 1
+    return out
 def bed(d):  # 112 bpm, C major I-V-vi-IV, marimba plucks + soft bass + shaker. Deliberately simple and quiet.
     out = np.zeros(int(d * SR) + SR); beat = 60 / 112; chords = [[261.6, 329.6, 392.0], [196.0, 246.9, 293.7], [220.0, 261.6, 329.6], [174.6, 220.0, 261.6]]
     def put(x, t, g=1.0):
@@ -43,7 +61,7 @@ def bed(d):  # 112 bpm, C major I-V-vi-IV, marimba plucks + soft bass + shaker. 
     return out[:int(d * SR)]
 vo = load('audio/vo.wav'); n = len(vo) + int(0.35 * SR); pad = lambda x: np.pad(x, (0, max(0, n - len(x))))[:n]; vo = pad(vo)
 mfile = next((f for f in sorted(glob.glob('audio/music.*'))), None)
-music = pad(np.tile(load(mfile), 1 + n // max(1, len(load(mfile))))) if mfile else (bed(n / SR) if os.environ.get('MUSIC') == '1' else np.zeros(n))
+music = pad(np.tile(load(mfile), 1 + n // max(1, len(load(mfile))))) if mfile else (bed(n / SR) if os.environ.get('MUSIC') == '1' else tense(n / SR) if os.environ.get('MUSIC') == 'tense' else np.zeros(n))
 sfx = np.zeros(n)
 for t, name, gain in (json.load(open('sfx.json')) if os.path.exists('sfx.json') else []):
     if name in SFX: x = SFX[name](); i = int(max(0, t) * SR); m = min(len(x), n - i); sfx[i:i + m] += x[:max(m, 0)] * gain

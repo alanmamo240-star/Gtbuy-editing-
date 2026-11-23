@@ -1,6 +1,8 @@
 node_modules/
 frames/
 snaps/
+snaps2/
 *.log
 sheet.jpg
 audio/
+voices/
