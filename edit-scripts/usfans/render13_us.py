@@ -149,8 +149,24 @@ def _us_words(words, drop_times):
         out.append(dict(w=t, s=w["s"], e=w["e"]))
     return out
 
-KPINK = np.array([255, 179, 199], np.float32) / 255     # Klarna-style pink (own type, not the Klarna logo file)
-def klarna_chip(text="Klarna", size=48): return chip(text, bg=KPINK, fg=INK, size=size)
+KPINK = np.array([255, 179, 199], np.float32) / 255     # Klarna pink
+_KI = Image.open("img/klarna_icon.png").convert("RGBA")   # Klarna app icon (pink square, black K.)
+def klarna_icon(sz):
+    arr = np.asarray(_KI.resize((sz, sz), Image.LANCZOS)).astype(np.float32) / 255; pad = 30
+    a = np.pad(arr[..., 3], pad); rgb = np.pad(arr[..., :3], ((pad, pad), (pad, pad), (0, 0)))
+    sh = cv2.GaussianBlur(np.roll(a, 10, 0), (0, 0), 12) * 0.45; A_ = a + sh * (1 - a)
+    return rgb * a[..., None] / np.maximum(A_[..., None], 1e-4), A_, (pad, pad)
+def klarna_chip(text="Klarna", size=48):
+    """dark pill, Klarna app icon on the left, pink text"""
+    f = font("Archivo", size, 900, 112); ic = int(size * 1.45); ph = int(size * 1.9); pad = 40
+    pw = int(14 + ic + 18 + f.getlength(text) + 34)
+    im = Image.new("RGBA", (pw + 2 * pad, ph + 2 * pad), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    d.rounded_rectangle([pad, pad, pad + pw, pad + ph], ph // 2, fill=(18, 14, 16, 238))
+    im.alpha_composite(_KI.resize((ic, ic), Image.LANCZOS), (pad + 14, pad + (ph - ic) // 2))
+    d.text((pad + 14 + ic + 18, pad + ph / 2), text, font=f, fill=(255, 179, 199, 255), anchor="lm")
+    arr = np.asarray(im).astype(np.float32) / 255; a = arr[..., 3]
+    sh = cv2.GaussianBlur(np.roll(a, 12, 0), (0, 0), 14) * 0.45; A_ = a + sh * (1 - a)
+    return arr[..., :3] * a[..., None] / np.maximum(A_[..., None], 1e-4), A_, (pad, pad)
 words = _us_words(words, [4.48, 5.46])
 KEY = {"usfans", "klarna", "usfans-haul", "klarna-user", "5", "kilo", "gtbuy-haul", "yalla", "link", "bio", "coupons", "2× 40 %", "2× 30 %", "shipping", "jetzt"}
 def clean(s): return s.strip(",.!?;:")

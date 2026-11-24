@@ -5,8 +5,24 @@ import re, json, os
 S = "/tmp/claude-0/-home-user-Gtbuy-editing-/f9b90bf7-6ab1-5b45-a5b2-686521ff918d/scratchpad"
 common = open(f"{S}/us_common.py").read()
 KLARNA = '''
-KPINK = np.array([255, 179, 199], np.float32) / 255     # Klarna-style pink (own type, not the Klarna logo file)
-def klarna_chip(text="Klarna", size=48): return chip(text, bg=KPINK, fg=INK, size=size)
+KPINK = np.array([255, 179, 199], np.float32) / 255     # Klarna pink
+_KI = Image.open("img/klarna_icon.png").convert("RGBA")   # Klarna app icon (pink square, black K.)
+def klarna_icon(sz):
+    arr = np.asarray(_KI.resize((sz, sz), Image.LANCZOS)).astype(np.float32) / 255; pad = 30
+    a = np.pad(arr[..., 3], pad); rgb = np.pad(arr[..., :3], ((pad, pad), (pad, pad), (0, 0)))
+    sh = cv2.GaussianBlur(np.roll(a, 10, 0), (0, 0), 12) * 0.45; A_ = a + sh * (1 - a)
+    return rgb * a[..., None] / np.maximum(A_[..., None], 1e-4), A_, (pad, pad)
+def klarna_chip(text="Klarna", size=48):
+    """dark pill, Klarna app icon on the left, pink text"""
+    f = font("Archivo", size, 900, 112); ic = int(size * 1.45); ph = int(size * 1.9); pad = 40
+    pw = int(14 + ic + 18 + f.getlength(text) + 34)
+    im = Image.new("RGBA", (pw + 2 * pad, ph + 2 * pad), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    d.rounded_rectangle([pad, pad, pad + pw, pad + ph], ph // 2, fill=(18, 14, 16, 238))
+    im.alpha_composite(_KI.resize((ic, ic), Image.LANCZOS), (pad + 14, pad + (ph - ic) // 2))
+    d.text((pad + 14 + ic + 18, pad + ph / 2), text, font=f, fill=(255, 179, 199, 255), anchor="lm")
+    arr = np.asarray(im).astype(np.float32) / 255; a = arr[..., 3]
+    sh = cv2.GaussianBlur(np.roll(a, 12, 0), (0, 0), 14) * 0.45; A_ = a + sh * (1 - a)
+    return arr[..., :3] * a[..., None] / np.maximum(A_[..., None], 1e-4), A_, (pad, pad)
 '''
 DROP = {"v8": [6.66, 7.60, 10.00, 10.84, 27.32, 31.96], "v9": [16.22, 17.52, 20.50, 21.40],
         "v10": [21.08, 22.68, 24.62, 25.92], "v12": [2.24, 8.72, 9.68], "v13": [4.48, 5.46]}
@@ -47,11 +63,18 @@ for v, fn in FILES.items():
             'S["paypal_big"] = sprite_fill(tmask("Klarna.", font("Archivo", 230, 900, 118), 2)[0], SKY, shadow=0.0, stroke=(NAVY, 9))')
         rep('S["pp2"] = sprite_fill(tmask("PayPal", font("InstrumentSerif-Italic", 150))[0], WHITE, shadow=0.6, sblur=12)',
             'S["pp2"] = sprite_fill(tmask("Klarna", font("InstrumentSerif-Italic", 150))[0], WHITE, shadow=0.6, sblur=12)')
-        rep('S["seit"] = chip("Schon seit Monaten", tick=True, size=46)', 'S["seit"] = chip("Jetzt mit Klarna", tick=True, size=46)')
-        rep('S["versand_l"] = chip("Versand  ·  PayPal", bg=BLUE, fg=WHITE, size=40)', 'S["versand_l"] = chip("Versand  ·  Klarna", bg=SKY, fg=INK, size=40)')
-        rep('S["produkt_l"] = chip("Produkte  ·  PayPal", bg=BLUE, fg=WHITE, size=40)', 'S["produkt_l"] = chip("Produkte  ·  Klarna", bg=SKY, fg=INK, size=40)')
+        rep('S["seit"] = chip("Schon seit Monaten", tick=True, size=46)', 'S["seit"] = klarna_chip("Jetzt mit Klarna", 46)')
+        rep('S["versand_l"] = chip("Versand  ·  PayPal", bg=BLUE, fg=WHITE, size=40)', 'S["versand_l"] = klarna_chip("Versand  ·  Klarna", 40)')
+        rep('S["produkt_l"] = chip("Produkte  ·  PayPal", bg=BLUE, fg=WHITE, size=40)', 'S["produkt_l"] = klarna_chip("Produkte  ·  Klarna", 40)')
         rep('txt = "NEWS   •   GTBUY × PAYPAL   •   "', 'txt = "NEWS   •   USFANS × KLARNA   •   "')
         rep("def calendar(t, L, x, y, a):\n", "def calendar(t, L, x, y, a):\n    return\n")
+        s = s.replace(KLARNA, ""); s = s.replace("S = {}\n", "S = {}\n" + KLARNA + 'S["kicon"] = klarna_icon(210); S["kicon_s"] = klarna_icon(120)\n', 1)
+        rep('        place(front, S["paypal_big"], W / 2, 1180, s=back_out((t - 1.78) / 0.4, 2.0), rot=-4, alpha=a)\n',
+            '        place(front, S["paypal_big"], W / 2, 1180, s=back_out((t - 1.78) / 0.4, 2.0), rot=-4, alpha=a)\n'
+            '        place(front, S["kicon"], W / 2, 960, s=back_out((t - 1.70) / 0.4, 2.2), rot=6, alpha=a)\n')
+        rep('        k3 = ease_out((t - 3.30) / 0.5); place(back, S["pp2"], 815 + (1 - k3) * 200, 300, alpha=a * k3)\n',
+            '        k3 = ease_out((t - 3.30) / 0.5); place(back, S["pp2"], 815 + (1 - k3) * 200, 300, alpha=a * k3)\n'
+            '        place(back, S["kicon_s"], 815 + (1 - k3) * 200, 160, s=back_out((t - 3.45) / 0.35, 2.0), rot=-6, alpha=a * k3)\n')
         rep('GTB_M = tmask("USFans", font("Unbounded", 112, 900), 2)[0]', 'GTB_M = tmask("USFans", font("Unbounded", 100, 900), 2)[0]')
     if v == "v12":
         rep('S["hooklab"] = chip("HAUL  ·  NACH HAUSE IN", size=38)', 'S["hooklab"] = chip("HAUL  ·  SCHNELL NACH HAUSE", size=38)')

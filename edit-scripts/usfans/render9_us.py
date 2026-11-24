@@ -54,6 +54,26 @@ def chrome_cached(key, M_, depth, sw):
     if k not in _cache: _cache[k] = sprite_chrome(M_, depth=depth, sweep=k[1])
     return _cache[k]
 S = {}
+
+KPINK = np.array([255, 179, 199], np.float32) / 255     # Klarna pink
+_KI = Image.open("img/klarna_icon.png").convert("RGBA")   # Klarna app icon (pink square, black K.)
+def klarna_icon(sz):
+    arr = np.asarray(_KI.resize((sz, sz), Image.LANCZOS)).astype(np.float32) / 255; pad = 30
+    a = np.pad(arr[..., 3], pad); rgb = np.pad(arr[..., :3], ((pad, pad), (pad, pad), (0, 0)))
+    sh = cv2.GaussianBlur(np.roll(a, 10, 0), (0, 0), 12) * 0.45; A_ = a + sh * (1 - a)
+    return rgb * a[..., None] / np.maximum(A_[..., None], 1e-4), A_, (pad, pad)
+def klarna_chip(text="Klarna", size=48):
+    """dark pill, Klarna app icon on the left, pink text"""
+    f = font("Archivo", size, 900, 112); ic = int(size * 1.45); ph = int(size * 1.9); pad = 40
+    pw = int(14 + ic + 18 + f.getlength(text) + 34)
+    im = Image.new("RGBA", (pw + 2 * pad, ph + 2 * pad), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    d.rounded_rectangle([pad, pad, pad + pw, pad + ph], ph // 2, fill=(18, 14, 16, 238))
+    im.alpha_composite(_KI.resize((ic, ic), Image.LANCZOS), (pad + 14, pad + (ph - ic) // 2))
+    d.text((pad + 14 + ic + 18, pad + ph / 2), text, font=f, fill=(255, 179, 199, 255), anchor="lm")
+    arr = np.asarray(im).astype(np.float32) / 255; a = arr[..., 3]
+    sh = cv2.GaussianBlur(np.roll(a, 12, 0), (0, 0), 14) * 0.45; A_ = a + sh * (1 - a)
+    return arr[..., :3] * a[..., None] / np.maximum(A_[..., None], 1e-4), A_, (pad, pad)
+S["kicon"] = klarna_icon(210); S["kicon_s"] = klarna_icon(120)
 SKY = np.array([255, 168, 205], np.float32) / 255   # Klarna-style pink
 NAVY = np.array([28, 20, 36], np.float32) / 255
 NEWS_M = tmask("NEWS", font("Unbounded", 225, 900), 10)[0]
@@ -62,9 +82,9 @@ S["users"] = sprite_fill(tmask("FÜR ALLE USER", font("SpaceGrotesk", 42, 700), 
 GTB_M = tmask("USFans", font("Unbounded", 100, 900), 2)[0]
 S["x"] = sprite_fill(tmask("×", font("Archivo", 130, 500, 100))[0], SKY, shadow=0.5, sblur=10)
 S["pp2"] = sprite_fill(tmask("Klarna", font("InstrumentSerif-Italic", 150))[0], WHITE, shadow=0.6, sblur=12)
-S["seit"] = chip("Jetzt mit Klarna", tick=True, size=46)
-S["versand_l"] = chip("Versand  ·  Klarna", bg=SKY, fg=INK, size=40)
-S["produkt_l"] = chip("Produkte  ·  Klarna", bg=SKY, fg=INK, size=40)
+S["seit"] = klarna_chip("Jetzt mit Klarna", 46)
+S["versand_l"] = klarna_chip("Versand  ·  Klarna", 40)
+S["produkt_l"] = klarna_chip("Produkte  ·  Klarna", 40)
 S["bezahlen"] = sprite_fill(tmask("BEZAHLEN", font("Archivo", 132, 900, 118), 4)[0], WHITE, shadow=0.0, stroke=(NAVY, 8))
 S["c40"] = chip("Coupons", bg=BLUE, fg=WHITE, size=60); S["c30"] = chip("Über meinen Link", bg=BLUE, fg=WHITE, size=52)
 S["aufship"] = sprite_fill(tmask("AUF SHIPPING", font("SpaceGrotesk", 38, 700), 9)[0], SKY, shadow=0.0, stroke=(INK, 3))
@@ -177,9 +197,6 @@ def _us_words(words, drop_times):
         for a, b in (("GTBuy", "USFans"), ("GTbuy", "USFans"), ("PayPal", "Klarna"), ("Paypal", "Klarna")): t = t.replace(a, b)
         out.append(dict(w=t, s=w["s"], e=w["e"]))
     return out
-
-KPINK = np.array([255, 179, 199], np.float32) / 255     # Klarna-style pink (own type, not the Klarna logo file)
-def klarna_chip(text="Klarna", size=48): return chip(text, bg=KPINK, fg=INK, size=size)
 words = _us_words(words, [16.22, 17.52, 20.5, 21.4])
 KEY = {"usfans", "klarna", "usfans-haul", "klarna-user", "neuigkeiten", "paypal-user", "gtbuy", "paypal", "monaten", "versand", "produktbestellung", "bezahlen", "link", "bio",
        "coupons", "2× 40 %", "2× 30 %", "shipping", "3", "4"}
@@ -287,6 +304,7 @@ def scene(t, back, front):
     a = win(t, 1.78, 2.75, 0.2, 0.2)
     if a:
         place(front, S["paypal_big"], W / 2, 1180, s=back_out((t - 1.78) / 0.4, 2.0), rot=-4, alpha=a)
+        place(front, S["kicon"], W / 2, 960, s=back_out((t - 1.70) / 0.4, 2.2), rot=6, alpha=a)
         place(front, S["users"], W / 2, 1345, alpha=a * ease_out((t - 2.05) / 0.3))
     # GTBuy x PayPal lockup behind the head
     a = win(t, 2.90, 4.75, 0.3, 0.25)
@@ -295,6 +313,7 @@ def scene(t, back, front):
         place(back, chrome_cached("gtb", GTB_M, 14, sw), 300 - (1 - k) * 200, 310, alpha=a, s=0.9 + 0.1 * k)
         k2 = back_out((t - 3.10) / 0.35, 2.0); place(back, S["x"], 575, 300, s=k2, alpha=a)
         k3 = ease_out((t - 3.30) / 0.5); place(back, S["pp2"], 815 + (1 - k3) * 200, 300, alpha=a * k3)
+        place(back, S["kicon_s"], 815 + (1 - k3) * 200, 160, s=back_out((t - 3.45) / 0.35, 2.0), rot=-6, alpha=a * k3)
     a = win(t, 4.80, 6.55, 0.3, 0.25)
     if a:
         calendar(t, front, 880, 420, a)
