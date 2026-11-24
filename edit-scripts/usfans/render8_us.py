@@ -85,8 +85,8 @@ S["c40"] = chip("Coupons", bg=BLUE, fg=WHITE, size=60); S["c30"] = chip("Über m
 S["aufship"] = sprite_fill(tmask("AUF SHIPPING", font("SpaceGrotesk", 36, 700), 9)[0], WHITE, shadow=0.75, sblur=6, soff=(3, 2))
 S["paypal"] = klarna_chip("Klarna", 48); S["applepay"] = chip("Apple Pay", tick=True, size=48)
 S["kredit"] = chip("Kreditkarte", tick=True, size=48); S["mehr"] = chip("+ vieles mehr", bg=BLUE, fg=WHITE, size=48)
-TAGE67_M = tmask("SCHNELL", font("Archivo", 170, 900, 118), 2)[0]
-TAGE13_M = tmask("WAREHOUSE", font("Archivo", 132, 900, 112), 2)[0]
+TAGE67_M = tmask("SCHNELL", font("Archivo", 132, 900, 100), 2)[0]
+TAGE13_M = tmask("WAREHOUSE", font("Archivo", 104, 900, 100), 2)[0]
 S["warehouse_l"] = sprite_fill(tmask("IM WAREHOUSE", font("SpaceGrotesk", 46, 700), 10)[0], BLUE, shadow=0.0, stroke=(INK, 3))
 S["nachhause"] = sprite_fill(tmask("BIS ZU DIR NACH HAUSE", font("SpaceGrotesk", 44, 700), 8)[0], BLUE, shadow=0.0, stroke=(INK, 3))
 S["link"] = link_card(size=52)

@@ -17,3 +17,10 @@ v12 7.02-7.50 | v13 0.00-0.75.
 Update: creator recorded "Klarna" (voice/klarna_a.wav, klarna_b.wav = cleanest takes 3+4, ~0.5 s).
 PayPal spots in v8 (17.32-17.92) and v9 (1.84-2.26, 6.12-6.46, 11.70-11.94 -> widen to ~11.66-12.02)
 will be spliced with these instead of muted.
+
+Talking-head videos v8 v9 v10 v12 v13 (run_th.sh):
+- edit_shots.py turns the old TikTok-bio + Beacons screenshots into USFans versions (assets/shot_*.png).
+- patch_th.py -> render{N}_us.py (USFans text/logo, Klarna app-icon chips, no offer numbers on screen).
+- sign_replace.py (v13): the physical orange GTBUY sign (in hand + on the wall) is replaced frame by frame
+  by a USFANS sign (orange segmentation, minAreaRect quad, inpainted surface, warped lettering, hands stay in front).
+- splice_words.py puts the creator's own "USFans"/"Klarna" takes over every spoken GTBuy/PayPal.

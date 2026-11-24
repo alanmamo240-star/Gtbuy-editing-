@@ -304,7 +304,7 @@ def scene(t, back, front):
     a = win(t, 1.78, 2.75, 0.2, 0.2)
     if a:
         place(front, S["paypal_big"], W / 2, 1180, s=back_out((t - 1.78) / 0.4, 2.0), rot=-4, alpha=a)
-        place(front, S["kicon"], W / 2, 960, s=back_out((t - 1.70) / 0.4, 2.2), rot=6, alpha=a)
+        place(front, S["kicon"], 905, 1000, s=0.8 * back_out((t - 1.70) / 0.4, 2.2), rot=8, alpha=a)
         place(front, S["users"], W / 2, 1345, alpha=a * ease_out((t - 2.05) / 0.3))
     # GTBuy x PayPal lockup behind the head
     a = win(t, 2.90, 4.75, 0.3, 0.25)

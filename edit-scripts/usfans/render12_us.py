@@ -69,7 +69,7 @@ S["pluszeit"] = chip("+ Zeit", bg=CORAL, fg=WHITE, size=46)
 S["mehrzeit"] = sprite_outline(tmask("MEHR ZEIT", font("Unbounded", 110, 900), 4)[0], WHITE, 4)
 XS_M = tmask("EXTRA", font("Unbounded", 170, 900), 6)[0]
 S["services"] = sprite_fill(tmask("Services", font("InstrumentSerif-Italic", 170))[0], WHITE, shadow=0.6, sblur=12)
-IN7_M = tmask("SCHNELL ZU DIR", font("Archivo", 112, 900, 112), 2)[0]
+IN7_M = tmask("SCHNELL ZU DIR", font("Archivo", 90, 900, 100), 2)[0]
 S["link"] = link_card(size=52)
 _lg = Image.open("img/brand_logo.png").convert("RGBA")
 def _logo(sz):

@@ -50,8 +50,8 @@ for v, fn in FILES.items():
     s = s.replace("KEY = {", 'KEY = {"usfans", "klarna", "usfans-haul", "klarna-user", ', 1)
     if v == "v8":
         rep('S["paypal"] = chip("PayPal", tick=True, size=48)', 'S["paypal"] = klarna_chip("Klarna", 48)')
-        rep('TAGE67_M = tmask("6–7 TAGE", font("Archivo", 170, 900, 118), 2)[0]', 'TAGE67_M = tmask("SCHNELL", font("Archivo", 170, 900, 118), 2)[0]')
-        rep('TAGE13_M = tmask("1–3 TAGE", font("Archivo", 170, 900, 118), 2)[0]', 'TAGE13_M = tmask("WAREHOUSE", font("Archivo", 132, 900, 112), 2)[0]')
+        rep('TAGE67_M = tmask("6–7 TAGE", font("Archivo", 170, 900, 118), 2)[0]', 'TAGE67_M = tmask("SCHNELL", font("Archivo", 132, 900, 100), 2)[0]')
+        rep('TAGE13_M = tmask("1–3 TAGE", font("Archivo", 170, 900, 118), 2)[0]', 'TAGE13_M = tmask("WAREHOUSE", font("Archivo", 104, 900, 100), 2)[0]')
         rep('    subs = ["", "1–3 Tage", "6–7 Tage", ""]', '    subs = ["", "", "", ""]')
         # klarna_chip is defined after the sprite block -> move the definition up
         s = s.replace(KLARNA, "")
@@ -71,7 +71,7 @@ for v, fn in FILES.items():
         s = s.replace(KLARNA, ""); s = s.replace("S = {}\n", "S = {}\n" + KLARNA + 'S["kicon"] = klarna_icon(210); S["kicon_s"] = klarna_icon(120)\n', 1)
         rep('        place(front, S["paypal_big"], W / 2, 1180, s=back_out((t - 1.78) / 0.4, 2.0), rot=-4, alpha=a)\n',
             '        place(front, S["paypal_big"], W / 2, 1180, s=back_out((t - 1.78) / 0.4, 2.0), rot=-4, alpha=a)\n'
-            '        place(front, S["kicon"], W / 2, 960, s=back_out((t - 1.70) / 0.4, 2.2), rot=6, alpha=a)\n')
+            '        place(front, S["kicon"], 905, 1000, s=0.8 * back_out((t - 1.70) / 0.4, 2.2), rot=8, alpha=a)\n')
         rep('        k3 = ease_out((t - 3.30) / 0.5); place(back, S["pp2"], 815 + (1 - k3) * 200, 300, alpha=a * k3)\n',
             '        k3 = ease_out((t - 3.30) / 0.5); place(back, S["pp2"], 815 + (1 - k3) * 200, 300, alpha=a * k3)\n'
             '        place(back, S["kicon_s"], 815 + (1 - k3) * 200, 160, s=back_out((t - 3.45) / 0.35, 2.0), rot=-6, alpha=a * k3)\n')
@@ -80,7 +80,7 @@ for v, fn in FILES.items():
         rep('S["hooklab"] = chip("HAUL  ·  NACH HAUSE IN", size=38)', 'S["hooklab"] = chip("HAUL  ·  SCHNELL NACH HAUSE", size=38)')
         rep('SEVEN_M = tmask("7", font("Unbounded", 600, 900))[0]', 'SEVEN_M = tmask("SCHNELL", font("Unbounded", 150, 900), 4)[0]')
         rep('S["tage"] = sprite_fill(tmask("TAGEN", font("Archivo", 118, 900, 118), 4)[0]', 'S["tage"] = sprite_fill(tmask("ZUHAUSE", font("Archivo", 118, 900, 118), 4)[0]')
-        rep('IN7_M = tmask("IN 7 TAGEN", font("Archivo", 130, 900, 118), 2)[0]', 'IN7_M = tmask("SCHNELL ZU DIR", font("Archivo", 112, 900, 112), 2)[0]')
+        rep('IN7_M = tmask("IN 7 TAGEN", font("Archivo", 130, 900, 118), 2)[0]', 'IN7_M = tmask("SCHNELL ZU DIR", font("Archivo", 90, 900, 100), 2)[0]')
         rep("    day = 1 + int(min(prog, 0.999) * 7)\n", "")
         rep('    d.text((pw - 112, 52), "TAG", font=font("SpaceGrotesk", 30, 700), fill=VIO_L + (255,), anchor="mm")\n', "")
         rep('    d.text((pw - 112, 110), str(day), font=font("Unbounded", 76, 900), fill=(255, 255, 255, 255), anchor="mm")\n', "")
