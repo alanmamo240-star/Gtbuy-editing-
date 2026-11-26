@@ -9,7 +9,7 @@ SHOTS = [(0.0, 1.12, None), (2.64, 1.0, None), (3.0, 1.38, 345), (9.56, 1.0, Non
 """
 YFORM = "Y = 690 - (z - 1) * 280"
 TITLES = """
-TITLE_P, TITLE_S = title_sprite("3 TIPPS", "BEI JEDER HAUL", size=220)
+TITLE_P, TITLE_S = title_sprite("2 TIPPS", "BEI JEDER HAUL", size=220)
 T1_P, T1_S = title_sprite("3–10 KG", "NUMMER ZWEI", size=210)
 HEADS = [(TITLE_P, TITLE_S, 0.1, 2.4), (T1_P, T1_S, 9.66, 10.85)]
 """
