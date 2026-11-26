@@ -14,6 +14,7 @@ def RB(start, end, new):
     i = s.index(start); j = s.index(end, i); s = s[:i] + new + s[j:]
 R('"""v8 USFans "5 Tipps für günstigen Versand" (built on the v7 engine):', f'"""{C.NAME} (shared v7/v8 engine, built by kit/mk.py):')
 RB("SHOTS = [", "SHOT_END =", C.SHOTS.strip() + "\n")
+if hasattr(C, "ENH"): R('ENH = "hqdn3d=1.4:1.1:3:3,cas=0.5,eq=contrast=1.06:saturation=1.08:gamma=1.02,colorbalance=rm=0.015:bm=-0.015:rh=0.01"', f'ENH = "{C.ENH}"')
 R("    Y = 1000 - (z - 1) * 700", "    " + C.YFORM.strip())
 RB("TITLE_P, TITLE_S = title_sprite(", "def headline(", C.TITLES.strip() + "\n")
 R('        sm = T.text_mask(small, "montbi", 74, 0.04); S =',
@@ -26,6 +27,8 @@ RB("PH_MAP = (", "def phone_layer(", (getattr(C, "PH_MAP", None) or "PH_MAP = ([
 R("    if not (21.4 <= ts <= 27.55): return comp", "    if not (PH_MAP[0][0] <= ts <= PH_MAP[0][-1]): return comp")
 RB("def parcel(", "def cards(", C.CARDS.strip() + "\n")
 RB("def opening(comp, ts, bgk):", "def cta(comp, ts):", "def opening(comp, ts, bgk):\n" + (getattr(C, "OPENING", "") or "    return comp").rstrip() + "\n")
+if getattr(C, "CARDS_FRONT", False):
+    R("ry=-4 + 2 * np.sin(ts * 0.8)), bgk)", "ry=-4 + 2 * np.sin(ts * 0.8)))")
 open(os.path.join(D, "render.py"), "w").write(s)
 
 t = open(os.path.join(KIT, "base_tl.py")).read().split("\n")
