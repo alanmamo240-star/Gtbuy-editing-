@@ -67,7 +67,7 @@ def place(sig, t_src, db, align=0.0, out=False):
     if b > a: sfx[a:b] += sig[a - s:b - s] * g
 for c in CUTS_OUT: place(whoosh(0.4, 0.6, 500, 3500), c, -31, 0.24, out=True)
 place(whoosh(0.5, 0.4, 600, 6000), 0.0, -21, 0.0, out=True); place(impact(), 0.45, -14)       # title
-for k, t_ in enumerate((0.31, 1.70, 2.85, 4.07, 5.49, 6.2)): place(pop(480 + 70 * k), t_, -17); place(tick(2400 + 150 * k), t_ + 0.02, -27)
+for k, t_ in enumerate((0.31, 1.70, 2.85, 4.07, 6.2)): place(pop(480 + 70 * k), t_, -17); place(tick(2400 + 150 * k), t_ + 0.02, -27)
 place(impact(1.4, 40), DUR_MAIN, -15, out=True); place(chime(), DUR_MAIN + 0.2, -24, out=True)
 save("sfx.wav", sfx)
 

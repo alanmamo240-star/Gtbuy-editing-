@@ -97,7 +97,7 @@ def gtbuy_card(strike):
 
 # ================================================================ captions
 raw = json.load(open("words.json"))
-REP = {"Oncloot,": "On Cloud,", "Timberlands,": "Timberland,", "Zaukoni,": "Saucony,", "Zuguta,": "Zegna,", "G": None, "-T": None, "-Buy": None, "US": None, "Büro": "Bio", "erhält": "erhaltet", "KC": None, "-Bilder.": None,
+REP = {"Oncloot,": "On Cloud,", "Timberlands,": "Timberland,", "Zaukoni,": "Saucony,", "Zuguta,": "zu guter", "G": None, "-T": None, "-Buy": None, "US": None, "Büro": "Bio", "erhält": "erhaltet", "KC": None, "-Bilder.": None,
        "Qualitätskontrollenbilder.": "Qualitätskontroll­bilder.", "outen,": "orten,", "Holz": "Hauls", "vakuuminiert": "vakuumiert",
        "Vergiss": "Vergesst", "Vierten": "Vierter"}
 words = []; i = 0
@@ -105,7 +105,7 @@ while i < len(raw):
     w = raw[i]; tok = w["w"]
     if tok == "G": words.append(dict(w="GTBuy", s=w["s"], e=raw[i + 2]["e"])); i += 3; continue
     if tok == "US": nx = raw[i + 1]["w"]; words.append(dict(w="USFans" + nx[len("-Fans"):], s=w["s"], e=raw[i + 1]["e"])); i += 2; continue
-    if tok == "Let's": i += 1; continue
+    if tok == "Let's": words.append(dict(w="Letzt:", s=w["s"], e=w["e"])); i += 1; continue
     if tok == "The" and i + 1 < len(raw) and raw[i + 1]["w"].startswith("Gallerist"):
         words.append(dict(w="The Gallerist,", s=w["s"], e=raw[i + 1]["e"])); i += 2; continue
     if tok == "Golden" and i + 1 < len(raw): words.append(dict(w="Golden Goose", s=w["s"], e=raw[i + 1]["e"])); i += 2; continue
@@ -121,7 +121,7 @@ while i < len(raw):
     if tok == "Echtzeit": words.append(dict(w="Echtzeit-Sendungsverfolgung", s=w["s"], e=raw[i + 1]["e"])); i += 2; continue
     r = REP.get(tok, tok); words.append(dict(w=r if r else tok, s=w["s"], e=w["e"])); i += 1
 for w in words: w["w"] = w["w"].replace("­", "")
-KEY = {"on cloud", "timberland", "saucony", "the gallerist", "zegna", "golden goose"}
+KEY = {"on cloud", "timberland", "saucony", "the gallerist", "golden goose"}
 def clean(s): return s.strip(",.!?;:")
 chunks, cur = [], []
 for j, w in enumerate(words):
@@ -426,7 +426,7 @@ def lang_card(ts):
             d.polygon([(w - 92, y - 6), (w - 68, y - 6), (w - 80, y + 8)], fill=(255, 255, 255, 200))
     return T.shadow(pil2np(im), 24, 0, 18, 0.45)
 BRANDS = [("On Cloud", 0.31, "oncloud"), ("Timberland", 1.70, "timberland"), ("Saucony", 2.85, "saucony"),
-          ("The Gallerist", 4.07, "gallerist"), ("Zegna", 5.49, None), ("Golden Goose", 6.2, "goldengoose")]
+          ("The Gallerist", 4.07, "gallerist"), ("Golden Goose", 6.2, "goldengoose")]
 PW, PH = 440, 300
 def _panel(key, name):
     p = Image.new("RGBA", (PW, PH), (0, 0, 0, 0)); d = ImageDraw.Draw(p)
