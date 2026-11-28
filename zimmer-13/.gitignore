@@ -1,0 +1,4 @@
+scripts/build/
+scripts/test/
+scripts/__pycache__/
+scripts/voices/
